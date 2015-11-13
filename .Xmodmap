@@ -1,0 +1,36 @@
+!xmodmap命令用到的改键脚本
+!Shift_L改成Ctrl_L,再将Shift_L改到Caps_Lock上,Caps_Lock改到Alt_R上
+!折腾了一天之后～，终于搞定了～
+!2012年 09月 04日 星期二 01:58:51 CST
+
+!remove shift = Shift_L
+!keycode 50 = Control_L
+!add control = Control_L
+!
+!remove lock = Caps_Lock
+!keycode 66 = Shift_L
+!add shift = Shift_L
+!
+!
+!remove mod1 = Alt_R
+!keycode 108 = Caps_Lock
+!add lock = Caps_Lock
+
+!经过一段时间的使用,
+!感觉还是要让两系统的映射一致，不然会不适应，以WIN为准
+!即改成hhkb键盘模式:Caps_Lock改成ctrl_L,Caps_Lock改到Alt_R上
+!重置只要运行一下setxkbmap(也是键盘映射工具)即可
+
+remove lock = Caps_Lock
+keysym Caps_Lock = Control_L
+add control = Control_L
+
+remove mod1 = Alt_R
+keysym Alt_R = Caps_Lock
+add lock = Caps_Lock
+
+
+!为HHKB能控制媒体键，增加media映射
+!2014年 04月 11日 星期五 01:43:16 CST
+keycode 122 = XF86AudioLowerVolume
+

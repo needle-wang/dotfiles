@@ -1,0 +1,37 @@
+
+noremap <c-o> <Nop>
+noremap <c-i> <Nop>
+
+noremap j     3j
+noremap k     3k
+noremap e     4j
+noremap y     4k
+noremap <c-e> 4j
+noremap <c-y> 4k
+noremap d     <c-d>
+
+noremap x     d
+noremap X     D
+noremap f     F
+noremap F     f
+noremap Y     yy
+noremap o     :tabopen 
+noremap t     :tabopen cn.bing.com<CR>
+
+noremap <c-h> gT
+noremap <c-l> gt
+noremap gh    1gt
+
+noremap i     gi
+noremap <c-g> /
+noremap ;     :
+
+" char hints plugin
+set hintchars=fdsaghjklwertyuiovbcnm
+
+"默认就有的, 不用设
+"map H <c-o>
+"map L <c-i>
+
+" vim: set ft=vimperator:
+
