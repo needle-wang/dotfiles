@@ -128,8 +128,9 @@ Plugin 'tpope/vim-fugitive'
 "VIM中文文档(还集成了些常用的插件的中文文档!)
 Plugin 'asins/vimcdoc'
 "operation+motion:(vim内置)
-"ci,di,yi,ca,da,ya接符号及dib,diB,cit对被符号包围的文本编辑
-"操作对象增强: ds,cs,ys加符号包围文本
+"ci,di,yi,ca,da,ya接符号及dib,diB,cit为 删除(/复制)符号内的文本
+"操作对象增强: ds"为删除", cs"'为由"替换成', ys+{motion}+符号为加符号
+"可视模式(选中文本后)按S"为用"surround文本
 Plugin 'tpope/vim-surround'
 "目录浏览增强, 内置为netrw
 Plugin 'scrooloose/nerdtree'
@@ -143,7 +144,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'matchit.zip'
 "状态行增强
 Plugin 'itchyny/lightline.vim'
-""Lokaltog/powerline","bling/vim-airline"
+"'Lokaltog/powerline', 'bling/vim-airline'
 "窗口布局管理器
 "自己配映射就用不着了,它自带了file和tag的explorer
 "Plugin 'winmanager'
@@ -271,6 +272,8 @@ set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 "set guioptions-=m
 "gvim去掉工具栏
 set guioptions-=T
+"让单窗口时也会出现lightline
+set laststatus=2
 
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
@@ -279,6 +282,23 @@ autocmd FileType html set filetype=htmldjango
 
 behave mswin
 
+"还有gb, gc, gt, gy, g\及一些特殊符号可改
+"for emmet
+map <c-n> <c-y>,
+"<c-/>, <c-&>, <c-_>可生成 
+map  <c-y>,
+"为光标下的字串加双引号
+nmap q; ysiW"f"
+"为光标下的单词加双引号
+nmap q' ysiw"f"
+nmap q( ysiw(%
+nmap q) ysiw)%
+vmap q; S"f"
+vmap q' q;
+vmap q( S(%
+vmap q) S)%
+noremap j gj
+noremap k gk
 noremap t "+y
 noremap T "+yy
 noremap P "+gp
@@ -290,7 +310,7 @@ noremap gq :Ag!<space>
 noremap <space> :nohl<CR><c-l>
 "去行尾空格, tab, \r
 noremap ,<space> mmHmt:%s/\s*[\t\r ]$//<CR>`tzt`m
-noremap <c-s> :up<CR>
+noremap <c-s> ms:up<CR>
 noremap <Bar> ms:up<CR>
 "高亮光标下的单词, 且光标坐标不变
 noremap & mmHmt`m*`tzt`m
@@ -301,6 +321,7 @@ noremap <silent> # #zz
 noremap <silent> n nzz
 noremap <silent> N Nzz
 noremap <silent> g* g*zz
+noremap <c-y> <nop>
 
 noremap <F1> <nop>
 noremap <F3> :r!date<CR>I#<c-[>j
@@ -308,36 +329,40 @@ noremap <F4> :Errors<CR>
 noremap <F5> :SyntasticCheck<CR>
 noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
-noremap <silent> <F12> :syntax sync fromstart<CR>
+noremap <F12> :syntax sync fromstart<CR>
 
 noremap <silent> <c-h> gT
 noremap <silent> <c-l> gt
-noremap <silent> gh :tabfirst<CR>
-noremap <silent> gH :NERDTreeFind<CR>
+noremap <silent> { :tabfirst<CR>
+noremap <silent> } :tablast<CR>
 noremap <silent> _ :tabm-1<CR>
 noremap <silent> + :tabm+1<CR>
+noremap <silent> gn :NERDTreeFind<CR>
+noremap <silent> gh <c-w><c-h>
+noremap <silent> gj <c-w><c-j>
+noremap <silent> gk <c-w><c-k>
+noremap <silent> gl <c-w><c-l>
 noremap <silent> g[ <c-w><c-h>
 noremap <silent> g] <c-w><c-l>
-noremap <silent> { <c-w><c-h>
-noremap <silent> } <c-w><c-l>
-
 noremap <silent> <c-j> <c-w><c-j>
 noremap <silent> <c-k> <c-w><c-k>
-noremap <silent> <C-Down> :wincmd j<CR>
-noremap <silent> <C-Up> :wincmd k<CR>
-noremap <silent> <C-Left> :wincmd h<CR>
+noremap <silent> <C-Left>  :wincmd h<CR>
+noremap <silent> <C-Down>  :wincmd j<CR>
+noremap <silent> <C-Up>    :wincmd k<CR>
 noremap <silent> <C-Right> :wincmd l<CR>
 noremap <left> :tab sbp<CR>
 noremap <right> :tab sbn<CR>
 
-nnoremap gl o<c-[>k
-nnoremap gL O<c-[>j
+nnoremap gz :tabnew<space>
+nnoremap co o<c-[>k
+nnoremap cO O<c-[>j
 nnoremap <C-e> 2<C-e>
-nnoremap <C-y> 2<C-y>
+"nnoremap <C-y> 2<C-y>
 autocmd BufRead *.py nnoremap <buffer> <F1> :w !python %<CR>
 autocmd BufRead *.sh nnoremap <buffer> <F1> :w !bash %<CR>
 
 imap vv <c-[>Pa
+imap  <c-y>,
 inoremap <c-b> <Left>
 inoremap <c-f> <Right>
 inoremap <c-l> <Del>
@@ -347,17 +372,22 @@ inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
 inoremap <F3> <c-[>:r!date<CR>I#<c-[>j
 inoremap <F5> <c-o>:SyntasticCheck<CR>
-inoremap <silent> <F12> <C-o>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 inoremap ,  ,<space>
+inoremap :  :<space>
 inoremap ， ,<space>
 inoremap 。 .<space>
+inoremap ； ;<space>
+inoremap ： :<space>
+inoremap “  "<space>
+inoremap ”  "<space>
 "for debug
 "exe '!echo -' &ft '->pool'
 function! Add_space()
     set switchbuf=usetab,newtab
     "如果不是fts_tmp, 就要imap .
-    let fts_tmp = ['python', 'java', 'javascript', 'sh', 'cpp', 'c']
+    let fts_tmp = ['python', 'java','htmldjango', 'javascript', 'sh', 'cpp', 'c']
     if index(fts_tmp, &ft) < 0
         if &ft == 'css'
             return
@@ -389,12 +419,15 @@ cnoremap <c-l> <Del>
 let NERDTreeMinimalUI = 1
 let NERDTreeMouseMode = 2
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.ttf$']
+"最后一个窗口是nerdtree时, 关闭vim
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"自动打开nerdtree
+"autocmd VimEnter * NERDTree | wincmd l
+
 "for lightline
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ }
-"让单窗口时也会出现lightline
-set laststatus=2
 "让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
@@ -456,7 +489,6 @@ let g:EasyMotion_leader_key = ','
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 "跳转到定义
 nnoremap <leader>g :YcmCompleter GoTo<CR>
-"还有gq, gw, gr, gy, gz, gc, gb 及一些特殊符号可改
 nnoremap <silent> go :YcmCompleter GoTo<CR>
 let g:ycm_complete_in_comments = 1
 let g:ycm_key_list_select_completion = ['<Down>']
@@ -541,7 +573,7 @@ noremap      g<Bar>     :Tab /<Bar><CR>
 "for tagbar
 let g:tagbar_width = 37
 "每打开相应文件就会弹出来,不好
-"autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
+autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
 "autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
 "去掉含有<F1>的首行
 let g:tagbar_compact = 1
