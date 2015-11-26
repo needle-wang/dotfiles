@@ -282,7 +282,7 @@ autocmd FileType html set filetype=htmldjango
 
 behave mswin
 
-"还有gb, gc, gt, gy, g\及一些特殊符号可改
+"还有gb, gc及一些特殊符号可改
 "for emmet
 map <c-n> <c-y>,
 "<c-/>, <c-&>, <c-_>可生成 
@@ -312,6 +312,8 @@ noremap <space> :nohl<CR><c-l>
 noremap ,<space> mmHmt:%s/\s*[\t\r ]$//<CR>`tzt`m
 noremap <c-s> ms:up<CR>
 noremap <Bar> ms:up<CR>
+noremap \s    ms:up<CR>
+noremap g\    ms:up<CR>
 "高亮光标下的单词, 且光标坐标不变
 noremap & mmHmt`m*`tzt`m
 noremap ' `
@@ -331,33 +333,33 @@ noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
 noremap <F12> :syntax sync fromstart<CR>
 
-noremap <silent> <c-h> gT
-noremap <silent> <c-l> gt
-noremap <silent> { :tabfirst<CR>
-noremap <silent> } :tablast<CR>
-noremap <silent> _ :tabm-1<CR>
-noremap <silent> + :tabm+1<CR>
-noremap <silent> gn :NERDTreeFind<CR>
-noremap <silent> gh <c-w><c-h>
-noremap <silent> gj <c-w><c-j>
-noremap <silent> gk <c-w><c-k>
-noremap <silent> gl <c-w><c-l>
-noremap <silent> g[ <c-w><c-h>
-noremap <silent> g] <c-w><c-l>
-noremap <silent> <c-j> <c-w><c-j>
-noremap <silent> <c-k> <c-w><c-k>
-noremap <silent> <C-Left>  :wincmd h<CR>
-noremap <silent> <C-Down>  :wincmd j<CR>
-noremap <silent> <C-Up>    :wincmd k<CR>
-noremap <silent> <C-Right> :wincmd l<CR>
-noremap <left> :tab sbp<CR>
-noremap <right> :tab sbn<CR>
-
-nnoremap gz :tabnew<space>
 nnoremap co o<c-[>k
 nnoremap cO O<c-[>j
 nnoremap <C-e> 2<C-e>
 "nnoremap <C-y> 2<C-y>
+nnoremap gz :tabnew<space>
+nnoremap <silent> gy    gT
+nnoremap <silent> <c-h> gT
+nnoremap <silent> <c-l> gt
+nnoremap <silent> { :tabfirst<CR>
+nnoremap <silent> } :tablast<CR>
+nnoremap <silent> _ :tabm-1<CR>
+nnoremap <silent> + :tabm+1<CR>
+nnoremap <silent> gn :NERDTreeFind<CR>
+nnoremap <silent> gh <c-w><c-h>
+nnoremap <silent> gj <c-w><c-j>
+nnoremap <silent> gk <c-w><c-k>
+nnoremap <silent> gl <c-w><c-l>
+nnoremap <silent> g[ <c-w><c-h>
+nnoremap <silent> g] <c-w><c-l>
+nnoremap <silent> <c-j> <c-w><c-j>
+nnoremap <silent> <c-k> <c-w><c-k>
+nnoremap <silent> <C-Left>  :wincmd h<CR>
+nnoremap <silent> <C-Down>  :wincmd j<CR>
+nnoremap <silent> <C-Up>    :wincmd k<CR>
+nnoremap <silent> <C-Right> :wincmd l<CR>
+nnoremap <left> :tab sbp<CR>
+nnoremap <right> :tab sbn<CR>
 autocmd BufRead *.py nnoremap <buffer> <F1> :w !python %<CR>
 autocmd BufRead *.sh nnoremap <buffer> <F1> :w !bash %<CR>
 
@@ -386,8 +388,8 @@ inoremap ”  "<space>
 "exe '!echo -' &ft '->pool'
 function! Add_space()
     set switchbuf=usetab,newtab
-    "如果不是fts_tmp, 就要imap .
-    let fts_tmp = ['python', 'java','htmldjango', 'javascript', 'sh', 'cpp', 'c']
+    let fts_tmp = ['python', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
+    "如果不是fts_tmp, 就要inoremap .
     if index(fts_tmp, &ft) < 0
         if &ft == 'css'
             return
@@ -395,11 +397,12 @@ function! Add_space()
         "一定要加<buffer>表示当前缓冲区
         inoremap <buffer> . .<space>
     else
-        if &ft == 'sh'
-            inoremap <buffer> - <space>-
-        else
+        if &ft != 'htmldjango'
             inoremap <buffer> - <space>-<space>
             inoremap <buffer> = <space>=<space>
+            if &ft != 'python'
+                inoremap <buffer> <CR> ;<CR>
+            endif
         endif
         inoremap <buffer> + <space>+<space>
         inoremap <buffer> * <space>*<space>
