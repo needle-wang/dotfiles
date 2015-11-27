@@ -282,7 +282,7 @@ autocmd FileType html set filetype=htmldjango
 
 behave mswin
 
-"还有gb, gc及一些特殊符号可改
+"还有gb及一些特殊符号可改
 "for emmet
 map <c-n> <c-y>,
 "<c-/>, <c-&>, <c-_>可生成 
@@ -346,6 +346,7 @@ nnoremap <silent> } :tablast<CR>
 nnoremap <silent> _ :tabm-1<CR>
 nnoremap <silent> + :tabm+1<CR>
 nnoremap <silent> gn :NERDTreeFind<CR>
+nnoremap <silent> gc <c-w><c-c>
 nnoremap <silent> gh <c-w><c-h>
 nnoremap <silent> gj <c-w><c-j>
 nnoremap <silent> gk <c-w><c-k>
@@ -624,7 +625,7 @@ let g:ctrlp_custom_ignore = {
 let g:ag_prg = 'ag --column --smart-case'
 
 "for browserlink
-au BufWritePost */templates_bs3/*.html :BLReloadPage
+"au BufWritePost */templates_bs3/*.html :BLReloadPage
 
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
