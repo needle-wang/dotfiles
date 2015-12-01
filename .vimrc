@@ -101,8 +101,13 @@ endif
 filetype off                   " required!
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+if has("win32")
+    set rtp+=C:\Users\needle\vimfiles\bundle\Vundle.Vim
+    call vundle#begin('C:\Users\needle\vimfiles\bundle')
+else
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+endif
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
@@ -462,6 +467,11 @@ set fileencodings=utf-8,cp936,latin-1
 "fileencoding: 设置此缓冲区所在文件的字符编码, 保存时也以此为依据
 if has("win32")
     set fileencoding=chinese   "要了解chinese, 可help一下
+    "处理菜单及右键菜单乱码, only win, 因为encoding
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    "处理vim的consle输出乱码, only win
+    language messages zh_CN.utf-8
 else
     set fileencoding=utf-8
 endif
@@ -469,13 +479,6 @@ endif
 "termencoding是针对vim的, 管不到gvim
 "用于键盘产生和终端显示的编码，在显示时，Vim 会把内部编码转换为屏幕编码
 let &termencoding=&fileencoding
-
-"处理菜单及右键菜单乱码, only win, 因为encoding
-"source $VIMRUNTIME/delmenu.vim
-"source $VIMRUNTIME/menu.vim
-
-"处理vim的consle输出乱码, only win
-"language messages zh_CN.utf-8
 "------乱码解决方案------
 
 "for fcitx
