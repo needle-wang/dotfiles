@@ -289,7 +289,7 @@ autocmd FileType html set filetype=htmldjango
 
 behave mswin
 
-"还有gb及一些特殊符号可改
+"还有一些特殊符号可改
 "for emmet
 map <c-n> <c-y>,
 "<c-/>, <c-&>, <c-_>可生成 
@@ -366,7 +366,8 @@ nnoremap <silent> <C-Left>  :wincmd h<CR>
 nnoremap <silent> <C-Down>  :wincmd j<CR>
 nnoremap <silent> <C-Up>    :wincmd k<CR>
 nnoremap <silent> <C-Right> :wincmd l<CR>
-nnoremap <left> :tab sbp<CR>
+nnoremap gb :tab sbp<CR>
+nnoremap <Left> :tab sbp<CR>
 nnoremap <right> :tab sbn<CR>
 autocmd BufRead *.py nnoremap <buffer> <F1> :w !python %<CR>
 autocmd BufRead *.sh nnoremap <buffer> <F1> :w !bash %<CR>
