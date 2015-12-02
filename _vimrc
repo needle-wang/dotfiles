@@ -102,8 +102,8 @@ filetype off                   " required!
 
 " set the runtime path to include Vundle and initialize
 if has("win32")
-    set rtp+=C:\Users\needle\vimfiles\bundle\Vundle.Vim
-    call vundle#begin('C:\Users\needle\vimfiles\bundle')
+    set rtp+=$HOME/vimfiles/bundle/Vundle.Vim
+    call vundle#begin('$HOME/vimfiles/bundle')
 else
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
@@ -271,14 +271,14 @@ set smarttab
 set keywordprg=
 "补全时忽略下列文件
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+"让单窗口时也会出现lightline
+set laststatus=2
 "放这好像被莫名覆盖了~
 "set switchbuf=usetab,newtab
 "gvim去掉菜单
 "set guioptions-=m
 "gvim去掉工具栏
 set guioptions-=T
-"让单窗口时也会出现lightline
-set laststatus=2
 
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
