@@ -175,6 +175,8 @@ Plugin 'Raimondi/delimitMate'
 "设置见 https://github.com/kien/rainbow_parentheses.vim
 "Plugin 'kien/rainbow_parentheses.vim'
 "c族语言 all in one!杀手级clang语法解析
+"2015年 12月 02日 星期三 14:38:58 CST
+"win下要用到visual studio(用2013版试后无法编译不再试)
 Plugin 'Valloric/YouCompleteMe'
 "python all in one!
 "详情见: https://github.com/klen/python-mode
