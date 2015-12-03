@@ -352,6 +352,7 @@ nnoremap <silent> { :tabfirst<CR>
 nnoremap <silent> } :tablast<CR>
 nnoremap <silent> _ :tabm-1<CR>
 nnoremap <silent> + :tabm+1<CR>
+nnoremap <silent> gt :NERDTree<CR>
 nnoremap <silent> gn :NERDTreeFind<CR>
 nnoremap <silent> gc <c-w><c-c>
 nnoremap <silent> gh <c-w><c-h>
@@ -429,9 +430,10 @@ cnoremap <c-b> <Left>
 cnoremap <c-l> <Del>
 
 "for nerdtree
-let NERDTreeMinimalUI = 1
-let NERDTreeMouseMode = 2
-let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.ttf$']
+let NERDTreeMinimalUI  = 1
+let NERDTreeMouseMode  = 2
+let NERDTreeQuitOnOpen = 1
+let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
 "最后一个窗口是nerdtree时, 关闭vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "自动打开nerdtree
@@ -633,7 +635,11 @@ let g:ctrlp_custom_ignore = {
 let g:ag_prg = 'ag --column --smart-case'
 
 "for browserlink
-"au BufWritePost */templates_bs3/*.html :BLReloadPage
+"autocmd BufWritePost *.html :BLReloadPage
+"1. run: ~/.vim/bundle/browserlink.vim/browserlink/start.sh
+"2. 在页面中加上<script src='http://127.0.0.1:9001/js/socket.js'></script>
+"下午写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
+"window.__BL_OVERRIDE_CACHE = true
 
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
