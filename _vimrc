@@ -377,7 +377,8 @@ imap  <c-y>,
 inoremap <c-b> <Left>
 inoremap <c-f> <Right>
 inoremap <c-l> <Del>
-inoremap <c-s> <c-[>:up<ESC>
+inoremap <c-s> <Esc>ms:up<CR>a
+inoremap <c-g>\ <Esc>ms:up<CR>a
 "<c-/> doesn't work on gvim...
 inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
@@ -583,7 +584,8 @@ noremap      g<Bar>     :Tab /<Bar><CR>
 "for tagbar
 let g:tagbar_width = 37
 "每打开相应文件就会弹出来,不好
-autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
+autocmd FileType python,java,cpp,c nested :TagbarOpen
+"autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
 "autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
 "去掉含有<F1>的首行
 let g:tagbar_compact = 1
