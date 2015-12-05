@@ -637,6 +637,7 @@ let g:ag_prg = 'ag --column --smart-case'
 "for browserlink
 "autocmd BufWritePost *.html :BLReloadPage
 "1. run: ~/.vim/bundle/browserlink.vim/browserlink/start.sh
+"要装nodejs, 并: sudo ln -s /usr/bin/nodejs /usr/bin/node
 "2. 在页面中加上<script src='http://127.0.0.1:9001/js/socket.js'></script>
 "下午写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
 "window.__BL_OVERRIDE_CACHE = true
