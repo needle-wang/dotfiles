@@ -1,30 +1,37 @@
 
-noremap <c-o> <Nop>
-noremap <c-i> <Nop>
+noremap   <c-o>   <Nop>
+noremap   <c-i>   <Nop>
 
-noremap j     3j
-noremap k     3k
-noremap e     4j
-noremap y     4k
-noremap <c-e> 4j
-noremap <c-y> 4k
-noremap d     <c-d>
+noremap   j       3j
+noremap   k       3k
+noremap   e       4j
+noremap   y       4k
+noremap   <c-e>   4j
+noremap   <c-y>   4k
+noremap   d       <c-d>
 
-noremap x     d
-noremap X     D
-noremap f     F
-noremap F     f
-noremap Y     yy
-noremap o     :tabopen 
-noremap t     :tabopen cn.bing.com<CR>
+noremap   x       d
+noremap   X       D
+noremap   f       F
+noremap   F       f
+noremap   Y       yy
+noremap   o       :tabopen 
+noremap   t       :tabopen cn.bing.com<CR>
+noremap   q       :tabopen www.baidu.com/s?wd=ip<CR>
+noremap   w       :tabopen www.baidu.com/s?wd=天气<CR>
 
-noremap <c-h> gT
-noremap <c-l> gt
-noremap gh    1gt
+noremap   <c-h>   gT
+noremap   <c-l>   gt
+noremap   gh      1gt
 
-noremap i     gi
-noremap <c-g> /
-noremap ;     :
+noremap   i       gi
+noremap   <c-g>   /
+noremap   ;       :
+
+cnoremap  q       xall<CR>
+
+"禁用出错鸣叫
+hi Bell display: none;
 
 " char hints plugin
 set hintchars=fdsaghjklwertyuiovbcnm
