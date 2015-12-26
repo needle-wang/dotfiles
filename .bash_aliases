@@ -77,7 +77,6 @@ alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
 #alias gvim='UBUNTU_MENUPROXY=0 gvim -f'
 alias locate='locate -bi'
 alias namp='nmap'
-alias psg='ps -ef | head -1;ps -ef | g'
 
 if [ $(whoami) != 'root' ]; then
     alias apt-get='sudo apt-get'
@@ -159,6 +158,12 @@ if [ "$2" ]; then
 else
     [ "$1" ] && vi "$1" || vi
 fi
+}
+
+psg(){
+    proname=$(echo "$1" | sed 's;\(.\)$;[\1];')
+    ps -f  | head -n 1
+    ps -ef | g $proname
 }
 
 unset to_alias
