@@ -458,6 +458,9 @@ syntax enable
 set background=dark
 colorscheme solarized
 "colorscheme desert 	"也不错
+"set fillchars=vert:│
+"禁掉主题提供的窗口分隔线背景
+highlight VertSplit ctermbg=NONE guibg=NONE
 
 
 "------乱码解决方案------
@@ -586,7 +589,7 @@ noremap      g<Bar>     :Tab /<Bar><CR>
 "for tagbar
 let g:tagbar_width = 37
 "每打开相应文件就会弹出来,不好
-autocmd FileType python,java,cpp,c nested :TagbarOpen
+"autocmd FileType python,java,cpp,c nested :TagbarOpen
 "autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
 "autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
 "去掉含有<F1>的首行
