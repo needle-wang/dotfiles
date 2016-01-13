@@ -408,7 +408,7 @@ function! Add_space()
         "一定要加<buffer>表示当前缓冲区
         inoremap <buffer> . .<space>
     else
-        if &ft != 'htmldjango'
+        if index(['htmldjango', 'sh'], &ft) < 0
             inoremap <buffer> - <space>-<space>
             inoremap <buffer> = <space>=<space>
             if &ft != 'python'
