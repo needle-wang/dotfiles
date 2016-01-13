@@ -399,7 +399,7 @@ inoremap ”  "<space>
 "exe '!echo -' &ft '->pool'
 function! Add_space()
     set switchbuf=usetab,newtab
-    let fts_tmp = ['python', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
+    let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
     "如果不是fts_tmp, 就要inoremap .
     if index(fts_tmp, &ft) < 0
         if &ft == 'css'
@@ -458,7 +458,7 @@ syntax enable
 set background=dark
 colorscheme solarized
 "colorscheme desert 	"也不错
-"set fillchars=vert:│
+"set fillchars=vert:│   "必须要有,且必须是单宽字符
 "禁掉主题提供的窗口分隔线背景
 highlight VertSplit ctermbg=NONE guibg=NONE
 
