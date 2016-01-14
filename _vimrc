@@ -333,7 +333,8 @@ noremap <silent> g* g*zz
 noremap <c-y> <nop>
 
 noremap <F1> <nop>
-noremap <F3> :r!date<CR>I#<c-[>j
+"noremap <F3> :r!date<CR>I#<c-[>j
+noremap <F3> o<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 noremap <F4> :Errors<CR>
 noremap <F5> :SyntasticCheck<CR>
 noremap <silent> <F7> :NERDTreeToggle<CR>
@@ -383,7 +384,8 @@ inoremap <c-g>\ <Esc>ms:up<CR>a
 "<c-/> doesn't work on gvim...
 inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
-inoremap <F3> <c-[>:r!date<CR>I#<c-[>j
+"inoremap <F3> <c-[>:r!date<CR>I#<c-[>j
+inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
