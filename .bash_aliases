@@ -34,6 +34,7 @@ alias s='sort'
 alias t='type -a'
 alias T='tree -F'
 alias W='which'
+alias x='bri.sh'
 alias z='touchpad.sh'
 #以下, 还未用，不一定都要用，避免失误
 #bash: type: j: 未找到
@@ -113,7 +114,7 @@ fi
 #	byobu
 #fi
 
-export editor=vi
+export EDITOR=vi
 #for vim's solarized
 export TERM=xterm-256color
 
@@ -148,7 +149,7 @@ c(){
     elif [ -d "$1" ] || [ "$1" == "-" ]; then
         cd "$1" && l
     else
-        cat "$1"
+        cat "$@"    #要加双引号
     fi
 }
 
