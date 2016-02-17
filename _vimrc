@@ -370,8 +370,21 @@ nnoremap <silent> <C-Right> :wincmd l<CR>
 nnoremap gb :tab sbp<CR>
 nnoremap <Left> :tab sbp<CR>
 nnoremap <right> :tab sbn<CR>
-autocmd BufRead *.py nnoremap <buffer> <F2> :w !python %<CR>
-autocmd BufRead *.sh nnoremap <buffer> <F2> :w !bash %<CR>
+
+function! Result_of_run()
+    "保存
+    up
+    "直接运行显示的是shell界面下的结果
+    if &ft == 'python'
+        let result = system("python " .  shellescape(expand('%')))
+    endif
+    if &ft == 'sh'
+        let result = system("bash " .  shellescape(expand('%')))
+    endif
+    echo result
+endfunction
+autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :call Result_of_run()<CR>
+autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :call Result_of_run()<CR>
 
 imap vv <c-[>Pa
 imap  <c-y>,
@@ -384,8 +397,8 @@ inoremap <c-g>\ <Esc>ms:up<CR>a
 "inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
 inoremap <F1> <Esc>ms:up<CR>a
-autocmd BufRead *.py inoremap <buffer> <F2> <C-o>:w !python %<CR>
-autocmd BufRead *.sh inoremap <buffer> <F2> <C-o>:w !bash %<CR>
+autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <C-o>:call Result_of_run()<CR>
+autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <C-o>:call Result_of_run()<CR>
 inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
@@ -403,7 +416,7 @@ inoremap ”  "<space>
 function! Add_space()
     set switchbuf=usetab,newtab
     let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
-    "如果不是fts_tmp, 就要inoremap .
+    "如果文件类型不在fts_tmp之中, 就要inoremap .
     if index(fts_tmp, &ft) < 0
         if &ft == 'css'
             return
