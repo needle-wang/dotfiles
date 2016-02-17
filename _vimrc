@@ -332,8 +332,7 @@ noremap <silent> N Nzz
 noremap <silent> g* g*zz
 noremap <c-y> <nop>
 
-noremap <F1> <nop>
-"noremap <F3> :r!date<CR>I#<c-[>j
+noremap <F1> ms:up<CR>
 noremap <F3> o<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 noremap <F4> :Errors<CR>
 noremap <F5> :SyntasticCheck<CR>
@@ -371,8 +370,8 @@ nnoremap <silent> <C-Right> :wincmd l<CR>
 nnoremap gb :tab sbp<CR>
 nnoremap <Left> :tab sbp<CR>
 nnoremap <right> :tab sbn<CR>
-autocmd BufRead *.py nnoremap <buffer> <F1> :w !python %<CR>
-autocmd BufRead *.sh nnoremap <buffer> <F1> :w !bash %<CR>
+autocmd BufRead *.py nnoremap <buffer> <F2> :w !python %<CR>
+autocmd BufRead *.sh nnoremap <buffer> <F2> :w !bash %<CR>
 
 imap vv <c-[>Pa
 imap  <c-y>,
@@ -382,9 +381,11 @@ inoremap <c-l> <Del>
 inoremap <c-s> <Esc>ms:up<CR>a
 inoremap <c-g>\ <Esc>ms:up<CR>a
 "<c-/> doesn't work on gvim...
-inoremap <c-/> <c-o>:cnext<CR>
+"inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
-"inoremap <F3> <c-[>:r!date<CR>I#<c-[>j
+inoremap <F1> <Esc>ms:up<CR>a
+autocmd BufRead *.py inoremap <buffer> <F2> <C-o>:w !python %<CR>
+autocmd BufRead *.sh inoremap <buffer> <F2> <C-o>:w !bash %<CR>
 inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
