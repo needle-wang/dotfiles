@@ -321,6 +321,8 @@ noremap <c-s> ms:up<CR>
 noremap <Bar> ms:up<CR>
 noremap \s    ms:up<CR>
 noremap g\    ms:up<CR>
+noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
+noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
 "高亮光标下的单词, 且光标坐标不变
 noremap & mmHmt`m*`tzt`m
 noremap ' `
