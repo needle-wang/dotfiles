@@ -373,20 +373,12 @@ nnoremap gb :tab sbp<CR>
 nnoremap <Left> :tab sbp<CR>
 nnoremap <right> :tab sbn<CR>
 
-function! Result_of_run()
-    "保存
-    up
-    "直接运行显示的是shell界面下的结果
-    if &ft == 'python'
-        let result = system("python " .  shellescape(expand('%')))
-    endif
-    if &ft == 'sh'
-        let result = system("bash " .  shellescape(expand('%')))
-    endif
-    echo result
+function! Result_of_run(run_sign)
+    "!ls这样运行会显示的是shell界面下的结果
+    echo system(a:run_sign .  shellescape(expand('%')))
 endfunction
-autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :call Result_of_run()<CR>
-autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :call Result_of_run()<CR>
+autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
+autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
 imap vv <c-[>Pa
 imap  <c-y>,
@@ -399,8 +391,8 @@ inoremap <c-g>\ <Esc>ms:up<CR>a
 "inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
 inoremap <F1> <Esc>ms:up<CR>a
-autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <C-o>:call Result_of_run()<CR>
-autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <C-o>:call Result_of_run()<CR>
+autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>a
+autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>a
 inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
