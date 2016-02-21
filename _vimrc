@@ -281,6 +281,7 @@ set laststatus=2
 "set guioptions-=m
 "gvim去掉工具栏
 set guioptions-=T
+let g:netrw_browsex_viewer= "google-chrome"
 
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
@@ -291,9 +292,11 @@ behave mswin
 
 "还有一些特殊符号可改
 "for emmet
-map <c-n> <c-y>,
+let g:user_emmet_leader_key = 'gy'
+map <c-n> gy,
 "<c-/>, <c-&>, <c-_>可生成 
-map  <c-y>,
+map  gy,
+
 "为光标下的字串加双引号
 nmap q; ysiW"f"
 "为光标下的单词加双引号
@@ -332,7 +335,6 @@ noremap <silent> # #zz
 noremap <silent> n nzz
 noremap <silent> N Nzz
 noremap <silent> g* g*zz
-noremap <c-y> <nop>
 
 noremap <F1> ms:up<CR>
 noremap <F3> o<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
@@ -345,24 +347,22 @@ noremap <F12> :syntax sync fromstart<CR>
 nnoremap co o<c-[>k
 nnoremap cO O<c-[>j
 nnoremap <C-e> 2<C-e>
-"nnoremap <C-y> 2<C-y>
+nnoremap <C-y> 2<C-y>
 nnoremap gz :tabnew<space>
-nnoremap <silent> gy    gT
+nnoremap <silent> gr    gT
 nnoremap <silent> <c-h> gT
 nnoremap <silent> <c-l> gt
-nnoremap <silent> { :tabfirst<CR>
-nnoremap <silent> } :tablast<CR>
+nnoremap <silent> g[ :tabfirst<CR>
+nnoremap <silent> g] :tablast<CR>
 nnoremap <silent> _ :tabm-1<CR>
 nnoremap <silent> + :tabm+1<CR>
-nnoremap <silent> gt :NERDTree<CR>
 nnoremap <silent> gn :NERDTreeFind<CR>
+nnoremap <silent> gN :NERDTree<CR>
 nnoremap <silent> gc <c-w><c-c>
 nnoremap <silent> gh <c-w><c-h>
 nnoremap <silent> gj <c-w><c-j>
 nnoremap <silent> gk <c-w><c-k>
 nnoremap <silent> gl <c-w><c-l>
-nnoremap <silent> g[ <c-w><c-h>
-nnoremap <silent> g] <c-w><c-l>
 nnoremap <silent> <c-j> <c-w><c-j>
 nnoremap <silent> <c-k> <c-w><c-k>
 nnoremap <silent> <C-Left>  :wincmd h<CR>
@@ -381,7 +381,7 @@ autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_ru
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
 imap vv <c-[>Pa
-imap  <c-y>,
+imap  <c-o>gy,
 inoremap <c-b> <Left>
 inoremap <c-f> <Right>
 inoremap <c-l> <Del>
@@ -442,7 +442,7 @@ cnoremap <c-l> <Del>
 "for nerdtree
 let NERDTreeMinimalUI  = 1
 let NERDTreeMouseMode  = 2
-let NERDTreeQuitOnOpen = 1
+"let NERDTreeQuitOnOpen = 1
 let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
 "最后一个窗口是nerdtree时, 关闭vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
