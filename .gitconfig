@@ -1,9 +1,8 @@
-
 [color]
 	ui = false
 [alias]
 	st = status
-	ci = commit
+	ci = commit -m
 	co = checkout
 	br = branch
 	unstage = reset HEAD

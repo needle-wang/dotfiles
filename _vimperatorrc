@@ -40,5 +40,4 @@ set hintchars=fdsaghjklwertyuiovbcnm
 "map H <c-o>
 "map L <c-i>
 
-" vim: set ft=vimperator:
-
+"vim: set ft=vimperator:

@@ -8,6 +8,9 @@ let g:vimango_app_prefix = ''
 "from django.conf.urls import patterns, include, url
 "from django.contrib import admin
 
+"from django.template.loader import get_template  
+"from django.template import Context 
+
 
 "for browserlink
 " /*/*.html 的形式不生效

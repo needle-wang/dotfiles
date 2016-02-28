@@ -1,22 +1,23 @@
+
 # better than vimium!
 
-nmap e   : ScrollDown
-nmap y   : ScrollUp
-nmap d   : PageHalfDown
+nmap e   :ScrollDown
+nmap y   :ScrollUp
+nmap d   :PageHalfDown
 
-nmap gh : TabFocusFirst
+nmap gh  :TabFocusFirst
 
-nmap f    : GoFMode --newtab
-nmap F   : GoFMode
+nmap f   :GoFMode --newtab
+nmap F   :GoFMode
 
-nmap Y   : copyurl
-nmap o   : TabOpenNew -i
-nmap b   : TabOpenNew -b
-nmap t    : TabOpenNew cn.bing.com
-nmap q   : TabOpenNew www.baidu.com/s?wd=ip
-nmap w   : TabOpenNew www.baidu.com/s?wd=天气
+nmap Y   :copyurl
+nmap o   :TabOpenNew -i
+nmap b   :TabOpenNew -b
+nmap t   :TabOpenNew cn.bing.com
+nmap q   :TabOpenNew www.baidu.com/s?wd=ip
+nmap w   :TabOpenNew www.baidu.com/s?wd=天气
 
-nmap s <DISCARD>
+nmap s       <DISCARD>
 nmap <Space> <DISCARD>
 
 #unusefull!

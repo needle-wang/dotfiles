@@ -375,7 +375,7 @@ nnoremap <right> :tab sbn<CR>
 
 function! Result_of_run(run_sign)
     "!ls这样运行会显示的是shell界面下的结果
-    echo system(a:run_sign .  shellescape(expand('%')))
+    echo system(a:run_sign . shellescape(expand('%')))
 endfunction
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
