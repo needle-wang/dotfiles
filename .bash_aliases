@@ -41,7 +41,6 @@ alias z='touchpad.sh'
 #bash: type: o: 未找到
 #bash: type: r: 未找到
 #bash: type: u: 未找到
-#bash: type: x: 未找到
 #bash: type: y: 未找到
 
 alias ag='ag --column --smart-case'
