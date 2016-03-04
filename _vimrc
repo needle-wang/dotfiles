@@ -208,7 +208,8 @@ Plugin 'needle-wang/vim-snippets'
 "Plugin 'msanders/snipmate.vim'
 "Plugin ''scrooloose/snipmate-snippets'
 "语法检查器,保存文本时检查(即默认的主动模式)
-Plugin 'scrooloose/syntastic'
+"我可能并不需要syntastic
+"Plugin 'scrooloose/syntastic'
 "注释插件,评分最高
 Plugin 'scrooloose/nerdcommenter'
 "中文文档(asins/vimcdoc里面有)
@@ -294,7 +295,7 @@ behave mswin
 "for emmet
 let g:user_emmet_leader_key = 'gy'
 map <c-n> gy,
-"<c-/>, <c-&>, <c-_>可生成 
+"<c-/>, <c-&>, <c-_>可生成
 map  gy,
 
 "为光标下的字串加双引号
@@ -320,9 +321,8 @@ noremap gq :Ag!<space>
 noremap <space> :nohl<CR><c-l>
 "去行尾空格, tab, \r
 noremap ,<space> mmHmt:%s/\s*[\t\r ]$//<CR>`tzt`m
-noremap <c-s> ms:up<CR>
-noremap <Bar> ms:up<CR>
-noremap \s    ms:up<CR>
+"noremap <Bar> ms:up<CR>
+noremap <CR>  ms:up<CR>
 noremap g\    ms:up<CR>
 noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
@@ -336,15 +336,15 @@ noremap <silent> n nzz
 noremap <silent> N Nzz
 noremap <silent> g* g*zz
 
-noremap <F1> ms:up<CR>
+noremap <F1> <nop>
 noremap <F3> o<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 noremap <F4> :Errors<CR>
-noremap <F5> :SyntasticCheck<CR>
+"noremap <F5> :SyntasticCheck<CR>
 noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
 noremap <F12> :syntax sync fromstart<CR>
 
-nnoremap co o<c-[>k
+nnoremap co 2o<c-[>k
 nnoremap cO O<c-[>j
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
@@ -390,11 +390,10 @@ inoremap <c-g>\ <Esc>ms:up<CR>a
 "<c-/> doesn't work on gvim...
 "inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
-inoremap <F1> <Esc>ms:up<CR>a
 autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>
 inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
-inoremap <F5> <c-o>:SyntasticCheck<CR>
+"inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 inoremap ,  ,<space>
@@ -561,27 +560,27 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "for xptemplate
 let g:xptemplate_nav_prev = '<c-k>'
-"for syntastic
-"手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
-let g:syntastic_mode_map = { 'mode' : 'passive' }
-let g:syntastic_error_symbol = 'X>'
-let g:syntastic_warning_symbol = '⚠'
-"退出不检查
-let g:syntastic_check_on_wq = 0
-"主动模式与python-mode冲突,导致有两次语法检查, 要么设成被动模式
-let g:pymode_lint_write = 0
-"出现错误自动打开错误位置列表,没有出现则不打开
-"let g:syntastic_auto_loc_list = 1
-"即时刷新错误位置(:Errors)列表!
-let g:syntastic_always_populate_loc_list=1
-"去掉警告信息
-let g:syntastic_quiet_messages = {'level' : 'warnings'}
-let g:syntastic_python_checkers=['pyflakes']
-"syntastic_java_checkers与eclim有冲突
-"html检查要联网,或自己架server~
-"let g:syntastic_html_checkers=['w3']
-"let g:syntastic_javascript_checkers=['javascript']
-noremap gs :SyntasticCheck<CR>
+""for syntastic
+""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
+"let g:syntastic_mode_map = { 'mode' : 'passive' }
+"let g:syntastic_error_symbol = 'X>'
+"let g:syntastic_warning_symbol = '⚠'
+""退出不检查
+"let g:syntastic_check_on_wq = 0
+""主动模式与python-mode冲突,导致有两次语法检查, 要么设成被动模式
+"let g:pymode_lint_write = 0
+""出现错误自动打开错误位置列表,没有出现则不打开
+""let g:syntastic_auto_loc_list = 1
+""即时刷新错误位置(:Errors)列表!
+"let g:syntastic_always_populate_loc_list=1
+""去掉警告信息
+"let g:syntastic_quiet_messages = {'level' : 'warnings'}
+"let g:syntastic_python_checkers=['pyflakes']
+""syntastic_java_checkers与eclim有冲突
+""html检查要联网,或自己架server~
+""let g:syntastic_html_checkers=['w3']
+""let g:syntastic_javascript_checkers=['javascript']
+"noremap gs :SyntasticCheck<CR>
 noremap [n :lnext<CR>
 noremap [N :lprevious<CR>
 "for tabular
