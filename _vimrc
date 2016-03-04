@@ -322,7 +322,6 @@ noremap <space> :nohl<CR><c-l>
 "去行尾空格, tab, \r
 noremap ,<space> mmHmt:%s/\s*[\t\r ]$//<CR>`tzt`m
 "noremap <Bar> ms:up<CR>
-noremap <CR>  ms:up<CR>
 noremap g\    ms:up<CR>
 noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
