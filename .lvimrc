@@ -18,3 +18,19 @@ let g:vimango_app_prefix = ''
 au BufWritePost */templates_bs3/*.html : BLReloadPage
 au BufWritePost */templates/*.html     : BLReloadPage
 
+function! Template_py()
+    let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    call append(0, b:line)
+    call cursor(6, 0)
+endfunction
+
+autocmd BufNewFile *.py call Template_py()
+
+function! Template_sh()
+    let b:line = ['#!/bin/bash -', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    call append(0, b:line)
+    call cursor(5, 0)
+endfunction
+
+autocmd BufNewFile *.sh call Template_sh()
+
