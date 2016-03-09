@@ -197,7 +197,7 @@ Plugin 'jaxbot/browserlink.vim'
 "taglist增强, NB!
 Plugin 'majutsushi/tagbar'
 "国人写的snipMate增强,按<c-\>,很好很强大,自定义很难~
-Plugin 'drmingdrmer/xptemplate'
+"Plugin 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强(未自带片段)
 Plugin 'SirVer/ultisnips'
 "snipmate和ultisnips的代码片段集
@@ -559,7 +559,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "for xptemplate
-let g:xptemplate_nav_prev = '<c-k>'
+"let g:xptemplate_nav_prev = '<c-k>'
 ""for syntastic
 ""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
 "let g:syntastic_mode_map = { 'mode' : 'passive' }

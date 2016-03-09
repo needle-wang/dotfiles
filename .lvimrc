@@ -21,10 +21,10 @@ au BufWritePost */templates/*.html     : BLReloadPage
 function! Template_py()
     let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
+    let b:line = ["def main():", "    pass", "", "if __main__ == '__main__':", "    main()"]
+    call append(line("$"), b:line)
     call cursor(6, 0)
 endfunction
-
-autocmd BufNewFile *.py call Template_py()
 
 function! Template_sh()
     let b:line = ['#!/bin/bash -', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
@@ -32,5 +32,8 @@ function! Template_sh()
     call cursor(5, 0)
 endfunction
 
+autocmd BufNewFile *.py call Template_py()
 autocmd BufNewFile *.sh call Template_sh()
+"直接进入插入模式, 但会感觉启动减慢1秒
+"autocmd BufNewFile *.py,*.sh startinsert
 
