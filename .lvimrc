@@ -1,6 +1,3 @@
-"for vimango
-let g:vimango_app_prefix = ''
-
 "for django
 "from django.shortcuts import render_to_response
 "from django.http import Http404 , HttpResponse , HttpResponseRedirect
@@ -11,26 +8,14 @@ let g:vimango_app_prefix = ''
 "from django.template.loader import get_template  
 "from django.template import Context 
 
+"for vimango
+let g:vimango_app_prefix = ''
 
 "for browserlink
 " /*/*.html 的形式不生效
-"au BufWritePost */templates/*/*.html  : BLReloadPage
-au BufWritePost */templates_bs3/*.html : BLReloadPage
-au BufWritePost */templates/*.html     : BLReloadPage
-
-function! Template_py()
-    let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
-    call append(0, b:line)
-    let b:line = ["", "def main():", "    pass", "", "if __name__ == '__main__':", "    main()"]
-    call append(line("$"), b:line)
-    call cursor(6, 0)
-endfunction
-
-function! Template_sh()
-    let b:line = ['#!/bin/bash -', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
-    call append(0, b:line)
-    call cursor(5, 0)
-endfunction
+"au BufWritePost */templates/*/*.html  BLReloadPage
+au BufWritePost */templates_bs3/*.html BLReloadPage
+au BufWritePost */templates/*.html     BLReloadPage
 
 autocmd BufNewFile *.py call Template_py()
 autocmd BufNewFile *.sh call Template_sh()

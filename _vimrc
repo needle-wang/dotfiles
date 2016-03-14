@@ -154,6 +154,75 @@ filetype plugin indent on     " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+function Result_of_run(run_sign)
+    "!ls这样运行会显示的是shell界面下的结果
+    echo system(a:run_sign . shellescape(expand('%')))
+endfunction
+
+function Add_space()
+    set switchbuf=usetab,newtab
+    let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
+    "如果文件类型不在fts_tmp之中, 就要inoremap .
+    if index(fts_tmp, &ft) < 0
+        if &ft == 'css'
+            return
+        endif
+        "一定要加<buffer>表示当前缓冲区
+        inoremap <buffer> . .<space>
+    else
+        if index(['htmldjango', 'sh'], &ft) < 0
+            inoremap <buffer> - <space>-<space>
+            inoremap <buffer> = <space>=<space>
+            if &ft != 'python'
+                inoremap <buffer> <CR> ;<CR>
+            endif
+        endif
+        inoremap <buffer> + <space>+<space>
+        inoremap <buffer> * <space>*<space>
+        inoremap <buffer> % <space>%<space>
+    endif
+endfunction
+
+function Template_py()
+    let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    call append(0, b:line)
+    let b:line = ["", "def main():", "    pass", "", "if __name__ == '__main__':", "    main()"]
+    call append(line("$"), b:line)
+    call cursor(6, 0)
+endfunction
+
+function Template_sh()
+    let b:line = ['#!/bin/bash -', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    call append(0, b:line)
+    call cursor(5, 0)
+endfunction
+
+"------乱码解决方案------
+"设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
+"encoding: vim内部任何东西均使用此编码
+set encoding=utf-8
+
+"fileencodings: 探测文件编码时的顺序
+"若写chinese而不写cp936(以gbk为基础),可能会识别成euc-cn(gb2312的表示方法),
+"此时, 如果文件内有一些繁体或生僻字依然乱码,
+"若无这些字,而增加这些字会保存不了(如 嚭 字)
+set fileencodings=utf-8,cp936,latin-1
+"fileencoding: 设置此缓冲区所在文件的字符编码, 保存时也以此为依据
+if has("win32")
+    set fileencoding=chinese   "要了解chinese, 可help一下
+    "处理菜单及右键菜单乱码, only win, 因为encoding
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    "处理vim的consle输出乱码, only win
+    language messages zh_CN.utf-8
+else
+    set fileencoding=utf-8
+endif
+
+"termencoding是针对vim的, 管不到gvim
+"用于键盘产生和终端显示的编码，在显示时，Vim 会把内部编码转换为屏幕编码
+let &termencoding=&fileencoding
+"------乱码解决方案------
 
 set nobackup
 set noswapfile
@@ -193,24 +262,6 @@ autocmd FileType javascript,html,css
             \| setlocal shiftwidth=2
 autocmd FileType html set filetype=htmldjango
 
-"还有一些特殊符号可改
-"------ for emmet ------
-let g:user_emmet_leader_key = 'gy'
-map <c-n> gy,
-"<c-/>, <c-&>, <c-_>可生成
-map  gy,
-"------ for emmet ------
-
-"为光标下的字串加双引号
-nmap q; ysiW"f"
-"为光标下的单词加双引号
-nmap q' ysiw"f"
-nmap q( ysiw(%
-nmap q) ysiw)%
-vmap q; S"f"
-vmap q' q;
-vmap q( S(%
-vmap q) S)%
 noremap j gj
 noremap k gk
 noremap t "+y
@@ -278,15 +329,10 @@ nnoremap gb :tab sbp<CR>
 nnoremap <Left> :tab sbp<CR>
 nnoremap <right> :tab sbn<CR>
 
-function! Result_of_run(run_sign)
-    "!ls这样运行会显示的是shell界面下的结果
-    echo system(a:run_sign . shellescape(expand('%')))
-endfunction
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
 imap vv <c-[>Pa
-imap  <c-o>gy,
 inoremap <c-b> <Left>
 inoremap <c-f> <Right>
 inoremap <c-l> <Del>
@@ -302,7 +348,7 @@ inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 "inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-"用iabbrev需要空格或回车触发
+"中文标点有时不会触发
 inoremap ,  ,<space>
 inoremap ， ,<space>
 inoremap :  :<space>
@@ -311,35 +357,11 @@ inoremap 。 .<space>
 inoremap ； ;<space>
 inoremap “  "<space>
 inoremap ”  "<space>
-"这几个iab没什么多大用处
+"用iabbrev需要空格或回车触发
+"所以这几个iab没多大用处
 iabbrev none None
 iabbrev true True
 iabbrev false False
-"for debug
-"exe '!echo -' &ft '->pool'
-function! Add_space()
-    set switchbuf=usetab,newtab
-    let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
-    "如果文件类型不在fts_tmp之中, 就要inoremap .
-    if index(fts_tmp, &ft) < 0
-        if &ft == 'css'
-            return
-        endif
-        "一定要加<buffer>表示当前缓冲区
-        inoremap <buffer> . .<space>
-    else
-        if index(['htmldjango', 'sh'], &ft) < 0
-            inoremap <buffer> - <space>-<space>
-            inoremap <buffer> = <space>=<space>
-            if &ft != 'python'
-                inoremap <buffer> <CR> ;<CR>
-            endif
-        endif
-        inoremap <buffer> + <space>+<space>
-        inoremap <buffer> * <space>*<space>
-        inoremap <buffer> % <space>%<space>
-    endif
-endfunction
 
 autocmd BufNewFile,BufRead * call Add_space()
 
@@ -356,6 +378,47 @@ cnoremap <c-f> <Right>
 cnoremap <c-g> <c-f>
 cnoremap <c-b> <Left>
 cnoremap <c-l> <Del>
+
+"------ for solarized ------
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"    "default value is normal
+syntax enable
+set background=dark
+colorscheme solarized
+"colorscheme desert 	"也不错
+"set fillchars=vert:│   "设置窗口分隔符, 必须要有值, 且必须是单宽字符
+"禁掉主题提供的窗口分隔线背景
+highlight VertSplit ctermbg=NONE guibg=NONE
+"------ for solarized ------
+
+"------ for fcitx --------
+set ttimeoutlen=200
+"fcitx不支持ctrl-c,它不支持ex模式
+"另外,YouCompleteMe手册也说不要用<c-c>: vim手册说会中断一些自动命令
+inoremap <silent> <c-c> <c-[>
+"------ for fcitx --------
+
+"------ for surround ------
+"为光标下的字串加双引号
+nmap q; ysiW"f"
+"为光标下的单词加双引号
+nmap q' ysiw"f"
+nmap q( ysiw(%
+nmap q) ysiw)%
+vmap q; S"f"
+vmap q' q;
+vmap q( S(%
+vmap q) S)%
+"------ for surround ------
+
+"还有一些特殊符号可改
+"------ for emmet ------
+let g:user_emmet_leader_key = '<Bar>'
+map <c-n> <Bar>,
+"<c-/>, <c-&>, <c-_>可生成
+map  <c-n>
+imap  <c-o><Bar>,
+"------ for emmet ------
 
 "------ for nerdtree ------
 let NERDTreeMinimalUI  = 1
@@ -380,52 +443,6 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
   return lightline#statusline(0)
 endfunction
 "------ for lightline ------
-
-"------ for solarized ------
-let g:solarized_termcolors=256
-let g:solarized_contrast="high"    "default value is normal
-syntax enable
-set background=dark
-colorscheme solarized
-"colorscheme desert 	"也不错
-"set fillchars=vert:│   "设置窗口分隔符, 必须要有值, 且必须是单宽字符
-"禁掉主题提供的窗口分隔线背景
-highlight VertSplit ctermbg=NONE guibg=NONE
-"------ for solarized ------
-
-"------乱码解决方案------
-"设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
-"encoding: vim内部任何东西均使用此编码
-set encoding=utf-8
-
-"fileencodings: 探测文件编码时的顺序
-"若写chinese而不写cp936(以gbk为基础),可能会识别成euc-cn(gb2312的表示方法),
-"此时, 如果文件内有一些繁体或生僻字依然乱码,
-"若无这些字,而增加这些字会保存不了(如 嚭 字)
-set fileencodings=utf-8,cp936,latin-1
-"fileencoding: 设置此缓冲区所在文件的字符编码, 保存时也以此为依据
-if has("win32")
-    set fileencoding=chinese   "要了解chinese, 可help一下
-    "处理菜单及右键菜单乱码, only win, 因为encoding
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-    "处理vim的consle输出乱码, only win
-    language messages zh_CN.utf-8
-else
-    set fileencoding=utf-8
-endif
-
-"termencoding是针对vim的, 管不到gvim
-"用于键盘产生和终端显示的编码，在显示时，Vim 会把内部编码转换为屏幕编码
-let &termencoding=&fileencoding
-"------乱码解决方案------
-
-"------ for fcitx --------
-set ttimeoutlen=200
-"fcitx不支持ctrl-c,它不支持ex模式
-"另外,YouCompleteMe手册也说不要用<c-c>: vim手册说会中断一些自动命令
-inoremap <silent> <c-c> <c-[>
-"------ for fcitx --------
 
 "------ for easymotion ------
 let g:EasyMotion_leader_key = ','
@@ -510,16 +527,18 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 ""let g:syntastic_html_checkers=['w3']
 ""let g:syntastic_javascript_checkers=['javascript']
 "noremap gs :SyntasticCheck<CR>
-""------ for syntastic ------
 
 noremap [n :lnext<CR>
 noremap [N :lprevious<CR>
+""------ for syntastic ------
+
 "------ for tabular ------
+"g;和g,很有用
 noremap      g/         :Tab /
 noremap      g=         :Tab /=<CR>
 noremap      g1         :Tab /!=<CR>
 noremap      g2         :Tab /==<CR>
-noremap      g,         :Tab /,<CR>
+noremap      g.         :Tab /,<CR>
 noremap      g"         :Tab /"<CR>
 noremap      g'         :Tab /'<CR>
 noremap      g:         :Tab /:<CR>
@@ -549,7 +568,8 @@ let g:tagbar_autoshowtag = 1
 set updatetime=700
 "------ for tagbar ------
 
-"for eclim,很完美,就是vim版eclipse,想受虐就用.
+"------ for eclim ------
+"很完美,就是vim版eclipse,想受虐就用.
 "保存时语法检查,巨快(syntastic完全比不上~)
 "eclim默认会用pyflakes和python编译器验证语法,第一次检测没有pyflakes就不再用pyflakes
 "let g:EclimPythonValidate = 0	"禁用保存文件时验证,.py不需要开eclimd
@@ -561,13 +581,15 @@ set updatetime=700
 "autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
 "autocmd FileType java let g:EclimJavaCompleteCaseSensitive = 1
 "autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
+"------ for eclim ------
 
-"for Vim-JDE"
+"------ for Vim-JDE" ------
 "autocmd FileType java inoremap <buffer> . .<C-X><C-U>
 "以这个为主(不支持"someStr".形式,编译后支持本类),javacomplete为辅
 "set completefunc=VjdeCompletionFun
 "let g:vjde_lib_path = "/opt/MyEclipse_10_0/Common/plugins/com.genuitec.eclipse.j2eedt.core_10.0.0.me201110301321/data/libraryset/EE_5/javaee.jar"
 "let g:vjde_javadoc_path = "/opt/jdk1.6.0_38/sourcecode/"
+"------ for Vim-JDE" ------
 
 "------ for ctrlp ------
 let g:ctrlp_regexp = 1
