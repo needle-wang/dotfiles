@@ -194,11 +194,12 @@ autocmd FileType javascript,html,css
 autocmd FileType html set filetype=htmldjango
 
 "还有一些特殊符号可改
-"for emmet
+"------ for emmet ------
 let g:user_emmet_leader_key = 'gy'
 map <c-n> gy,
 "<c-/>, <c-&>, <c-_>可生成
 map  gy,
+"------ for emmet ------
 
 "为光标下的字串加双引号
 nmap q; ysiW"f"
@@ -356,7 +357,7 @@ cnoremap <c-g> <c-f>
 cnoremap <c-b> <Left>
 cnoremap <c-l> <Del>
 
-"for nerdtree
+"------ for nerdtree ------
 let NERDTreeMinimalUI  = 1
 let NERDTreeMouseMode  = 2
 "let NERDTreeQuitOnOpen = 1
@@ -365,8 +366,9 @@ let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "自动打开nerdtree
 "autocmd VimEnter * NERDTree | wincmd l
+"------ for nerdtree ------
 
-"for lightline
+"------ for lightline ------
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ }
@@ -377,18 +379,19 @@ function! TagbarStatusFunc(current, sort, fname, ...) abort
     let g:lightline.fname = a:fname
   return lightline#statusline(0)
 endfunction
+"------ for lightline ------
 
-"for solarized
+"------ for solarized ------
 let g:solarized_termcolors=256
 let g:solarized_contrast="high"    "default value is normal
 syntax enable
 set background=dark
 colorscheme solarized
 "colorscheme desert 	"也不错
-"set fillchars=vert:│   "必须要有,且必须是单宽字符
+"set fillchars=vert:│   "设置窗口分隔符, 必须要有值, 且必须是单宽字符
 "禁掉主题提供的窗口分隔线背景
 highlight VertSplit ctermbg=NONE guibg=NONE
-
+"------ for solarized ------
 
 "------乱码解决方案------
 "设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
@@ -417,15 +420,18 @@ endif
 let &termencoding=&fileencoding
 "------乱码解决方案------
 
-"for fcitx
+"------ for fcitx --------
 set ttimeoutlen=200
 "fcitx不支持ctrl-c,它不支持ex模式
 "另外,YouCompleteMe手册也说不要用<c-c>: vim手册说会中断一些自动命令
 inoremap <silent> <c-c> <c-[>
+"------ for fcitx --------
 
-"for easymotion
+"------ for easymotion ------
 let g:EasyMotion_leader_key = ','
-"for YouCompleteMe
+"------ for easymotion ------
+
+"------ for YouCompleteMe ------
 "vim中, <c-m>等价于Enter(<CR>)
 "inoremap <c-b> <c-x><c-o>
 "设定跳转命令在哪里打开
@@ -450,8 +456,7 @@ let g:ycm_filetype_whitelist = {
         \ 'cpp'        : 1,
         \ 'c'          : 1,
 		\}
-"for vimango
-"nnoremap gO :python main()<CR>jzz
+"------ for YouCompleteMe ------
 
 "for java, ctags就是一砣, 太差了,一点都跳不准~
 "sudo ctags -R --fields=+iaS --extra=+q
@@ -470,15 +475,21 @@ let g:ycm_filetype_whitelist = {
 "YouCompleteMe自带了python补全~,且与下面的点映射冲突
 "有时要加<C-P>上移, 有时又不要, 不清楚~
 "autocmd FileType python inoremap <buffer> . .<C-X><C-O><C-P>
+
 "docString的预览窗口会闪屏,所以要取消preview, 设成全局的更好些
 set completeopt=longest,menu
-"for UltiSnips
+
+"------ for UltiSnips ------
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-"for xptemplate
+"------ for UltiSnips ------
+
+"------ for xptemplate ------
 "let g:xptemplate_nav_prev = '<c-k>'
-""for syntastic
+"------ for xptemplate ------
+
+""------ for syntastic ------
 ""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
 "let g:syntastic_mode_map = { 'mode' : 'passive' }
 "let g:syntastic_error_symbol = 'X>'
@@ -499,9 +510,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 ""let g:syntastic_html_checkers=['w3']
 ""let g:syntastic_javascript_checkers=['javascript']
 "noremap gs :SyntasticCheck<CR>
+""------ for syntastic ------
+
 noremap [n :lnext<CR>
 noremap [N :lprevious<CR>
-"for tabular
+"------ for tabular ------
 noremap      g/         :Tab /
 noremap      g=         :Tab /=<CR>
 noremap      g1         :Tab /!=<CR>
@@ -512,8 +525,9 @@ noremap      g'         :Tab /'<CR>
 noremap      g:         :Tab /:<CR>
 noremap      g<space>   :Tab / <CR>
 noremap      g<Bar>     :Tab /<Bar><CR>
+"------ for tabular ------
 
-"for tagbar
+"------ for tagbar ------
 let g:tagbar_width = 37
 "每打开相应文件就会弹出来,不好
 "autocmd FileType python,java,cpp,c nested :TagbarOpen
@@ -533,6 +547,8 @@ let g:tagbar_singleclick = 1
 let g:tagbar_autoshowtag = 1
 "自动高亮当前tag的间隔时间，全局的
 set updatetime=700
+"------ for tagbar ------
+
 "for eclim,很完美,就是vim版eclipse,想受虐就用.
 "保存时语法检查,巨快(syntastic完全比不上~)
 "eclim默认会用pyflakes和python编译器验证语法,第一次检测没有pyflakes就不再用pyflakes
@@ -552,25 +568,32 @@ set updatetime=700
 "set completefunc=VjdeCompletionFun
 "let g:vjde_lib_path = "/opt/MyEclipse_10_0/Common/plugins/com.genuitec.eclipse.j2eedt.core_10.0.0.me201110301321/data/libraryset/EE_5/javaee.jar"
 "let g:vjde_javadoc_path = "/opt/jdk1.6.0_38/sourcecode/"
-"for ctrlp
+
+"------ for ctrlp ------
 let g:ctrlp_regexp = 1
 let g:ctrlp_by_filename = 1
 let g:ctrlp_custom_ignore = {
     \ 'dir'  :  '\v[\/]\.(git|hg|svn|rvm)$',
     \ 'file' : '\v\.(exe|so|dll|pyc|swp)$',
     \ }
-"for ack.vim
-"let g:ackprg = 'ag --nogroup --nocolor --column'
-"for ag.vim
-let g:ag_prg = 'ag --column --smart-case'
+"------ for ctrlp ------
 
-"for browserlink
+"------ for ack.vim ------
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+"------ for ack.vim ------
+
+"------ for ag.vim ------
+let g:ag_prg = 'ag --column --smart-case'
+"------ for ag.vim ------
+
+"------ for browserlink ------
 "autocmd BufWritePost *.html :BLReloadPage
 "1. run: ~/.vim/bundle/browserlink.vim/browserlink/start.sh
 "要装nodejs, 并: sudo ln -s /usr/bin/nodejs /usr/bin/node
 "2. 在页面中加上<script src='http://127.0.0.1:9001/js/socket.js'></script>
 "下午写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
 "window.__BL_OVERRIDE_CACHE = true
+"------ for browserlink ------
 
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
