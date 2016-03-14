@@ -1,101 +1,4 @@
-" An example for a vimrc file.
-"
-" Maintainer:	Bram Moolenaar <Bram@vim.org>
-" Last change:	2008 Dec 17
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"	      for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"	    for OpenVMS:  sys$login:.vimrc
-
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-endif
-
-" Only do this part when compiled with support for autocommands.
-if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  " Also don't do it when the mark is in the first line, that is the default
-  " position when opening a file.
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-
-  augroup END
-
-else
-
-  set autoindent		" always set autoindenting on
-
-endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
-
-
+runtime vimrc_example.vim
 
 "vundle的配置
 filetype off                   " required!
@@ -282,14 +185,13 @@ set laststatus=2
 "set guioptions-=m
 "gvim去掉工具栏
 set guioptions-=T
+behave mswin
 let g:netrw_browsex_viewer= "google-chrome"
 
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
             \| setlocal shiftwidth=2
 autocmd FileType html set filetype=htmldjango
-
-behave mswin
 
 "还有一些特殊符号可改
 "for emmet
@@ -343,6 +245,9 @@ noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
 noremap <F12> :syntax sync fromstart<CR>
 
+"使特殊字符不用转义就默认变成正则含义
+"h magic
+nnoremap / /\v
 nnoremap co 2o<c-[>k
 nnoremap cO O<c-[>j
 nnoremap <C-e> 2<C-e>
@@ -396,14 +301,19 @@ inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
 "inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
+"用iabbrev需要空格或回车触发
 inoremap ,  ,<space>
-inoremap :  :<space>
 inoremap ， ,<space>
+inoremap :  :<space>
+inoremap ： :<space>
 inoremap 。 .<space>
 inoremap ； ;<space>
-inoremap ： :<space>
 inoremap “  "<space>
 inoremap ”  "<space>
+"这几个iab没什么多大用处
+iabbrev none None
+iabbrev true True
+iabbrev false False
 "for debug
 "exe '!echo -' &ft '->pool'
 function! Add_space()
@@ -430,7 +340,15 @@ function! Add_space()
     endif
 endfunction
 
-autocmd BufNewFile,BufRead * :call Add_space()
+autocmd BufNewFile,BufRead * call Add_space()
+
+vnoremap / /\v
+vnoremap ; :
+vnoremap : ;
+vnoremap gj <c-w><c-j>
+vnoremap gk <c-w><c-k>
+vnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 cnoremap <c-a> <Home>
 cnoremap <c-f> <Right>
