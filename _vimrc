@@ -260,6 +260,7 @@ let g:netrw_browsex_viewer= "google-chrome"
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
             \| setlocal shiftwidth=2
+
 autocmd FileType html set filetype=htmldjango
 
 noremap j gj
@@ -413,11 +414,13 @@ vmap q) S)%
 
 "还有一些特殊符号可改
 "------ for emmet ------
-let g:user_emmet_leader_key = '<Bar>'
-map <c-n> <Bar>,
+"emmet不能映射<Bar>, 会导致ultisnips失效
+"不能用noremap
+let g:user_emmet_leader_key = 'gy'
+map <c-n> gy,
 "<c-/>, <c-&>, <c-_>可生成
-map  <c-n>
-imap  <c-o><Bar>,
+map  gy,
+imap  <c-o>gy,
 "------ for emmet ------
 
 "------ for nerdtree ------
@@ -613,7 +616,7 @@ let g:ag_prg = 'ag --column --smart-case'
 "1. run: ~/.vim/bundle/browserlink.vim/browserlink/start.sh
 "要装nodejs, 并: sudo ln -s /usr/bin/nodejs /usr/bin/node
 "2. 在页面中加上<script src='http://127.0.0.1:9001/js/socket.js'></script>
-"下午写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
+"下行写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
 "window.__BL_OVERRIDE_CACHE = true
 "------ for browserlink ------
 
