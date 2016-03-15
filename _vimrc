@@ -374,6 +374,8 @@ vnoremap gk <c-w><c-k>
 vnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
+cabbrev q1    q!
+cabbrev qa1    qa!
 cnoremap <c-a> <Home>
 cnoremap <c-f> <Right>
 cnoremap <c-g> <c-f>
