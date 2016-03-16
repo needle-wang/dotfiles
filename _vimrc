@@ -197,6 +197,12 @@ function Template_sh()
     call cursor(5, 0)
 endfunction
 
+function Template_html()
+    let b:line = ['html5', strftime("<!-- #%Y年 %m月 %d日 %A %H:%M:%S CST -->")]
+    call append(0, b:line)
+    call cursor(1, 5)
+endfunction
+
 "------乱码解决方案------
 "设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
 "encoding: vim内部任何东西均使用此编码
@@ -278,6 +284,8 @@ noremap <space> :nohl<CR><c-l>
 noremap ,<space> mmHmt:%s/\s*[\t\r ]$//<CR>`tzt`m
 "noremap <Bar> ms:up<CR>
 noremap g\    ms:up<CR>
+"for hhkb
+noremap gs    ms:up<CR>
 noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
 "高亮光标下的单词, 且光标坐标不变
@@ -291,18 +299,21 @@ noremap <silent> N Nzz
 noremap <silent> g* g*zz
 
 noremap <F1> <nop>
-noremap <F3> o<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
+noremap <F3> moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
+"for hhkb
+noremap g3   moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
 "noremap <F4> :Errors<CR>
 "noremap <F5> :SyntasticCheck<CR>
 noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
+noremap <silent> g8   :TagbarToggle<CR>
 noremap <F12> :syntax sync fromstart<CR>
 
 "使特殊字符不用转义就默认变成正则含义
 "h magic
 nnoremap / /\v
-nnoremap co 2o<c-[>k
-nnoremap cO O<c-[>j
+nnoremap co 2o<Esc>k
+nnoremap cO O<Esc>j
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
 nnoremap gz :tabnew<space>
@@ -333,7 +344,7 @@ nnoremap <right> :tab sbn<CR>
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
-imap vv <c-[>Pa
+imap vv <Esc>Pa
 inoremap <c-b> <Left>
 inoremap <c-f> <Right>
 inoremap <c-l> <Del>
@@ -345,7 +356,7 @@ inoremap <c-g>\ <Esc>ms:up<CR>a
 autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>
 inoremap <F1> <nop>
-inoremap <F3> <C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><C-[>j
+inoremap <F3> <Esc>moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2ja
 "inoremap <F5> <c-o>:SyntasticCheck<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
@@ -374,6 +385,7 @@ vnoremap gk <c-w><c-k>
 vnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
 vnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
+cabbrev e1    e!
 cabbrev q1    q!
 cabbrev qa1    qa!
 cnoremap <c-a> <Home>
@@ -398,7 +410,7 @@ highlight VertSplit ctermbg=NONE guibg=NONE
 set ttimeoutlen=200
 "fcitx不支持ctrl-c,它不支持ex模式
 "另外,YouCompleteMe手册也说不要用<c-c>: vim手册说会中断一些自动命令
-inoremap <silent> <c-c> <c-[>
+inoremap <silent> <c-c> <Esc>
 "------ for fcitx --------
 
 "------ for surround ------

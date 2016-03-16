@@ -17,8 +17,9 @@ let g:vimango_app_prefix = ''
 au BufWritePost */templates_bs3/*.html BLReloadPage
 au BufWritePost */templates/*.html     BLReloadPage
 
-autocmd BufNewFile *.py call Template_py()
-autocmd BufNewFile *.sh call Template_sh()
+autocmd BufNewFile *.py   call Template_py()
+autocmd BufNewFile *.sh   call Template_sh()
+autocmd BufNewFile *.html call Template_html()
 "直接进入插入模式, 但会感觉启动减慢1秒
 "autocmd BufNewFile *.py,*.sh startinsert
 
