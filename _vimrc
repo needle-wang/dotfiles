@@ -271,8 +271,6 @@ autocmd FileType html set filetype=htmldjango
 
 noremap j gj
 noremap k gk
-noremap t "+y
-noremap T "+yy
 noremap P "+gp
 noremap - _
 noremap ; :
@@ -281,11 +279,13 @@ noremap Q :Ag!<CR>
 noremap gq :Ag!<space>
 noremap <space> :nohl<CR><c-l>
 "去行尾空格, tab, \r
-noremap ,<space> mmHmt:%s/\s*[\t\r ]$//<CR>`tzt`m
+noremap ,<space> mmHmt:%s/\s*[ \t\r]$//e<CR>`tzt`m
 "noremap <Bar> ms:up<CR>
 noremap g\    ms:up<CR>
 "for hhkb
 noremap gs    ms:up<CR>
+noremap <silent> <Bar> :call NERDComment("n", "Comment")<CR>
+noremap <silent> gc :call NERDComment("n", "Comment")<CR>
 noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
 "高亮光标下的单词, 且光标坐标不变
@@ -298,7 +298,7 @@ noremap <silent> n nzz
 noremap <silent> N Nzz
 noremap <silent> g* g*zz
 
-noremap <F1> <nop>
+noremap <F1> <Esc>
 noremap <F3> moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
 "for hhkb
 noremap g3   moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
@@ -309,6 +309,9 @@ noremap <silent> <F8> :TagbarToggle<CR>
 noremap <silent> g8   :TagbarToggle<CR>
 noremap <F12> :syntax sync fromstart<CR>
 
+nnoremap t "+y
+nnoremap T "+yy
+nnoremap Y y$
 "使特殊字符不用转义就默认变成正则含义
 "h magic
 nnoremap / /\v
@@ -326,7 +329,6 @@ nnoremap <silent> _ :tabm-1<CR>
 nnoremap <silent> + :tabm+1<CR>
 nnoremap <silent> gn :NERDTreeFind<CR>
 nnoremap <silent> gN :NERDTree<CR>
-nnoremap <silent> gc <c-w><c-c>
 nnoremap <silent> gh <c-w><c-h>
 nnoremap <silent> gj <c-w><c-j>
 nnoremap <silent> gk <c-w><c-k>
@@ -338,11 +340,14 @@ nnoremap <silent> <C-Down>  :wincmd j<CR>
 nnoremap <silent> <C-Up>    :wincmd k<CR>
 nnoremap <silent> <C-Right> :wincmd l<CR>
 nnoremap gb :tab sbp<CR>
+nnoremap gy :tab sbn<CR>
 nnoremap <Left> :tab sbp<CR>
 nnoremap <right> :tab sbn<CR>
 
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
+
+vnoremap t mc"+y`c
 
 imap vv <Esc>Pa
 inoremap <c-b> <Left>
@@ -393,6 +398,7 @@ cnoremap <c-f> <Right>
 cnoremap <c-g> <c-f>
 cnoremap <c-b> <Left>
 cnoremap <c-l> <Del>
+command W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
 "------ for solarized ------
 let g:solarized_termcolors=256
@@ -400,7 +406,7 @@ let g:solarized_contrast="high"    "default value is normal
 syntax enable
 set background=dark
 colorscheme solarized
-"colorscheme desert 	"也不错
+"colorscheme desert     "也不错
 "set fillchars=vert:│   "设置窗口分隔符, 必须要有值, 且必须是单宽字符
 "禁掉主题提供的窗口分隔线背景
 highlight VertSplit ctermbg=NONE guibg=NONE
@@ -426,15 +432,15 @@ vmap q( S(%
 vmap q) S)%
 "------ for surround ------
 
-"还有一些特殊符号可改
 "------ for emmet ------
 "emmet不能映射<Bar>, 会导致ultisnips失效
-"不能用noremap
-let g:user_emmet_leader_key = 'gy'
-map <c-n> gy,
+"不能用noremap, leaderkey会失效
+let g:user_emmet_leader_key = '<F11>'
+map <c-n> <F11>,
 "<c-/>, <c-&>, <c-_>可生成
-map  gy,
-imap  <c-o>gy,
+"还有一些特殊符号可改, 具体忘了
+map  <F11>,
+imap  <c-o><F11>,
 "------ for emmet ------
 
 "------ for nerdtree ------
@@ -489,7 +495,7 @@ let g:ycm_filetype_whitelist = {
         \ 'javascript' : 1,
         \ 'cpp'        : 1,
         \ 'c'          : 1,
-		\}
+        \}
 "------ for YouCompleteMe ------
 
 "for java, ctags就是一砣, 太差了,一点都跳不准~
@@ -589,7 +595,7 @@ set updatetime=700
 "很完美,就是vim版eclipse,想受虐就用.
 "保存时语法检查,巨快(syntastic完全比不上~)
 "eclim默认会用pyflakes和python编译器验证语法,第一次检测没有pyflakes就不再用pyflakes
-"let g:EclimPythonValidate = 0	"禁用保存文件时验证,.py不需要开eclimd
+"let g:EclimPythonValidate = 0  "禁用保存文件时验证,.py不需要开eclimd
 "有YouCompleteMe就不需要这个映射
 "autocmd FileType java inoremap <buffer> . .<C-X><C-U>
 "autocmd FileType java nnoremap <silent> <buffer> [i :JavaImportOrganize<cr>
