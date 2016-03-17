@@ -47,11 +47,10 @@ alias z='touchpad.sh'
 alias ag='ag --column --smart-case'
 alias bc='bc -q'
 alias cp='cp -vi'
-alias df='df -h | column -t'
+alias df='df.sh -h | column -t'
 alias gi='git'
 alias lg='l | g'
 alias ll='ls -AlFh'
-alias lo='locate'
 alias mv='mv -vi'
 alias rm='rm -vi'
 alias sl='ls'
@@ -76,7 +75,6 @@ alias za='cd /media/SOME/2ZA'
 alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
 #编译安装后解决,而且是因下行导致关闭报错的
 #alias gvim='UBUNTU_MENUPROXY=0 gvim -f'
-alias locate='locate -bi'
 alias namp='nmap'
 
 if [ $(whoami) != 'root' ]; then
@@ -123,7 +121,7 @@ export TERM=xterm-256color
 #export GST_ID3V2_TAG_ENCODING=GBK:UTF-8:GB18030
 
 if [ "$(pwd)" == "$HOME" ]; then
-	test -d "$HOME/test" && cd "$HOME/test"
+	[ -d "$HOME/test" ] && cd "$HOME/test"
 fi
 
 if [ -e "$HOME/.dmrc" ]; then
@@ -137,6 +135,7 @@ fi
 }
 
 to_alias
+#to_alias执行后, 下面的立即受影响(很正常嘛)
 
 c(){
     #don't run clear
@@ -161,10 +160,25 @@ else
 fi
 }
 
+lo(){
+    [ "$1" ] && locate -bei "$1" | g "$1"
+}
+
+lo.(){
+    #当前目录下 通过正则 搜索文件名包含${1}的文件
+    [ "$1" ] && locate -eir "$(pwd)/.*/${1}" | g -v "${1}.*/" | g "${1}"
+}
+
 psg(){
-    proname=$(echo "$1" | sed 's;\(.\)$;[\1];')
+    [ "$1" ] || return 1
     ps -f  | head -n 1
-    ps -ef | g $proname
+    ps -ef | g "$(echo "$1" | sed 's;\(.\)$;[\1];')"
+}
+
+whif(){
+    #使用通配符的which
+    [ "$1" ] || return 1
+    find $(echo "$PATH" | sed 's;:; ;g') -maxdepth 1 -type f -executable -iname "*$1*"
 }
 
 unset to_alias
