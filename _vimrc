@@ -101,13 +101,12 @@ Plugin 'jaxbot/browserlink.vim'
 Plugin 'majutsushi/tagbar'
 "国人写的snipMate增强,按<c-\>,很好很强大,自定义很难~
 "Plugin 'drmingdrmer/xptemplate'
-"片段引擎, snipmate增强(未自带片段)
+"片段引擎, snipmate增强版(未自带片段)
 Plugin 'SirVer/ultisnips'
-"snipmate和ultisnips的代码片段集
+"snipmate和ultisnips的代码片段集, utlisnips默认都会检索
 "Plugin 'honza/vim-snippets'
 Plugin 'needle-wang/vim-snippets'
-"snipmate与xptemplate快键不冲突,不支持嵌套,直接tab
-"二者已停止更新~
+"snipmate与xptemplate快键不冲突,不支持嵌套,直接tab, 二者已停止更新~
 "Plugin 'msanders/snipmate.vim'
 "Plugin ''scrooloose/snipmate-snippets'
 "语法检查器,保存文本时检查(即默认的主动模式)
@@ -129,8 +128,8 @@ Plugin 'rking/ag.vim'
 "有lispbox就别老想着这东东了,巨麻烦~
 "Plugin 'slimv.vim'
 
-"如字面意思, 但不知道怎么用~
-"Plugin 'chrisgillis/vim-bootstrap3-snippets'
+"for snipmate, 不过ultisnips默认支持
+Plugin 'bonsaiben/bootstrap-snippets'
 "jinja2语法文件
 "Plugin 'Glench/Vim-Jinja2-Syntax'
 "垂直缩进线
@@ -200,6 +199,7 @@ endfunction
 function Template_html()
     let b:line = ['html5', strftime("<!-- #%Y年 %m月 %d日 %A %H:%M:%S CST -->")]
     call append(0, b:line)
+    normal dd
     call cursor(1, 5)
 endfunction
 
@@ -250,7 +250,7 @@ set expandtab
 set smarttab
 "禁用man,使用内置help
 set keywordprg=
-"补全时忽略下列文件
+"文件补全时忽略下列文件
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 "让单窗口时也会出现lightline
 set laststatus=2
@@ -266,7 +266,8 @@ let g:netrw_browsex_viewer= "google-chrome"
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
             \| setlocal shiftwidth=2
-
+"如果想用jinja2模板, 就改为如下:
+"autocmd FileType html set filetype=htmljinja
 autocmd FileType html set filetype=htmldjango
 
 noremap j gj
@@ -350,6 +351,7 @@ autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_ru
 vnoremap t mc"+y`c
 
 imap vv <Esc>Pa
+inoremap <c-o> <c-\><c-o>
 inoremap <c-b> <Left>
 inoremap <c-f> <Right>
 inoremap <c-l> <Del>
@@ -387,8 +389,10 @@ vnoremap ; :
 vnoremap : ;
 vnoremap gj <c-w><c-j>
 vnoremap gk <c-w><c-k>
-vnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-vnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"vmap应用于可视+选择模式, xmap只用于可视模式
+"ultisnips的片段使用了选择模式
+xnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 cabbrev e1    e!
 cabbrev q1    q!
@@ -489,12 +493,15 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 "语法关键字补全
 let g:ycm_seed_identifiers_with_syntax = 1
 "使用YouCompleteMe的白名单
+"YouCompleteMe对不支持语义(semantic)补全的就会使用omnifunc, 如html
 let g:ycm_filetype_whitelist = {
-        \ 'python'     : 1,
+        \ 'c'          : 1,
+        \ 'cpp'        : 1,
+        \ 'html'       : 1,
+        \ 'htmldjango' : 1,
         \ 'java'       : 1,
         \ 'javascript' : 1,
-        \ 'cpp'        : 1,
-        \ 'c'          : 1,
+        \ 'python'     : 1,
         \}
 "------ for YouCompleteMe ------
 
@@ -528,6 +535,12 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "------ for xptemplate ------
 "let g:xptemplate_nav_prev = '<c-k>'
 "------ for xptemplate ------
+
+"------ for bootstrap-snippets ------
+"有YouCompleteMe, 不用设置就支持了
+"set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
+"set complete+=k
+"------ for bootstrap-snippets ------
 
 ""------ for syntastic ------
 ""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
