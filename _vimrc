@@ -494,20 +494,33 @@ let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_seed_identifiers_with_syntax = 1
 "使用YouCompleteMe的白名单
 "YouCompleteMe对不支持语义(semantic)补全的就会使用omnifunc, 如html
-let g:ycm_filetype_whitelist = {
-        \ 'c'          : 1,
-        \ 'cpp'        : 1,
-        \ 'css'        : 1,
-        \ 'html'       : 1,
-        \ 'htmldjango' : 1,
-        \ 'htmljinja'  : 1,
-        \ 'java'       : 1,
-        \ 'javascript' : 1,
-        \ 'markdown'   : 1,
-        \ 'python'     : 1,
-        \ 'sh'         : 1,
-        \ 'snippets'   : 1,
+"黑名单在白名单中的补集
+let g:ycm_filetype_blacklist = {
+        \ 'tagbar'   : 1,
+        \ 'qf'       : 1,
+        \ 'notes'    : 1,
+        \ 'unite'    : 1,
+        \ 'text'     : 1,
+        \ 'vimwiki'  : 1,
+        \ 'pandoc'   : 1,
+        \ 'infolog'  : 1,
+        \ 'mail'     : 1,
         \}
+"let g:ycm_filetype_whitelist = {
+        "\ 'c'          : 1,
+        "\ 'cpp'        : 1,
+        "\ 'css'        : 1,
+        "\ 'html'       : 1,
+        "\ 'htmldjango' : 1,
+        "\ 'htmljinja'  : 1,
+        "\ 'java'       : 1,
+        "\ 'javascript' : 1,
+        "\ 'markdown'   : 1,
+        "\ 'php'        : 1,
+        "\ 'python'     : 1,
+        "\ 'sh'         : 1,
+        "\ 'snippets'   : 1,
+        "\}
 "------ for YouCompleteMe ------
 
 "for java, ctags就是一砣, 太差了,一点都跳不准~
