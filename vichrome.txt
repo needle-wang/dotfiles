@@ -13,9 +13,9 @@ nmap F   :GoFMode
 nmap Y   :copyurl
 nmap o   :TabOpenNew -i
 nmap b   :TabOpenNew -b
-nmap t   :TabOpenNew cn.bing.com
-nmap q   :TabOpenNew www.baidu.com/s?wd=ip
+nmap t   :TabOpenNew file:///media/BACKUP/1LANDJ/快盘/0HTML及CSS等/主流搜索引擎页面_老赵作业/baidu_Index.html
 nmap w   :TabOpenNew www.baidu.com/s?wd=天气
+nmap q   :TabOpenNew www.ip138.com
 
 nmap s       <DISCARD>
 nmap <Space> <DISCARD>

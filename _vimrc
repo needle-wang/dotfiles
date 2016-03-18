@@ -266,10 +266,10 @@ let g:netrw_browsex_viewer= "google-chrome"
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
             \| setlocal shiftwidth=2
-"如果想用jinja2模板, 就改为如下:
-"autocmd FileType html set filetype=htmljinja
+
 autocmd FileType html set filetype=htmldjango
 
+"大写的X键几乎没用过, 应该也可改
 noremap j gj
 noremap k gk
 noremap P "+gp
@@ -497,12 +497,16 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_filetype_whitelist = {
         \ 'c'          : 1,
         \ 'cpp'        : 1,
+        \ 'css'        : 1,
         \ 'html'       : 1,
         \ 'htmldjango' : 1,
         \ 'htmljinja'  : 1,
         \ 'java'       : 1,
         \ 'javascript' : 1,
+        \ 'markdown'   : 1,
         \ 'python'     : 1,
+        \ 'sh'         : 1,
+        \ 'snippets'   : 1,
         \}
 "------ for YouCompleteMe ------
 
