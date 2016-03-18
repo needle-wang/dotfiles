@@ -499,6 +499,7 @@ let g:ycm_filetype_whitelist = {
         \ 'cpp'        : 1,
         \ 'html'       : 1,
         \ 'htmldjango' : 1,
+        \ 'htmljinja'  : 1,
         \ 'java'       : 1,
         \ 'javascript' : 1,
         \ 'python'     : 1,
