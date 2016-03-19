@@ -110,8 +110,7 @@ Plugin 'needle-wang/vim-snippets'
 "Plugin 'msanders/snipmate.vim'
 "Plugin ''scrooloose/snipmate-snippets'
 "语法检查器,保存文本时检查(即默认的主动模式)
-"我可能并不需要syntastic
-"Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 "注释插件,评分最高
 Plugin 'scrooloose/nerdcommenter'
 "中文文档(asins/vimcdoc里面有)
@@ -560,31 +559,50 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "set complete+=k
 "------ for bootstrap-snippets ------
 
-""------ for syntastic ------
-""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
-"let g:syntastic_mode_map = { 'mode' : 'passive' }
-"let g:syntastic_error_symbol = 'X>'
-"let g:syntastic_warning_symbol = '⚠'
-""退出不检查
-"let g:syntastic_check_on_wq = 0
-""主动模式与python-mode冲突,导致有两次语法检查, 要么设成被动模式
-"let g:pymode_lint_write = 0
-""出现错误自动打开错误位置列表,没有出现则不打开
-""let g:syntastic_auto_loc_list = 1
-""即时刷新错误位置(:Errors)列表!
-"let g:syntastic_always_populate_loc_list=1
-""去掉警告信息
-"let g:syntastic_quiet_messages = {'level' : 'warnings'}
-"let g:syntastic_python_checkers=['pyflakes']
-""syntastic_java_checkers与eclim有冲突
-""html检查要联网,或自己架server~
-""let g:syntastic_html_checkers=['w3']
-""let g:syntastic_javascript_checkers=['javascript']
-"noremap gs :SyntasticCheck<CR>
+"------ for syntastic ------
+"手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
+let g:syntastic_mode_map = { 'mode' : 'passive' }
+let g:syntastic_error_symbol = 'X>'
+let g:syntastic_warning_symbol = '⚠'
+"退出不检查
+let g:syntastic_check_on_wq = 0
+"主动模式与python-mode冲突,导致有两次语法检查, 要么设成被动模式
+let g:pymode_lint_write = 0
+"出现错误自动打开错误位置列表,没有出现则不打开
+"let g:syntastic_auto_loc_list = 1
+"即时刷新错误位置(:Errors)列表!
+let g:syntastic_always_populate_loc_list=1
+"去掉警告信息
+let g:syntastic_quiet_messages = {'level' : 'warnings'}
+let g:syntastic_python_checkers=['pyflakes']
+"syntastic_java_checkers与eclim有冲突
+"html检查要联网,或自己架server~
+"let g:syntastic_html_checkers=['w3']
+"let g:syntastic_javascript_checkers=['javascript']
+"nnoremap gs :SyntasticCheck<CR>
 
-noremap [n :lnext<CR>
-noremap [N :lprevious<CR>
-""------ for syntastic ------
+function Syntastic_map(map_cmd1, map_cmd2)
+    "下行可以用\<bar> 或 \|
+    "nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(776\<bar>553\<bar>42\):/<bar>echo v:exception<bar>endtry<cr>
+    try
+        execute a:map_cmd1
+    "下行用\<bar>会无效
+    "catch /^Vim\%((\a\+)\)\=:E\%(776\<Bar>553\<Bar>42\):/
+    "E776: no location list, E553: no more error item, E42: no error
+    catch /^Vim\%((\a\+)\)\=:E\%(776\|553\|42\):/
+        try
+            SyntasticCheck
+            execute a:map_cmd2
+        catch /.*/
+            echo v:exception
+        endtry
+    catch
+        echo v:exception
+    endtry
+endfunction
+nnoremap [n :call Syntastic_map("lnext", "lfirst")<CR>
+nnoremap [N :call Syntastic_map("lprevious", "llast")<CR>
+"------ for syntastic ------
 
 "------ for tabular ------
 "g;和g,很有用
