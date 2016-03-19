@@ -347,8 +347,6 @@ nnoremap <right> :tab sbn<CR>
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
-vnoremap t mc"+y`c
-
 imap vv <Esc>Pa
 inoremap <c-o> <c-\><c-o>
 inoremap <c-b> <Left>
@@ -389,9 +387,12 @@ vnoremap : ;
 vnoremap gj <c-w><c-j>
 vnoremap gk <c-w><c-k>
 "vmap应用于可视+选择模式, xmap只用于可视模式
+xnoremap t mc"+y`c
 "ultisnips的片段使用了选择模式
 xnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
 xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+"选择模式没法映射好像~
+"snoremap t <c-o>mc"+y`c
 
 cabbrev e1    e!
 cabbrev q1    q!
@@ -591,6 +592,7 @@ function Syntastic_map(map_cmd1, map_cmd2)
     "E776: no location list, E553: no more error item, E42: no error
     catch /^Vim\%((\a\+)\)\=:E\%(776\|553\|42\):/
         try
+            up  "SyntasticCheck只能检查保存后的内容
             SyntasticCheck
             execute a:map_cmd2
         catch /.*/
@@ -600,8 +602,8 @@ function Syntastic_map(map_cmd1, map_cmd2)
         echo v:exception
     endtry
 endfunction
-nnoremap [n :call Syntastic_map("lnext", "lfirst")<CR>
-nnoremap [N :call Syntastic_map("lprevious", "llast")<CR>
+nnoremap <silent> [n :call Syntastic_map("lnext", "lfirst")<CR>
+nnoremap <silent> [N :call Syntastic_map("lprevious", "llast")<CR>
 "------ for syntastic ------
 
 "------ for tabular ------
