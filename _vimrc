@@ -257,65 +257,64 @@ autocmd FileType javascript,html,css
 
 autocmd FileType html set filetype=htmldjango
 
-"大写的X键几乎没用过, 应该也可改
-noremap j gj
-noremap k gk
-noremap P "+gp
-noremap - _
-noremap ; :
-noremap : ;
-noremap Q :Ag!<CR>
-noremap gq :Ag!<space>
-noremap <space> :nohl<CR><c-l>
+"大写的X键使用频率过小, 应该也可改
+noremap          -  _
+noremap          ;  :
+noremap          :  ;
+noremap          '  `
+noremap          `  '
+noremap <silent> \| :call NERDComment("n", "Comment")<CR>
+"高亮光标下的单词, 且光标坐标不变
+noremap          &  mmHmt`m*`tzt`m
+noremap <silent> *  *zz
+noremap <silent> #  #zz
+noremap    <space>  :nohl<CR><c-l>
 "去行尾空格, tab, \r
-noremap ,<space> mmHmt:%s/\s*[ \t\r]$//e<CR>`tzt`m
-"noremap <Bar> ms:up<CR>
-noremap g\    ms:up<CR>
+noremap   ,<space>  mmHmt:%s/\s*[ \t\r]$//e<CR>`tzt`m
+noremap          j  gj
+noremap          k  gk
+noremap <silent> n  nzz
+noremap <silent> N  Nzz
+noremap          P  "+gp
+noremap          Q  :Ag!<CR>
+noremap <silent> g* g*zz
+noremap          g\ ms:up<CR>
 "for hhkb
-noremap gs    ms:up<CR>
-noremap <silent> <Bar> :call NERDComment("n", "Comment")<CR>
+noremap          g3 moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
+noremap <silent> g8 :TagbarToggle<CR>
 noremap <silent> gc :call NERDComment("n", "Comment")<CR>
 noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
-"高亮光标下的单词, 且光标坐标不变
-noremap & mmHmt`m*`tzt`m
-noremap ' `
-noremap ` '
-noremap <silent> * *zz
-noremap <silent> # #zz
-noremap <silent> n nzz
-noremap <silent> N Nzz
-noremap <silent> g* g*zz
-
-noremap <F1> <Esc>
-noremap <F3> moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
+noremap          gq :Ag!<space>
 "for hhkb
-noremap g3   moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
-"noremap <F4> :Errors<CR>
-"noremap <F5> :SyntasticCheck<CR>
+noremap          gs ms:up<CR>
+
+noremap          <F1> <Esc>
+noremap          <F3> moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
+noremap          <F4> :Errors<CR>
+noremap          <F5> :SyntasticCheck<CR>
 noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
-noremap <silent> g8   :TagbarToggle<CR>
-noremap <F12> :syntax sync fromstart<CR>
+noremap         <F12> :syntax sync fromstart<CR>
 
-nnoremap t "+y
-nnoremap T "+yy
-nnoremap Y y$
 "使特殊字符不用转义就默认变成正则含义
 "h magic
-nnoremap / /\v
-nnoremap co 2o<Esc>k
-nnoremap cO O<Esc>j
+nnoremap /     /\v
+nnoremap t     "+y
+nnoremap T     "+yy
+nnoremap Y     y$
+nnoremap co    2o<Esc>k
+nnoremap cO    O<Esc>j
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
-nnoremap gz :tabnew<space>
+nnoremap gz    :tabnew<space>
+nnoremap <silent> _ :tabm-1<CR>
+nnoremap <silent> + :tabm+1<CR>
 nnoremap <silent> gr    gT
 nnoremap <silent> <c-h> gT
 nnoremap <silent> <c-l> gt
 nnoremap <silent> g[ :tabfirst<CR>
 nnoremap <silent> g] :tablast<CR>
-nnoremap <silent> _ :tabm-1<CR>
-nnoremap <silent> + :tabm+1<CR>
 nnoremap <silent> gn :NERDTreeFind<CR>
 nnoremap <silent> gN :NERDTree<CR>
 nnoremap <silent> gh <c-w><c-h>
@@ -336,24 +335,23 @@ nnoremap <right> :tab sbn<CR>
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
-imap vv <Esc>Pa
-inoremap <c-o> <c-\><c-o>
-inoremap <c-b> <Left>
-inoremap <c-f> <Right>
-inoremap <c-l> <Del>
-inoremap <c-s> <Esc>ms:up<CR>a
+inoremap    vv  <Esc>"+gpa
+inoremap <c-o>  <c-\><c-o>
+inoremap <c-b>  <Left>
+inoremap <c-f>  <Right>
+inoremap <c-l>  <Del>
+inoremap <c-s>  <Esc>ms:up<CR>a
 inoremap <c-g>\ <Esc>ms:up<CR>a
 "<c-/> doesn't work on gvim...
 "inoremap <c-/> <c-o>:cnext<CR>
 "inoremap <c-/> <c-o>:cprevious<CR>
 autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>
-inoremap <F1> <nop>
-inoremap <F3> <Esc>moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2ja
-"inoremap <F5> <c-o>:SyntasticCheck<CR>
+inoremap <F1>  <Esc>
+inoremap <F3>  <Esc>moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-"中文标点有时不会触发
+"有的中文标点不会触发
 inoremap ,  ,<space>
 inoremap ， ,<space>
 inoremap :  :<space>
@@ -363,35 +361,33 @@ inoremap ； ;<space>
 inoremap “  "<space>
 inoremap ”  "<space>
 "用iabbrev需要空格或回车触发
-"所以这几个iab没多大用处
+"所以某些coding情况下iab不会触发
 iabbrev none None
 iabbrev true True
 iabbrev false False
 
 autocmd BufNewFile,BufRead * call Add_space()
 
-vnoremap / /\v
-vnoremap ; :
-vnoremap : ;
+vnoremap /  /\v
+"vmap应用于可视+选择模式, xmap只用于可视模式
+xnoremap t  mc"+y`c
 vnoremap gj <c-w><c-j>
 vnoremap gk <c-w><c-k>
-"vmap应用于可视+选择模式, xmap只用于可视模式
-xnoremap t mc"+y`c
 "ultisnips的片段使用了选择模式
 xnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
 xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 "选择模式没法映射好像~
 "snoremap t <c-o>mc"+y`c
 
-cabbrev e1    e!
-cabbrev q1    q!
-cabbrev qa1    qa!
-cnoremap cwd lcd %:p:h
-cnoremap cd. lcd %:p:h
+cabbrev   e1   e!
+cabbrev   q1   q!
+cabbrev  qa1   qa!
+cnoremap cwd   lcd %:p:h
+cnoremap cd.   lcd %:p:h
 cnoremap <c-a> <Home>
+cnoremap <c-b> <Left>
 cnoremap <c-f> <Right>
 cnoremap <c-g> <c-f>
-cnoremap <c-b> <Left>
 cnoremap <c-l> <Del>
 command W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
@@ -428,20 +424,20 @@ vmap q) S)%
 "------ for surround ------
 
 "------ for emmet ------
+let g:user_emmet_leader_key = '<F11>'
 "emmet不能映射<Bar>, 会导致ultisnips失效
 "不能用noremap, leaderkey会失效
-let g:user_emmet_leader_key = '<F11>'
-map <c-n> <F11>,
+map <c-n>  <F11>,
 "<c-/>, <c-&>, <c-_>可生成
 "还有一些特殊符号可改, 具体忘了
-map  <F11>,
-imap  <c-o><F11>,
+map      <F11>,
+imap     <c-o><F11>,
 "------ for emmet ------
 
 "------ for nerdtree ------
+"let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI  = 1
 let NERDTreeMouseMode  = 2
-"let NERDTreeQuitOnOpen = 1
 let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
 "最后一个窗口是nerdtree时, 关闭vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -468,24 +464,20 @@ let g:EasyMotion_leader_key = ','
 
 "------ for YouCompleteMe ------
 "vim中, <c-m>等价于Enter(<CR>)
-"inoremap <c-b> <c-x><c-o>
-"设定跳转命令在哪里打开
-let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 "跳转到定义
-nnoremap <leader>g :YcmCompleter GoTo<CR>
-nnoremap <silent> go :YcmCompleter GoTo<CR>
-let g:ycm_complete_in_comments = 1
-let g:ycm_key_list_select_completion = ['<Down>']
+nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
+nnoremap <silent>        go :YcmCompleter GoTo<CR>
+let g:ycm_seed_identifiers_with_syntax = 1                       "语法关键字补全
+let g:ycm_complete_in_comments         = 1                       "在注释中也启用补全
+let g:ycm_goto_buffer_command          = 'new-or-existing-tab'   "设定跳转命令在哪里打开
+let g:ycm_key_list_select_completion   = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
-"let g:ycm_add_preview_to_completeopt = 1
+"let g:ycm_add_preview_to_completeopt   = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "上行无效~, 下行有效~, 老出问题
 "autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"语法关键字补全
-let g:ycm_seed_identifiers_with_syntax = 1
-"使用YouCompleteMe的白名单
 "YouCompleteMe对不支持语义(semantic)补全的就会使用omnifunc, 如html
-"黑名单在白名单中的补集
+"启用范围为 黑名单在白名单中的补集
 let g:ycm_filetype_blacklist = {
         \ 'tagbar'   : 1,
         \ 'qf'       : 1,
@@ -536,9 +528,9 @@ let g:ycm_filetype_blacklist = {
 set completeopt=longest,menu
 
 "------ for UltiSnips ------
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 "------ for UltiSnips ------
 
 "------ for xptemplate ------
@@ -553,24 +545,22 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "------ for syntastic ------
 "手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
-let g:syntastic_mode_map = { 'mode' : 'passive' }
-let g:syntastic_error_symbol = 'X>'
+let g:syntastic_mode_map       = { 'mode' : 'passive' }
+let g:syntastic_error_symbol   = 'X>'
 let g:syntastic_warning_symbol = '⚠'
-"退出不检查
-let g:syntastic_check_on_wq = 0
-"主动模式与python-mode冲突,导致有两次语法检查, 要么设成被动模式
-let g:pymode_lint_write = 0
-"出现错误自动打开错误位置列表,没有出现则不打开
-"let g:syntastic_auto_loc_list = 1
-"即时刷新错误位置(:Errors)列表!
-let g:syntastic_always_populate_loc_list=1
-"去掉警告信息
-let g:syntastic_quiet_messages = {'level' : 'warnings'}
-let g:syntastic_python_checkers=['pyflakes']
+
+let g:syntastic_check_on_wq = 0     "退出不检查
+"主动模式与python-mode冲突, 导致有两次语法检查, 要么设成被动模式
+"let g:pymode_lint_write = 0     "for python-mode
+"出现错误自动打开错误位置列表, 没有出现则不打开
+"let g:syntastic_auto_loc_list           = 1
+let g:syntastic_always_populate_loc_list = 1                          "即时刷新错误位置(:Errors)列表!
+let g:syntastic_quiet_messages           = {'level' : 'warnings'}     "去掉警告信息
+let g:syntastic_python_checkers          = ['pyflakes']
 "syntastic_java_checkers与eclim有冲突
-"html检查要联网,或自己架server~
-"let g:syntastic_html_checkers=['w3']
-"let g:syntastic_javascript_checkers=['javascript']
+"html检查要联网, 或自己架server~
+"let g:syntastic_html_checkers       = ['w3']
+"let g:syntastic_javascript_checkers = ['javascript']
 "nnoremap gs :SyntasticCheck<CR>
 
 function Syntastic_map(map_cmd1, map_cmd2)
@@ -617,20 +607,13 @@ let g:tagbar_width = 37
 "autocmd FileType python,java,cpp,c nested :TagbarOpen
 "autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
 "autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
-"去掉含有<F1>的首行
-let g:tagbar_compact = 1
-"修改tagbar内的缩进空间
-let g:tagbar_indent = 3
-"标签按代码中的顺序排序
-let g:tagbar_sort = 0
-"打开tagbar时自动获取焦点
-"let g:tagbar_autofocus = 1
-"单击打开标签
-let g:tagbar_singleclick = 1
-"自动打开折叠
-let g:tagbar_autoshowtag = 1
-"自动高亮当前tag的间隔时间，全局的
-set updatetime=700
+"let g:tagbar_sort       = 0    "标签按代码中的顺序排序
+"let g:tagbar_autofocus  = 1    "打开tagbar时自动获取焦点
+let g:tagbar_compact     = 1    "去掉含有<F1>的首行
+let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
+let g:tagbar_singleclick = 1    "单击打开标签
+let g:tagbar_autoshowtag = 1    "自动打开折叠
+set updatetime=700              "自动高亮当前tag的间隔时间，全局的
 "------ for tagbar ------
 
 "------ for eclim ------
@@ -657,11 +640,11 @@ set updatetime=700
 "------ for Vim-JDE" ------
 
 "------ for ctrlp ------
-let g:ctrlp_regexp = 1
-let g:ctrlp_by_filename = 1
+let g:ctrlp_regexp        = 1
+let g:ctrlp_by_filename   = 1
 let g:ctrlp_custom_ignore = {
-    \ 'dir'  :  '\v[\/]\.(git|hg|svn|rvm)$',
-    \ 'file' : '\v\.(exe|so|dll|pyc|swp)$',
+    \ 'dir'  :  '\v[\/]\.(git|hg|svn|rvm)$' ,
+    \ 'file' : '\v\.(exe|so|dll|pyc|swp)$'  ,
     \ }
 "------ for ctrlp ------
 
