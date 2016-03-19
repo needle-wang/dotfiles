@@ -1,4 +1,8 @@
 
+behave mswin
+"gvim去掉工具栏
+set guioptions-=T
+
 "以下对gvim做出调整, 放在vimrc里应该也可以吧, 以后再说吧
 "去掉出错鸣叫
 set vb t_vb=

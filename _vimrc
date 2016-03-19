@@ -128,7 +128,7 @@ Plugin 'rking/ag.vim'
 "Plugin 'slimv.vim'
 
 "for snipmate, 不过ultisnips默认支持
-Plugin 'bonsaiben/bootstrap-snippets'
+Plugin 'needle-wang/bootstrap-snippets'
 "jinja2语法文件
 "Plugin 'Glench/Vim-Jinja2-Syntax'
 "垂直缩进线
@@ -229,37 +229,26 @@ endif
 let &termencoding=&fileencoding
 "------乱码解决方案------
 
+set autoread
+set cursorline     "高亮光标所在行
+set expandtab
+set history=1000  
+set ignorecase
+set keywordprg=    "禁用man,使用内置help
+set laststatus=2   "让单窗口时也会出现lightline
 set nobackup
 set noswapfile
-set autoread
 set number
-"高亮光标所在行
-set cursorline
-set ignorecase
 set smartcase
-"光标上下两侧最少保留的屏幕行数
-set scrolloff=4
-"<tab>占的空格数
-set tabstop=4
-"自动缩进的空格数
-set shiftwidth=4
-"将tab扩展成空格,删除不好控制,还是不要~
-set expandtab
-"<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
-set smarttab
-"禁用man,使用内置help
-set keywordprg=
-"文件补全时忽略下列文件
-set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-"让单窗口时也会出现lightline
-set laststatus=2
+set scrolloff=4    "光标上下两侧最少保留的屏幕行数
+set shiftwidth=4   "自动缩进的空格数
+set smarttab       "<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
 "放这好像被莫名覆盖了~
 "set switchbuf=usetab,newtab
-"gvim去掉菜单
-"set guioptions-=m
-"gvim去掉工具栏
-set guioptions-=T
-behave mswin
+set tabstop=4      "<tab>占的空格数
+"文件补全时忽略下列文件
+set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+
 let g:netrw_browsex_viewer= "google-chrome"
 
 autocmd FileType javascript,html,css
@@ -397,6 +386,8 @@ xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 cabbrev e1    e!
 cabbrev q1    q!
 cabbrev qa1    qa!
+cnoremap cwd lcd %:p:h
+cnoremap cd. lcd %:p:h
 cnoremap <c-a> <Home>
 cnoremap <c-f> <Right>
 cnoremap <c-g> <c-f>
