@@ -249,7 +249,7 @@ set tabstop=4      "<tab>占的空格数
 "文件补全时忽略下列文件
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 
-let g:netrw_browsex_viewer= "google-chrome"
+let g:netrw_browsex_viewer = "google-chrome"
 
 autocmd FileType javascript,html,css
             \| setlocal tabstop=2
@@ -264,10 +264,12 @@ noremap          :  ;
 noremap          '  `
 noremap          `  '
 noremap <silent> \| :call NERDComment("n", "Comment")<CR>
-"高亮光标下的单词, 且光标坐标不变
-noremap          &  mmHmt`m*`tzt`m
+"使特殊字符不用转义就默认变成正则含义(:h magic)
+noremap          /  /\v
 noremap <silent> *  *zz
 noremap <silent> #  #zz
+"高亮光标下的单词, 且光标坐标不变
+noremap          &  mmHmt`m*`tzt`m
 noremap    <space>  :nohl<CR><c-l>
 "去行尾空格, tab, \r
 noremap   ,<space>  mmHmt:%s/\s*[ \t\r]$//e<CR>`tzt`m
@@ -297,9 +299,6 @@ noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
 noremap         <F12> :syntax sync fromstart<CR>
 
-"使特殊字符不用转义就默认变成正则含义
-"h magic
-nnoremap /     /\v
 nnoremap t     "+y
 nnoremap T     "+yy
 nnoremap Y     y$
@@ -368,11 +367,10 @@ iabbrev false False
 
 autocmd BufNewFile,BufRead * call Add_space()
 
-vnoremap /  /\v
 "vmap应用于可视+选择模式, xmap只用于可视模式
-xnoremap t  mc"+y`c
-vnoremap gj <c-w><c-j>
-vnoremap gk <c-w><c-k>
+xnoremap     t mc"+y`c
+vnoremap    gj <c-w><c-j>
+vnoremap    gk <c-w><c-k>
 "ultisnips的片段使用了选择模式
 xnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
 xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
@@ -392,8 +390,8 @@ cnoremap <c-l> <Del>
 command W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
 "------ for solarized ------
-let g:solarized_termcolors=256
-let g:solarized_contrast="high"    "default value is normal
+let g:solarized_termcolors = 256
+let g:solarized_contrast   = "high"    "default value is normal
 syntax enable
 set background=dark
 colorscheme solarized
@@ -644,7 +642,7 @@ let g:ctrlp_regexp        = 1
 let g:ctrlp_by_filename   = 1
 let g:ctrlp_custom_ignore = {
     \ 'dir'  :  '\v[\/]\.(git|hg|svn|rvm)$' ,
-    \ 'file' : '\v\.(exe|so|dll|pyc|swp)$'  ,
+    \ 'file' :  '\v\.(exe|so|dll|pyc|swp)$' ,
     \ }
 "------ for ctrlp ------
 
