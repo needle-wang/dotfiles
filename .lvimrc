@@ -13,9 +13,10 @@ let g:vimango_app_prefix = ''
 
 "for browserlink
 " /*/*.html 的形式不生效
-"au BufWritePost */templates/*/*.html  BLReloadPage
-au BufWritePost */templates_bs3/*.html BLReloadPage
-au BufWritePost */templates/*.html     BLReloadPage
+"autocmd BufWritePost */templates/*/*.html   BLReloadPage
+"autocmd BufWritePost */templates_bs3/*.html BLReloadPage
+"autocmd BufWritePost */templates/*.html     BLReloadPage
+autocmd BufWritePost *.html                 BLReloadPage
 
 autocmd BufNewFile *.py   call Template_py()
 autocmd BufNewFile *.sh   call Template_sh()
