@@ -273,8 +273,8 @@ noremap          &  mmHmt`m*`tzt`m
 noremap    <space>  :nohl<CR><c-l>
 "去行尾空格, tab, \r
 noremap   ,<space>  mmHmt:%s/\s*[ \t\r]$//e<CR>`tzt`m
-noremap          j  gj
-noremap          k  gk
+noremap <silent> j  gj
+noremap <silent> k  gk
 noremap <silent> n  nzz
 noremap <silent> N  Nzz
 noremap          P  "+gp
