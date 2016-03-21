@@ -40,4 +40,12 @@ set hintchars=fdsaghjklwertyuiovbcnm
 "map H <c-o>
 "map L <c-i>
 
+set nextpattern=\s*下一页|下一张|下一篇|下页|后页\s*,^\\bnext\\b,\\bnext\\b,^>$,^(>>|»)$,^(>|»),(>|»)$,\\bmore\\b
+set previouspattern=\s*上一页|上一张|上一篇|上页|前页\s*,^\\bprev|previous\\b,\\bprev|previous\\b,^<$,^(<<|«)$,^(<|«),(<|«)$
+set titlestring=Firefox
+
+"firefox's about:config
+set! javascript.options.jit.chrome=true
+
+
 "vim: set ft=vimperator:

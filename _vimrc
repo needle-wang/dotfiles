@@ -153,7 +153,7 @@ filetype plugin indent on     " required
 " Put your non-Plugin stuff after this line
 
 function Result_of_run(run_sign)
-    "!ls这样运行会显示的是shell界面下的结果
+    "!ls这样运行, 显示的结果会切换到shell界面
     echo system(a:run_sign . shellescape(expand('%')))
 endfunction
 
@@ -239,6 +239,7 @@ set laststatus=2   "让单窗口时也会出现lightline
 set nobackup
 set noswapfile
 set number
+set sessionoptions=blank,buffers,curdir,folds,options,tabpages,winsize,slash,unix,resize
 set smartcase
 set scrolloff=4    "光标上下两侧最少保留的屏幕行数
 set shiftwidth=4   "自动缩进的空格数
@@ -248,6 +249,7 @@ set smarttab       "<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
 set tabstop=4      "<tab>占的空格数
 "文件补全时忽略下列文件
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+setlocal autochdir
 
 let g:netrw_browsex_viewer = "google-chrome"
 
@@ -304,9 +306,10 @@ nnoremap T     "+yy
 nnoremap Y     y$
 nnoremap co    2o<Esc>k
 nnoremap cO    O<Esc>j
+nnoremap gf    <c-w>gf
+nnoremap gz    :tabnew<space>
 nnoremap <C-e> 2<C-e>
 nnoremap <C-y> 2<C-y>
-nnoremap gz    :tabnew<space>
 nnoremap <silent> _ :tabm-1<CR>
 nnoremap <silent> + :tabm+1<CR>
 nnoremap <silent> gr    gT
@@ -666,5 +669,24 @@ let g:ag_prg = 'ag --column --smart-case'
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
     source ~/.lvimrc
+endif
+
+if has("gui_running")
+    behave mswin
+    
+    set guioptions-=T       "gvim去掉工具栏
+    set vb t_vb=            "去掉出错鸣叫
+    set columns=90
+
+    if has("win32")
+        "在高分屏下要是字显小就调大些
+        set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI,Consolas:h12:cANSI
+        "win下中文(即双宽字体)需要gfw, ubuntu下中文应该是沿用guifont吧
+        "比Bitstream显示效果要好(Bitstream要下载, win自带consolas)
+        set guifontwide=Consolas:h12:cANSI
+    else
+        "Ubuntu下, Ubuntu Mono 比 Bitstream显示效果要好
+        set guifont=Ubuntu\ Mono\ 18,Bitstream\ Vera\ Sans\ Mono\ 16
+    endif       
 endif
 
