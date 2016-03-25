@@ -204,22 +204,19 @@ endfunction
 
 "------乱码解决方案------
 "设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
-"encoding: vim内部任何东西均使用此编码
-set encoding=utf-8
+set encoding=utf-8      "encoding: vim内部任何东西均使用此编码
 
-"fileencodings: 探测文件编码时的顺序
 "若写chinese而不写cp936(以gbk为基础),可能会识别成euc-cn(gb2312的表示方法),
 "此时, 如果文件内有一些繁体或生僻字依然乱码,
 "若无这些字,而增加这些字会保存不了(如 嚭 字)
-set fileencodings=utf-8,cp936,latin-1
+set fileencodings=utf-8,cp936,latin-1   "fileencodings: 探测文件编码时的顺序
+
 "fileencoding: 设置此缓冲区所在文件的字符编码, 保存时也以此为依据
 if has("win32")
-    set fileencoding=chinese   "要了解chinese, 可help一下
-    "处理菜单及右键菜单乱码, only win, 因为encoding
-    source $VIMRUNTIME/delmenu.vim
+    set fileencoding=chinese            "help chinese
+    source $VIMRUNTIME/delmenu.vim      "处理菜单及右键菜单乱码, only win, 因为encoding
     source $VIMRUNTIME/menu.vim
-    "处理vim的consle输出乱码, only win
-    language messages zh_CN.utf-8
+    language messages zh_CN.utf-8       "处理vim的consle输出乱码, only win
 else
     set fileencoding=utf-8
 endif
@@ -230,26 +227,26 @@ let &termencoding=&fileencoding
 "------乱码解决方案------
 
 set autoread
-set cursorline     "高亮光标所在行
+set cursorline      "高亮光标所在行
 set expandtab
-set history=1000  
+set history=1000
 set ignorecase
-set keywordprg=    "禁用man,使用内置help
-set laststatus=2   "让单窗口时也会出现lightline
+set keywordprg=     "禁用man,使用内置help
+set laststatus=2    "让单窗口时也会出现lightline
 set nobackup
 set noswapfile
 set number
 set sessionoptions=blank,buffers,curdir,folds,options,tabpages,winsize,slash,unix,resize
 set smartcase
-set scrolloff=4    "光标上下两侧最少保留的屏幕行数
-set shiftwidth=4   "自动缩进的空格数
-set smarttab       "<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
+set scrolloff=4     "光标上下两侧最少保留的屏幕行数
+set shiftwidth=4    "自动缩进的空格数
+set smarttab        "<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
 "放这好像被莫名覆盖了~
 "set switchbuf=usetab,newtab
-set tabstop=4      "<tab>占的空格数
-"文件补全时忽略下列文件
-set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-setlocal autochdir
+set tabstop=4       "<tab>占的空格数
+set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store   "文件补全时忽略下列文件
+
+"setlocal autochdir "与fugitive有冲突
 
 let g:netrw_browsex_viewer = "google-chrome"
 
@@ -304,6 +301,7 @@ noremap         <F12> :syntax sync fromstart<CR>
 nnoremap t     "+y
 nnoremap T     "+yy
 nnoremap Y     y$
+nnoremap cd    :lcd %:p:h<CR>
 nnoremap co    2o<Esc>k
 nnoremap cO    O<Esc>j
 nnoremap gf    <c-w>gf
@@ -383,8 +381,8 @@ xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
 cabbrev   e1   e!
 cabbrev   q1   q!
 cabbrev  qa1   qa!
-cnoremap cwd   lcd %:p:h
-cnoremap cd.   lcd %:p:h
+"cnoremap cwd   lcd %:p:h
+"cnoremap cd.   lcd %:p:h
 cnoremap <c-a> <Home>
 cnoremap <c-b> <Left>
 cnoremap <c-f> <Right>
@@ -466,7 +464,7 @@ let g:EasyMotion_leader_key = ','
 "------ for YouCompleteMe ------
 "vim中, <c-m>等价于Enter(<CR>)
 "跳转到定义
-nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
+"nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent>        go :YcmCompleter GoTo<CR>
 let g:ycm_seed_identifiers_with_syntax = 1                       "语法关键字补全
 let g:ycm_complete_in_comments         = 1                       "在注释中也启用补全
@@ -608,12 +606,12 @@ let g:tagbar_width = 37
 "autocmd FileType python,java,cpp,c nested :TagbarOpen
 "autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
 "autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
-"let g:tagbar_sort       = 0    "标签按代码中的顺序排序
-"let g:tagbar_autofocus  = 1    "打开tagbar时自动获取焦点
+"let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
+"let g:tagbar_autoshowtag = 0    "自动打开折叠
+"let g:tagbar_sort        = 0    "标签按代码中的顺序排序
 let g:tagbar_compact     = 1    "去掉含有<F1>的首行
 let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
 let g:tagbar_singleclick = 1    "单击打开标签
-let g:tagbar_autoshowtag = 1    "自动打开折叠
 set updatetime=700              "自动高亮当前tag的间隔时间，全局的
 "------ for tagbar ------
 
@@ -666,6 +664,10 @@ let g:ag_prg = 'ag --column --smart-case'
 "window.__BL_OVERRIDE_CACHE = true
 "------ for browserlink ------
 
+"------ for vim-fugitive ------
+nnoremap \g :Gstatus<CR>
+"------ for vim-fugitive ------
+
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
     source ~/.lvimrc
@@ -673,7 +675,7 @@ endif
 
 if has("gui_running")
     behave mswin
-    
+
     set guioptions-=T       "gvim去掉工具栏
     set vb t_vb=            "去掉出错鸣叫
     set columns=90
@@ -687,6 +689,6 @@ if has("gui_running")
     else
         "Ubuntu下, Ubuntu Mono 比 Bitstream显示效果要好
         set guifont=Ubuntu\ Mono\ 18,Bitstream\ Vera\ Sans\ Mono\ 16
-    endif       
+    endif
 endif
 
