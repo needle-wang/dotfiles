@@ -268,10 +268,10 @@ noremap          /  /\v
 noremap <silent> *  *zz
 noremap <silent> #  #zz
 "高亮光标下的单词, 且光标坐标不变
-noremap          &  mmHmt`m*`tzt`m
+noremap          &  mcHmt`c*`tzt`c
 noremap    <space>  :nohl<CR><c-l>
 "去行尾空格, tab, \r
-noremap   ,<space>  mmHmt:%s/\s*[ \t\r]$//e<CR>`tzt`m
+noremap   ,<space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 noremap <silent> j  gj
 noremap <silent> k  gk
 noremap <silent> n  nzz
@@ -304,6 +304,8 @@ nnoremap Y     y$
 nnoremap cd    :lcd %:p:h<CR>
 nnoremap co    2o<Esc>k
 nnoremap cO    O<Esc>j
+"g-与正常模式的u重复了, 还易按错
+nnoremap g-    <nop>
 nnoremap gf    <c-w>gf
 nnoremap gz    :tabnew<space>
 nnoremap <C-e> 2<C-e>
@@ -487,6 +489,8 @@ let g:ycm_filetype_blacklist = {
         \ 'pandoc'   : 1,
         \ 'infolog'  : 1,
         \ 'mail'     : 1,
+        \ 'tar'      : 1,
+        \ 'nerdtree' : 1,
         \}
 "let g:ycm_filetype_whitelist = {
         "\ 'c'          : 1,
