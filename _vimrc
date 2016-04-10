@@ -227,6 +227,7 @@ let &termencoding=&fileencoding
 "------乱码解决方案------
 
 set autoread
+set cedit=<C-G>     "ex模式打开命令行窗口的键
 set cursorline      "高亮光标所在行
 set expandtab
 set history=1000
@@ -391,7 +392,6 @@ cabbrev  qa1   qa!
 cnoremap <c-a> <Home>
 cnoremap <c-b> <Left>
 cnoremap <c-f> <Right>
-cnoremap <c-g> <c-f>
 cnoremap <c-l> <Del>
 command W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
@@ -531,7 +531,7 @@ let g:ycm_filetype_blacklist = {
 "autocmd FileType python inoremap <buffer> . .<C-X><C-O><C-P>
 
 "docString的预览窗口会闪屏,所以要取消preview, 设成全局的更好些
-set completeopt=longest,menu
+set completeopt+=longest
 
 "------ for UltiSnips ------
 let g:UltiSnipsExpandTrigger       = "<tab>"
