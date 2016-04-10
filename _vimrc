@@ -245,6 +245,7 @@ set smarttab        "<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
 "set switchbuf=usetab,newtab
 set tabstop=4       "<tab>占的空格数
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store   "文件补全时忽略下列文件
+set wildmode=list:longest,full
 
 "setlocal autochdir "与fugitive有冲突
 
@@ -283,7 +284,8 @@ noremap          g\ ms:up<CR>
 "for hhkb
 noremap          g3 moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
 noremap <silent> g8 :TagbarToggle<CR>
-noremap <silent> gc :call NERDComment("n", "Comment")<CR>
+noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms:up<CR>
+noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms:up<CR>
 noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
 noremap          gq :Ag!<space>
@@ -300,6 +302,7 @@ noremap         <F12> :syntax sync fromstart<CR>
 
 nnoremap t     "+y
 nnoremap T     "+yy
+nnoremap G     Gzz
 nnoremap Y     y$
 nnoremap cd    :lcd %:p:h<CR>
 nnoremap co    2o<Esc>k
@@ -681,7 +684,8 @@ if has("gui_running")
     behave mswin
 
     set guioptions-=T       "gvim去掉工具栏
-    set vb t_vb=            "去掉出错鸣叫
+    "set novisualbell
+    "set vb t_vb=            "去掉出错鸣叫
     set columns=90
 
     if has("win32")
