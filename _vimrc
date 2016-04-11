@@ -252,11 +252,13 @@ set wildmode=list:longest,full
 
 let g:netrw_browsex_viewer = "google-chrome"
 
-autocmd FileType javascript,html,css
+autocmd FileType css,html,javascript
             \| setlocal tabstop=2
             \| setlocal shiftwidth=2
 
-autocmd FileType html set filetype=htmldjango
+autocmd FileType html setlocal filetype=htmldjango
+autocmd FileType python setlocal textwidth=80
+autocmd FileType text setlocal textwidth=100
 
 "大写的X键使用频率过小, 应该也可改
 noremap          -  _
@@ -531,7 +533,7 @@ let g:ycm_filetype_blacklist = {
 "autocmd FileType python inoremap <buffer> . .<C-X><C-O><C-P>
 
 "docString的预览窗口会闪屏,所以要取消preview, 设成全局的更好些
-set completeopt+=longest
+set completeopt=longest,menu
 
 "------ for UltiSnips ------
 let g:UltiSnipsExpandTrigger       = "<tab>"
