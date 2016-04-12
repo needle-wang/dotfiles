@@ -10,6 +10,17 @@
 #应该是因为一个别名只解析一次吧
 #所以下面的先后顺序不重要, 只要全部设置完再用就没问题
 
+
+# pip bash completion start
+_pip_completion()
+{
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
+# pip bash completion end
+
 to_alias(){
 #below, must do: ln -s /usr/bin/ack-grep /bin/agrep
 alias a='agrep'
