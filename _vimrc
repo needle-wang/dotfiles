@@ -253,14 +253,6 @@ set wildmode=list:longest,full
 
 let g:netrw_browsex_viewer = "google-chrome"
 
-autocmd FileType css,html,javascript
-            \| setlocal tabstop=2
-            \| setlocal shiftwidth=2
-
-autocmd FileType html setlocal filetype=htmldjango
-autocmd FileType python setlocal textwidth=80
-autocmd FileType text setlocal textwidth=100
-
 noremap      <C-e>  2<C-e>
 noremap      <C-y>  2<C-y>
 noremap          -  _
@@ -268,7 +260,7 @@ noremap          ;  :
 noremap          :  ;
 noremap          '  `
 noremap          `  '
-noremap <silent> \| :call NERDComment("n", "Comment")<CR>
+"noremap <silent> \| :call NERDComment("n", "Comment")<CR>
 "使特殊字符不用转义就默认变成正则含义(:h magic)
 noremap          /  /\v
 noremap <silent> *  *zz
@@ -283,7 +275,7 @@ noremap <silent> k  gk
 noremap <silent> n  nzz
 noremap <silent> N  Nzz
 noremap          P  "+gp
-noremap          Q  :Ag!<CR>
+"noremap          Q  :Ag!<CR>
 noremap <silent> g* g*zz
 noremap          g\ ms:up<CR>
 "for hhkb
@@ -351,6 +343,7 @@ inoremap <C-f>  <Right>
 inoremap <C-l>  <Del>
 inoremap <C-s>  <Esc>ms:up<CR>a
 inoremap <C-g>\ <Esc>ms:up<CR>a
+inoremap <C-g>v <Esc>"+gpa
 "<C-/> doesn't work on gvim...
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
@@ -431,14 +424,15 @@ vmap q) S)%
 "------ for surround ------
 
 "------ for emmet ------
-let g:user_emmet_leader_key = '<F11>'
+let g:user_emmet_leader_key = 'Q'
+let g:user_emmet_mode = 'nv'
 "emmet不能映射<Bar>, 会导致ultisnips失效
 "不能用noremap, leaderkey会失效
-map <C-n>  <F11>,
+map <C-n>  <plug>(emmet-expand-abbr)
 "<C-/>, <C-&>, <C-_>可生成
 "还有一些特殊符号可改, 具体忘了
-map      <F11>,
-imap     <C-o><F11>,
+map      <plug>(emmet-expand-abbr)
+imap     <C-o><plug>(emmet-expand-abbr)
 "------ for emmet ------
 
 "------ for nerdtree ------
@@ -497,6 +491,8 @@ let g:ycm_filetype_blacklist = {
         \ 'mail'     : 1,
         \ 'tar'      : 1,
         \ 'nerdtree' : 1,
+        \ 'c'        : 1,
+        \ 'cpp'      : 1,
         \}
 "let g:ycm_filetype_whitelist = {
         "\ 'c'          : 1,

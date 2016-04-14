@@ -1,3 +1,14 @@
+
+autocmd FileType css,html,javascript
+            \| setlocal tabstop=2
+            \| setlocal shiftwidth=2
+
+autocmd FileType text   setlocal textwidth=100
+
+autocmd FileType html   setlocal filetype=htmldjango
+autocmd FileType python setlocal textwidth=80
+autocmd FileType python setlocal tabstop=2 | setlocal shiftwidth=2
+
 "for django
 "from django.shortcuts import render_to_response
 "from django.http import Http404 , HttpResponse , HttpResponseRedirect
@@ -27,4 +38,3 @@ autocmd BufNewFile *.html call Template_html()
 "如果想用jinja2模板, 就改为如下:
 "autocmd FileType html set filetype=htmljinja
 
-autocmd FileType python setlocal tabstop=2 | setlocal shiftwidth=2
