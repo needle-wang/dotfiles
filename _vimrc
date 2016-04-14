@@ -86,6 +86,8 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'klen/python-mode'
 Plugin 'fs111/pydoc.vim'
 Plugin 'needle-wang/ViMango'
+"解决py方法定义的括号的缩进问题
+Plugin 'hynek/vim-python-pep8-indent'
 "Plugin 'othree/html5.vim'
 "Plugin 'jaredly/vim-debug'
 Plugin 'godlygeek/tabular'
@@ -132,7 +134,8 @@ Plugin 'needle-wang/bootstrap-snippets'
 "jinja2语法文件
 "Plugin 'Glench/Vim-Jinja2-Syntax'
 "垂直缩进线
-"Plugin 'Yggdroot/indentLine'
+"Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Yggdroot/indentLine'
 "enable repeating supported plugin maps with "."
 Plugin 'tpope/vim-repeat'
 Plugin 'suan/vim-instant-markdown'
@@ -423,16 +426,27 @@ vmap q( S(%
 vmap q) S)%
 "------ for surround ------
 
+"------ for indentLine ------
+let g:indentLine_char = '┊'
+let g:indentLine_color_term = 239       " vim
+" none X terminal
+let g:indentLine_color_tty_light = 7
+let g:indentLine_color_dark = 1
+let g:indentLine_fileType = ['python']
+let g:indentLine_indentLevel = 4
+nnoremap g<Bar> :IndentLinesToggle<CR>
+"------ for indentLine ------
+
 "------ for emmet ------
 let g:user_emmet_leader_key = 'Q'
 let g:user_emmet_mode = 'nv'
 "emmet不能映射<Bar>, 会导致ultisnips失效
 "不能用noremap, leaderkey会失效
-map <C-n>  <plug>(emmet-expand-abbr)
+map <C-n>  <Plug>(emmet-expand-abbr)
 "<C-/>, <C-&>, <C-_>可生成
 "还有一些特殊符号可改, 具体忘了
-map      <plug>(emmet-expand-abbr)
-imap     <C-o><plug>(emmet-expand-abbr)
+map      <Plug>(emmet-expand-abbr)
+imap     <C-o><Plug>(emmet-expand-abbr)
 "------ for emmet ------
 
 "------ for nerdtree ------
@@ -462,6 +476,12 @@ endfunction
 "------ for easymotion ------
 let g:EasyMotion_leader_key = ','
 "------ for easymotion ------
+
+"------ for delimitMate ------
+"pep8-indent一定要
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
+"------ for delimitMate ------
 
 "------ for YouCompleteMe ------
 "vim中, <C-m>等价于Enter(<CR>)
@@ -495,19 +515,12 @@ let g:ycm_filetype_blacklist = {
         \ 'cpp'      : 1,
         \}
 "let g:ycm_filetype_whitelist = {
-        "\ 'c'          : 1,
-        "\ 'cpp'        : 1,
         "\ 'css'        : 1,
         "\ 'html'       : 1,
         "\ 'htmldjango' : 1,
-        "\ 'htmljinja'  : 1,
         "\ 'java'       : 1,
         "\ 'javascript' : 1,
-        "\ 'markdown'   : 1,
-        "\ 'php'        : 1,
         "\ 'python'     : 1,
-        "\ 'sh'         : 1,
-        "\ 'snippets'   : 1,
         "\}
 "------ for YouCompleteMe ------
 
@@ -603,7 +616,7 @@ noremap      g"         :Tab /"<CR>
 noremap      g'         :Tab /'<CR>
 noremap      g:         :Tab /:<CR>
 noremap      g<space>   :Tab / <CR>
-noremap      g<Bar>     :Tab /<Bar><CR>
+"noremap      g<Bar>     :Tab /<Bar><CR>
 "------ for tabular ------
 
 "------ for tagbar ------

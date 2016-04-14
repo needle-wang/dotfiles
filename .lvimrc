@@ -1,13 +1,13 @@
 
-autocmd FileType css,html,javascript
-            \| setlocal tabstop=2
+autocmd FileType css,html,javascript,python
+            \  setlocal tabstop=2
             \| setlocal shiftwidth=2
 
-autocmd FileType text   setlocal textwidth=100
-
+"如果想用jinja2模板, 就改为如下:
+"autocmd FileType html set filetype=htmljinja
 autocmd FileType html   setlocal filetype=htmldjango
 autocmd FileType python setlocal textwidth=80
-autocmd FileType python setlocal tabstop=2 | setlocal shiftwidth=2
+autocmd FileType text   setlocal textwidth=100
 
 "for django
 "from django.shortcuts import render_to_response
@@ -18,6 +18,7 @@ autocmd FileType python setlocal tabstop=2 | setlocal shiftwidth=2
 
 "from django.template.loader import get_template  
 "from django.template import Context 
+"from django.core.urlresolvers import reverse
 
 "for vimango
 let g:vimango_app_prefix = ''
@@ -34,7 +35,4 @@ autocmd BufNewFile *.sh   call Template_sh()
 autocmd BufNewFile *.html call Template_html()
 "直接进入插入模式, 但会感觉启动减慢1秒
 "autocmd BufNewFile *.py,*.sh startinsert
-
-"如果想用jinja2模板, 就改为如下:
-"autocmd FileType html set filetype=htmljinja
 
