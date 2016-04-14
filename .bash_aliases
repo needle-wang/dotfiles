@@ -21,11 +21,13 @@ _pip_completion()
 complete -o default -F _pip_completion pip
 # pip bash completion end
 
+test -s /usr/share/autojump/autojump.sh && \
+. /usr/share/autojump/autojump.sh
+
 to_alias(){
 #below, must do: ln -s /usr/bin/ack-grep /bin/agrep
 alias a='agrep'
-alias b='bc'
-alias B='vi ~/.bash_aliases'
+alias b='vi ~/.bash_aliases'
 alias C='column -t'
 alias d='date'
 alias e='vi ~/_vimrc'

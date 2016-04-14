@@ -56,7 +56,7 @@ Plugin 'itchyny/lightline.vim'
 "窗口布局管理器
 "自己配映射就用不着了,它自带了file和tag的explorer
 "Plugin 'winmanager'
-"<c-w>o改成最大化窗或还原布局,太慢了～
+"<C-w>o改成最大化窗或还原布局,太慢了～
 "Plugin 'ZoomWin','regedarek/ZoomWin'
 "precision color scheme, 'altercation/solarized' is all in one.
 Plugin 'altercation/vim-colors-solarized'
@@ -71,7 +71,7 @@ Plugin 'easymotion/vim-easymotion'
 "集成接口,功能像ctrlp,但可搜索显示任意来源的信息,且可自定义来源
 "Plugin 'Shougo/unite.vim'
 
-"括号自动闭合,<s-tab>跳出闭合,i_<c-g>g跳出最外一层,不支持<c-h>挺好
+"括号自动闭合,<s-tab>跳出闭合,i_<C-g>g跳出最外一层,不支持<C-h>挺好
 Plugin 'Raimondi/delimitMate'
 "Plugin 'jiangmiao/auto-pairs'
 "还有kana/vim-smartinput,Townk/vim-autoclose,未试
@@ -99,7 +99,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'jaxbot/browserlink.vim'
 "taglist增强, NB!
 Plugin 'majutsushi/tagbar'
-"国人写的snipMate增强,按<c-\>,很好很强大,自定义很难~
+"国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~
 "Plugin 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
 Plugin 'SirVer/ultisnips'
@@ -135,6 +135,7 @@ Plugin 'needle-wang/bootstrap-snippets'
 "Plugin 'Yggdroot/indentLine'
 "enable repeating supported plugin maps with "."
 Plugin 'tpope/vim-repeat'
+Plugin 'suan/vim-instant-markdown'
 
 
 " All of your Plugins must be added before the following line
@@ -241,7 +242,7 @@ set sessionoptions=blank,buffers,curdir,folds,options,tabpages,winsize,slash,uni
 set smartcase
 set scrolloff=4     "光标上下两侧最少保留的屏幕行数
 set shiftwidth=4    "自动缩进的空格数
-set smarttab        "<BS>/<c-h>删除行首空格时一次将删shiftwidth多个
+set smarttab        "<BS>/<C-h>删除行首空格时一次将删shiftwidth多个
 "放这好像被莫名覆盖了~
 "set switchbuf=usetab,newtab
 set tabstop=4       "<tab>占的空格数
@@ -260,7 +261,8 @@ autocmd FileType html setlocal filetype=htmldjango
 autocmd FileType python setlocal textwidth=80
 autocmd FileType text setlocal textwidth=100
 
-"大写的X键使用频率过小, 应该也可改
+noremap      <C-e>  2<C-e>
+noremap      <C-y>  2<C-y>
 noremap          -  _
 noremap          ;  :
 noremap          :  ;
@@ -273,7 +275,7 @@ noremap <silent> *  *zz
 noremap <silent> #  #zz
 "高亮光标下的单词, 且光标坐标不变
 noremap          &  mcHmt`c*`tzt`c
-noremap    <space>  :nohl<CR><c-l>
+noremap    <space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 noremap <silent> j  gj
@@ -285,7 +287,7 @@ noremap          Q  :Ag!<CR>
 noremap <silent> g* g*zz
 noremap          g\ ms:up<CR>
 "for hhkb
-noremap          g3 moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
+noremap          g3 mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
 noremap <silent> g8 :TagbarToggle<CR>
 noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms:up<CR>
 noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms:up<CR>
@@ -296,70 +298,69 @@ noremap          gq :Ag!<space>
 noremap          gs ms:up<CR>
 
 noremap          <F1> <Esc>
-noremap          <F3> moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2j
+noremap          <F3> mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
 noremap          <F4> :Errors<CR>
 noremap          <F5> :SyntasticCheck<CR>
 noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
 noremap         <F12> :syntax sync fromstart<CR>
 
-nnoremap t     "+y
-nnoremap T     "+yy
-nnoremap G     Gzz
-nnoremap Y     y$
-nnoremap cd    :lcd %:p:h<CR>
-nnoremap co    2o<Esc>k
-nnoremap cO    O<Esc>j
-"g-与正常模式的u重复了, 还易按错
-nnoremap g-    <nop>
-nnoremap gf    <c-w>gf
-nnoremap gz    :tabnew<space>
-nnoremap <C-e> 2<C-e>
-nnoremap <C-y> 2<C-y>
-nnoremap <silent> _ :tabm-1<CR>
-nnoremap <silent> + :tabm+1<CR>
-nnoremap <silent> gr    gT
-nnoremap <silent> <c-h> gT
-nnoremap <silent> <c-l> gt
-nnoremap <silent> g[ :tabfirst<CR>
-nnoremap <silent> g] :tablast<CR>
-nnoremap <silent> gn :NERDTreeFind<CR>
-nnoremap <silent> gN :NERDTree<CR>
-nnoremap <silent> gh <c-w><c-h>
-nnoremap <silent> gj <c-w><c-j>
-nnoremap <silent> gk <c-w><c-k>
-nnoremap <silent> gl <c-w><c-l>
-nnoremap <silent> <c-j> <c-w><c-j>
-nnoremap <silent> <c-k> <c-w><c-k>
+nnoremap           t        "+y
+nnoremap           T        "+yy
+nnoremap           G        Gzz
+nnoremap           Y        y$
+nnoremap          cd        :lcd %:p:h<CR>
+nnoremap          co        2o<Esc>k
+nnoremap          cO        O<Esc>j
+"g-与正常模式的u重复了,     还易按错
+nnoremap          g-        <nop>
+nnoremap          gf        <C-w>gf
+nnoremap <silent> gX        :call system('google-chrome '.shellescape(expand('%')))<CR>
+nnoremap <silent> gz        :tabnew<space>
+nnoremap <silent>  _        :tabm-1<CR>
+nnoremap <silent>  +        :tabm+1<CR>
+nnoremap <silent> gr        gT
+nnoremap <silent> <C-h>     gT
+nnoremap <silent> <C-l>     gt
+nnoremap <silent> g[        :tabfirst<CR>
+nnoremap <silent> g]        :tablast<CR>
+nnoremap <silent> gn        :NERDTreeFind<CR>
+nnoremap <silent> gN        :NERDTree<CR>
+nnoremap <silent> gh        <C-w><C-h>
+nnoremap <silent> gj        <C-w><C-j>
+nnoremap <silent> gk        <C-w><C-k>
+nnoremap <silent> gl        <C-w><C-l>
+nnoremap <silent> <C-j>     <C-w><C-j>
+nnoremap <silent> <C-k>     <C-w><C-k>
 nnoremap <silent> <C-Left>  :wincmd h<CR>
 nnoremap <silent> <C-Down>  :wincmd j<CR>
 nnoremap <silent> <C-Up>    :wincmd k<CR>
 nnoremap <silent> <C-Right> :wincmd l<CR>
-nnoremap gb :tab sbp<CR>
-nnoremap gy :tab sbn<CR>
-nnoremap <Left> :tab sbp<CR>
-nnoremap <right> :tab sbn<CR>
+nnoremap          gb        :tab sbp<CR>
+nnoremap          gy        :tab sbn<CR>
+nnoremap          <Left>    :tab sbp<CR>
+nnoremap          <right>   :tab sbn<CR>
 
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
 inoremap    vv  <Esc>"+gpa
-inoremap <c-o>  <c-\><c-o>
-inoremap <c-b>  <Left>
-inoremap <c-f>  <Right>
-inoremap <c-l>  <Del>
-inoremap <c-s>  <Esc>ms:up<CR>a
-inoremap <c-g>\ <Esc>ms:up<CR>a
-"<c-/> doesn't work on gvim...
-"inoremap <c-/> <c-o>:cnext<CR>
-"inoremap <c-/> <c-o>:cprevious<CR>
+inoremap <C-o>  <C-\><C-o>
+inoremap <C-b>  <Left>
+inoremap <C-f>  <Right>
+inoremap <C-l>  <Del>
+inoremap <C-s>  <Esc>ms:up<CR>a
+inoremap <C-g>\ <Esc>ms:up<CR>a
+"<C-/> doesn't work on gvim...
+"inoremap <C-/> <C-o>:cnext<CR>
+"inoremap <C-/> <C-o>:cprevious<CR>
 autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>
 inoremap <F1>  <Esc>
-inoremap <F3>  <Esc>moo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`o2ja
+inoremap <F3>  <Esc>mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-"有的中文标点不会触发
+"中文句号好像不会触发
 inoremap ,  ,<space>
 inoremap ， ,<space>
 inoremap :  :<space>
@@ -378,23 +379,23 @@ autocmd BufNewFile,BufRead * call Add_space()
 
 "vmap应用于可视+选择模式, xmap只用于可视模式
 xnoremap     t mc"+y`c
-vnoremap    gj <c-w><c-j>
-vnoremap    gk <c-w><c-k>
+vnoremap    gj <C-w><C-j>
+vnoremap    gk <C-w><C-k>
 "ultisnips的片段使用了选择模式
-xnoremap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-xnoremap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+xnoremap <C-j> :m'>+<CR>`<my`>mzgv`yo`z
+xnoremap <C-k> :m'<-2<CR>`>my`<mzgv`yo`z
 "选择模式没法映射好像~
-"snoremap t <c-o>mc"+y`c
+"snoremap t <C-o>mc"+y`c
 
 cabbrev   e1   e!
 cabbrev   q1   q!
 cabbrev  qa1   qa!
 "cnoremap cwd   lcd %:p:h
 "cnoremap cd.   lcd %:p:h
-cnoremap <c-a> <Home>
-cnoremap <c-b> <Left>
-cnoremap <c-f> <Right>
-cnoremap <c-l> <Del>
+cnoremap <C-a> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-l> <Del>
 command W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
 "------ for solarized ------
@@ -412,8 +413,8 @@ highlight VertSplit ctermbg=NONE guibg=NONE
 "------ for fcitx --------
 set ttimeoutlen=200
 "fcitx不支持ctrl-c,它不支持ex模式
-"另外,YouCompleteMe手册也说不要用<c-c>: vim手册说会中断一些自动命令
-inoremap <silent> <c-c> <Esc>
+"另外,YouCompleteMe手册也说不要用<C-c>: vim手册说会中断一些自动命令
+inoremap <silent> <C-c> <Esc>
 "------ for fcitx --------
 
 "------ for surround ------
@@ -433,11 +434,11 @@ vmap q) S)%
 let g:user_emmet_leader_key = '<F11>'
 "emmet不能映射<Bar>, 会导致ultisnips失效
 "不能用noremap, leaderkey会失效
-map <c-n>  <F11>,
-"<c-/>, <c-&>, <c-_>可生成
+map <C-n>  <F11>,
+"<C-/>, <C-&>, <C-_>可生成
 "还有一些特殊符号可改, 具体忘了
 map      <F11>,
-imap     <c-o><F11>,
+imap     <C-o><F11>,
 "------ for emmet ------
 
 "------ for nerdtree ------
@@ -469,7 +470,7 @@ let g:EasyMotion_leader_key = ','
 "------ for easymotion ------
 
 "------ for YouCompleteMe ------
-"vim中, <c-m>等价于Enter(<CR>)
+"vim中, <C-m>等价于Enter(<CR>)
 "跳转到定义
 "nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent>        go :YcmCompleter GoTo<CR>
@@ -538,11 +539,11 @@ set completeopt=longest,menu
 "------ for UltiSnips ------
 let g:UltiSnipsExpandTrigger       = "<tab>"
 let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 "------ for UltiSnips ------
 
 "------ for xptemplate ------
-"let g:xptemplate_nav_prev = '<c-k>'
+"let g:xptemplate_nav_prev = '<C-k>'
 "------ for xptemplate ------
 
 "------ for bootstrap-snippets ------
@@ -573,7 +574,7 @@ let g:syntastic_python_checkers          = ['pyflakes']
 
 function Syntastic_map(map_cmd1, map_cmd2)
     "下行可以用\<bar> 或 \|
-    "nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(776\<bar>553\<bar>42\):/<bar>echo v:exception<bar>endtry<cr>
+    "nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(776\<bar>553\<bar>42\):/<bar>echo v:exception<bar>endtry<CR>
     try
         execute a:map_cmd1
     "下行用\<bar>会无效
@@ -631,10 +632,10 @@ set updatetime=700              "自动高亮当前tag的间隔时间，全局�
 "let g:EclimPythonValidate = 0  "禁用保存文件时验证,.py不需要开eclimd
 "有YouCompleteMe就不需要这个映射
 "autocmd FileType java inoremap <buffer> . .<C-X><C-U>
-"autocmd FileType java nnoremap <silent> <buffer> [i :JavaImportOrganize<cr>
-"autocmd FileType java nnoremap <silent> <buffer> [d :JavaDocPreview<cr>
-"autocmd FileType java nnoremap <silent> <buffer> [f :%JavaFormat<cr>
-"autocmd FileType java nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+"autocmd FileType java nnoremap <silent> <buffer> [i :JavaImportOrganize<CR>
+"autocmd FileType java nnoremap <silent> <buffer> [d :JavaDocPreview<CR>
+"autocmd FileType java nnoremap <silent> <buffer> [f :%JavaFormat<CR>
+"autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
 "autocmd FileType java let g:EclimJavaCompleteCaseSensitive = 1
 "autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
 "------ for eclim ------
@@ -676,6 +677,11 @@ let g:ag_prg = 'ag --column --smart-case'
 "------ for vim-fugitive ------
 nnoremap \g :Gstatus<CR>
 "------ for vim-fugitive ------
+
+"------ for vim-instant-markdown ------
+let g:instant_markdown_autostart = 0
+nnoremap X :InstantMarkdownPreview<CR>
+"------ for vim-instant-markdown ------
 
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
