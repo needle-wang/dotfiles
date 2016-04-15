@@ -9,20 +9,6 @@ autocmd FileType html   setlocal filetype=htmldjango
 autocmd FileType python setlocal textwidth=80
 autocmd FileType text   setlocal textwidth=100
 
-"for django
-"from django.shortcuts import render_to_response
-"from django.http import Http404 , HttpResponse , HttpResponseRedirect
-"from django.template import RequestContext
-"from django.conf.urls import patterns, include, url
-"from django.contrib import admin
-
-"from django.template.loader import get_template  
-"from django.template import Context 
-"from django.core.urlresolvers import reverse
-
-"for vimango
-let g:vimango_app_prefix = ''
-
 "for browserlink
 " /*/*.html 的形式不生效
 "autocmd BufWritePost */templates/*/*.html   BLReloadPage
@@ -35,4 +21,18 @@ autocmd BufNewFile *.sh   call Template_sh()
 autocmd BufNewFile *.html call Template_html()
 "直接进入插入模式, 但会感觉启动减慢1秒
 "autocmd BufNewFile *.py,*.sh startinsert
+
+"for django note
+"from django.shortcuts import render_to_response
+"from django.http import Http404 , HttpResponse , HttpResponseRedirect
+"from django.template import RequestContext
+"from django.conf.urls import patterns, include, url
+"from django.contrib import admin
+
+"from django.template.loader import get_template  
+"from django.template import Context 
+"from django.core.urlresolvers import reverse
+
+"for vimango
+let g:vimango_app_prefix = ''
 
