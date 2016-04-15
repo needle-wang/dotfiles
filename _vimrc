@@ -311,7 +311,7 @@ nnoremap          cO        O<Esc>j
 nnoremap          g-        <nop>
 nnoremap          gf        <C-w>gf
 nnoremap <silent> gX        :call system('google-chrome '.shellescape(expand('%')))<CR>
-nnoremap <silent> gz        :tabnew<space>
+nnoremap          gz        :tabnew<space>
 nnoremap <silent>  _        :tabm-1<CR>
 nnoremap <silent>  +        :tabm+1<CR>
 nnoremap <silent> gr        gT
@@ -432,6 +432,7 @@ let g:indentLine_color_term = 239       " vim
 " none X terminal
 let g:indentLine_color_tty_light = 7
 let g:indentLine_color_dark = 1
+let g:indentLine_enabled = 0
 let g:indentLine_fileType = ['python']
 let g:indentLine_indentLevel = 4
 nnoremap g<Bar> :IndentLinesToggle<CR>
