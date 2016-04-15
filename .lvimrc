@@ -33,6 +33,6 @@ autocmd BufNewFile *.html call Template_html()
 "from django.template import Context 
 "from django.core.urlresolvers import reverse
 
-"for vimango
-let g:vimango_app_prefix = ''
+"for jumptoview
+let g:jumptoview_patterns_prefix = ''
 

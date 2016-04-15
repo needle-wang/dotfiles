@@ -85,7 +85,8 @@ Plugin 'Valloric/YouCompleteMe'
 "详情见: https://github.com/klen/python-mode
 "Plugin 'klen/python-mode'
 Plugin 'fs111/pydoc.vim'
-Plugin 'needle-wang/ViMango'
+"Plugin 'needle-wang/ViMango'
+Plugin 'needle-wang/vim-jumptoview'
 "解决py方法定义的括号的缩进问题
 Plugin 'hynek/vim-python-pep8-indent'
 "Plugin 'othree/html5.vim'
