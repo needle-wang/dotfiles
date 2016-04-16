@@ -52,9 +52,7 @@ alias W='which'
 alias x='bri.sh'
 alias z='touchpad.sh'
 #以下, 还未用，不一定都要用，避免失误
-#bash: type: j: 未找到
 #bash: type: o: 未找到
-#bash: type: r: 未找到
 #bash: type: u: 未找到
 #bash: type: y: 未找到
 
@@ -194,6 +192,21 @@ whif(){
     #使用通配符的which
     [ "$1" ] || return 1
     find $(echo "$PATH" | sed 's;:; ;g') -maxdepth 1 -type f -executable -iname "*$1*"
+}
+
+addpypath(){
+    #若该path下有跟PATH中模块同名会出错~, 如abc.py:
+    #command-not-found是py文件, path里有abc.py会抛:
+    #"已放弃"
+    local path_to_add=$(pwd)
+    if [[ "$1" ]]; then
+        path_to_add=$(cd $1 && pwd)
+    fi
+    if [[ "${path_to_add}" ]]; then
+        PYTHONPATH="${path_to_add}:${PYTHONPATH}"
+        echo "export PYTHONPATH=${PYTHONPATH}"
+        export PYTHONPATH
+    fi
 }
 
 unset to_alias
