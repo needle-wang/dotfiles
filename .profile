@@ -31,3 +31,6 @@ synclient touchpadoff=1 2>/dev/null
 #进入X时清除主目录下的goutputstream-*文件(无用)
 /home/needle/bin/cleanXoutput.py
 
+#py解释器运行时, 不生成py[co]文件
+export PYTHONDONTWRITEBYTECODE='yes'
+

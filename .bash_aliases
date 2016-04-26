@@ -42,7 +42,7 @@ alias L='less -i'
 alias m='man -L en'
 alias n='Thunar'
 alias p='ipython'
-alias P='python'
+alias P='python -B'
 alias q='quote'
 alias r='vi ~/.lvimrc'
 alias s='sort'
@@ -64,6 +64,7 @@ alias gi='git'
 alias lg='l | g'
 alias ll='ls -AlFh'
 alias ls='\ls --color=auto -v'
+alias lt="l | g \"$(date '+%m月 %d' | sed 's;^0;;')\""
 alias mv='mv -vi'
 alias rm='rm -vi'
 alias sl='ls'
@@ -208,6 +209,10 @@ addpypath(){
         export PYTHONPATH
     fi
 }
+
+if [[ -s "$HOME/.bash_tmp" ]]; then
+    source $HOME/.bash_tmp
+fi
 
 unset to_alias
 l

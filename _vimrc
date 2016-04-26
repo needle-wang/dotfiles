@@ -176,13 +176,13 @@ function Add_space()
         if index(['htmldjango', 'sh'], &ft) < 0
             inoremap <buffer> - <space>-<space>
             inoremap <buffer> = <space>=<space>
+            inoremap <buffer> % <space>%<space>
             if &ft != 'python'
                 inoremap <buffer> <CR> ;<CR>
             endif
         endif
         inoremap <buffer> + <space>+<space>
         inoremap <buffer> * <space>*<space>
-        inoremap <buffer> % <space>%<space>
     endif
 endfunction
 
@@ -274,8 +274,6 @@ noremap          &  mcHmt`c*`tzt`c
 noremap    <space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
-noremap <silent> j  gj
-noremap <silent> k  gk
 noremap <silent> n  nzz
 noremap <silent> N  Nzz
 noremap          P  "+gp
@@ -301,6 +299,8 @@ noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
 noremap         <F12> :syntax sync fromstart<CR>
 
+nnoremap           j        gj
+nnoremap           k        gk
 nnoremap           t        "+y
 nnoremap           T        "+yy
 nnoremap           G        Gzz
@@ -415,6 +415,7 @@ inoremap <silent> <C-c> <Esc>
 "------ for fcitx --------
 
 "------ for surround ------
+nmap q<space> ysiw<space><space>f<space>
 "为光标下的字串加双引号
 nmap q; ysiW"f"
 "为光标下的单词加双引号
