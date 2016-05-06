@@ -80,3 +80,6 @@ www.douyu.com###anchor-info > .focus-lead
 www.douyu.com###main-col > .allList-cont.content > .padding-right0.padding-left0.tse-content > .lol-ad
 www.douyu.com###header > .head > .fl.head-nav > .funny.fl
 www.douyu.com###header > .head > .fl.head-nav > .yuba.fl
+
+! 2016/5/6 下午3:34:54 http://v.youku.com/v_show/id_XMTU1MDc0MDA4MA==.html
+v.youku.com###lotteryToolbarBig
