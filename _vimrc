@@ -241,6 +241,7 @@ set keywordprg=     "禁用man,使用内置help
 set laststatus=2    "让单窗口时也会出现lightline
 set nobackup
 set noswapfile
+set noundofile
 set number
 set sessionoptions=blank,buffers,curdir,folds,options,tabpages,winsize,slash,unix,resize
 set smartcase
@@ -367,10 +368,10 @@ inoremap ； ;<space>
 inoremap “  "<space>
 inoremap ”  "<space>
 "用iabbrev需要空格或回车触发
-"所以某些coding情况下iab不会触发
-iabbrev none None
-iabbrev true True
-iabbrev false False
+"所以某些输入或有补全菜单时iab不会触发
+autocmd FileType python iabbrev none None
+                     \| iabbrev true True
+                     \| iabbrev false False
 
 autocmd BufNewFile,BufRead * call Add_space()
 
@@ -716,7 +717,8 @@ if has("gui_running")
         set guifontwide=Consolas:h12:cANSI
     else
         "Ubuntu下, Ubuntu Mono 比 Bitstream显示效果要好
-        set guifont=Ubuntu\ Mono\ 18,Bitstream\ Vera\ Sans\ Mono\ 16
+        "set guifont=Ubuntu\ Mono\ 18,Bitstream\ Vera\ Sans\ Mono\ 16
+        set guifont=Bitstream\ Vera\ Sans\ Mono\ 16
     endif
 endif
 

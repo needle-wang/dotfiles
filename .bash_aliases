@@ -64,7 +64,7 @@ alias gi='git'
 alias lg='l | g'
 alias ll='ls -AlFh'
 alias ls='\ls --color=auto -v'
-alias lt='l | awk "{if(index(\$8, \":\")){print}}" | g "$(date "+%m %d" | awk "{print int(\$1)\"月 *\",int(\$2)}")"'
+alias lt='l | awk "{if(index(\$8, \":\")){print}}" | g "$(date "+%m %d" | awk "{print int(\$1)\"月 *\"int(\$2)}")"'
 alias lt2='l | awk -f $HOME/bin/today_filter.awk'
 alias mv='mv -vi'
 alias rm='rm -vi'
@@ -107,6 +107,7 @@ if [ $(whoami) != 'root' ]; then
     alias service='sudo service'
     alias shutdown='sudo shutdown'
     alias updatedb='sudo updatedb'
+    alias update-grub='sudo update-grub'
     #原始PS1
     #export PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\w\$
     #给命令符加颜色
