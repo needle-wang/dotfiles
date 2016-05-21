@@ -187,7 +187,7 @@ function Add_space()
 endfunction
 
 function Template_py()
-    let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
     let b:line = ["", "def main():", "  pass", "", "if __name__ == '__main__':", "  main()"]
     call append(line("$"), b:line)
@@ -195,13 +195,13 @@ function Template_py()
 endfunction
 
 function Template_sh()
-    let b:line = ['#!/bin/bash -', '#', strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    let b:line = ['#!/bin/bash -', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
     call cursor(5, 0)
 endfunction
 
 function Template_html()
-    let b:line = ['html5', strftime("<!-- #%Y年 %m月 %d日 %A %H:%M:%S CST -->")]
+    let b:line = ['html5', strftime("<!-- # %Y年 %m月 %d日 %A %H:%M:%S CST -->")]
     call append(0, b:line)
     normal dd
     call cursor(1, 5)
