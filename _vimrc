@@ -372,6 +372,7 @@ inoremap ”  "<space>
 autocmd FileType python iabbrev none None
                      \| iabbrev true True
                      \| iabbrev false False
+                     \| iabbrev re return
 
 autocmd BufNewFile,BufRead * call Add_space()
 
