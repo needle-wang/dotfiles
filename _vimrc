@@ -201,10 +201,10 @@ function Template_sh()
 endfunction
 
 function Template_html()
-    let b:line = ['html5', strftime("<!-- # %Y年 %m月 %d日 %A %H:%M:%S CST -->")]
+    let b:line = ['bootstrap_basic', strftime("<!-- # %Y年 %m月 %d日 %A %H:%M:%S CST -->")]
     call append(0, b:line)
     normal dd
-    call cursor(1, 5)
+    call cursor(1, 15)
 endfunction
 
 "------乱码解决方案------
@@ -694,6 +694,7 @@ nnoremap \g :Gstatus<CR>
 
 "------ for vim-instant-markdown ------
 let g:instant_markdown_autostart = 0
+"只能第一次, 再次开启无效, 原因未知
 nnoremap X :InstantMarkdownPreview<CR>
 "------ for vim-instant-markdown ------
 

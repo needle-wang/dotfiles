@@ -1,6 +1,10 @@
 
+noremap   D       <Nop>
 noremap   <c-o>   <Nop>
 noremap   <c-i>   <Nop>
+noremap   <c-n>   <Nop>
+noremap   <c-p>   <Nop>
+noremap   <c-]>   <Nop>
 
 noremap   j       3j
 noremap   k       3k
@@ -10,13 +14,14 @@ noremap   <c-e>   4j
 noremap   <c-y>   4k
 noremap   d       <c-d>
 
-noremap   x       d
-noremap   X       D
+"原生的d会修改ff的启动页面设置
+noremap   x       <c-w>
 noremap   f       F
 noremap   F       f
 noremap   Y       yy
+noremap   p       P
 noremap   o       :tabopen 
-noremap   t       :tabopen cn.bing.com<CR>
+noremap   t       :tabopen www.baidu.com<CR>
 noremap   q       :tabopen www.baidu.com/s?wd=ip<CR>
 noremap   w       :tabopen www.baidu.com/s?wd=天气<CR>
 
@@ -27,8 +32,11 @@ noremap   gh      1gt
 noremap   i       gi
 noremap   <c-g>   /
 noremap   ;       :
+noremap   gf      :tab vie<CR>
 
 cnoremap  q       xall<CR>
+cnoremap  <c-p>   <Up>
+cnoremap  <c-n>   <Down>
 
 "禁用出错鸣叫
 hi Bell display: none;
