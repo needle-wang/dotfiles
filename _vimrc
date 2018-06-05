@@ -5,157 +5,164 @@ filetype off                   " required!
 
 " set the runtime path to include Vundle and initialize
 if has("win32")
-    set rtp+=$HOME/vimfiles/bundle/Vundle.Vim
-    call vundle#begin('$HOME/vimfiles/bundle')
+    "set rtp+=$HOME/vimfiles/bundle/Vundle.Vim
+    call plug#begin('$HOME/vimfiles/bundle')
 else
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
+    "set rtp+=~/.vim/bundle/Vundle.vim
+    call plug#begin('~/.vim/bundle')
 endif
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 
 " The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
+" Keep Plug commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
+"Plug 'L9'
 " Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
+"Plug 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
+"Plug 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
-"Plugin 'user/L9', {'name': 'newL9'}
+"Plug 'user/L9', {'name': 'newL9'}
 
 "VIM中文文档(还集成了些常用的插件的中文文档!)
-Plugin 'asins/vimcdoc'
+Plug 'asins/vimcdoc'
 "operation+motion:(vim内置)
 "ci,di,yi,ca,da,ya接符号及dib,diB,cit为 删除(/复制)符号内的文本
 "操作对象增强: ds"为删除", cs"'为由"替换成', ys+{motion}+符号为加符号
 "可视模式(选中文本后)按S"为用"surround文本
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 "目录浏览增强, 内置为netrw
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "最小空间占用的缓冲区列表
-"Plugin 'fholgado/minibufexpl.vim'
+"Plug 'fholgado/minibufexpl.vim'
 "缓冲区列表增强
-"Plugin 'bufexplorer.zip'
+"Plug 'bufexplorer.zip'
 "分组式缓冲区列表
-"Plugin 'TinyBufferExplorer'
+"Plug 'TinyBufferExplorer'
 "百分号增强html标签或endif,内置未启用,还是交给vundle管吧~
-Plugin 'matchit.zip'
+Plug 'vim-scripts/matchit.zip'
 "状态行增强
-Plugin 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 "'Lokaltog/powerline', 'bling/vim-airline'
 "窗口布局管理器
 "自己配映射就用不着了,它自带了file和tag的explorer
-"Plugin 'winmanager'
+"Plug 'winmanager'
 "<C-w>o改成最大化窗或还原布局,太慢了～
-"Plugin 'ZoomWin','regedarek/ZoomWin'
+"Plug 'ZoomWin','regedarek/ZoomWin'
 "precision color scheme, 'altercation/solarized' is all in one.
-Plugin 'altercation/vim-colors-solarized'
+Plug 'altercation/vim-colors-solarized'
 "让fcitx响应vim的模式切换
-Plugin 'fcitx.vim'
-Plugin 'easymotion/vim-easymotion'
+Plug 'vim-scripts/fcitx.vim'
+Plug 'easymotion/vim-easymotion'
 "shell模式
-"Plugin 'Flolagale/conque'
+"Plug 'Flolagale/conque'
 "shell模式,vimshell依赖vimproc
-"Plugin 'Shougo/vimshell.vim'
-"Plugin 'Shougo/vimproc.vim'
+"Plug 'Shougo/vimshell.vim'
+"Plug 'Shougo/vimproc.vim'
 "集成接口,功能像ctrlp,但可搜索显示任意来源的信息,且可自定义来源
-"Plugin 'Shougo/unite.vim'
+"Plug 'Shougo/unite.vim'
+"vim8之后的异步后台运行插件
+Plug 'skywind3000/asyncrun.vim'
 
 "括号自动闭合,<s-tab>跳出闭合,i_<C-g>g跳出最外一层,不支持<C-h>挺好
-Plugin 'Raimondi/delimitMate'
-"Plugin 'jiangmiao/auto-pairs'
+Plug 'Raimondi/delimitMate'
+"Plug 'jiangmiao/auto-pairs'
 "还有kana/vim-smartinput,Townk/vim-autoclose,未试
 "设置见 https://github.com/kien/rainbow_parentheses.vim
-"Plugin 'kien/rainbow_parentheses.vim'
+"Plug 'kien/rainbow_parentheses.vim'
 "c族语言 all in one!杀手级clang语法解析
 "2015年 12月 02日 星期三 14:38:58 CST
 "win下要用到visual studio(用2013版试后无法编译不再试)
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 "python all in one!
 "详情见: https://github.com/klen/python-mode
-"Plugin 'klen/python-mode'
-Plugin 'fs111/pydoc.vim'
-"Plugin 'needle-wang/ViMango'
-Plugin 'needle-wang/vim-jumptoview'
+"Plug 'klen/python-mode'
+Plug 'fs111/pydoc.vim'
+"Plug 'needle-wang/ViMango'
+Plug 'needle-wang/vim-jumptoview'
 "解决py方法定义的括号的缩进问题
-Plugin 'hynek/vim-python-pep8-indent'
-"Plugin 'othree/html5.vim'
-"Plugin 'jaredly/vim-debug'
-Plugin 'godlygeek/tabular'
+Plug 'hynek/vim-python-pep8-indent'
+"Plug 'othree/html5.vim'
+"Plug 'jaredly/vim-debug'
+Plug 'godlygeek/tabular'
 "JDE有单独菜单,上手难～
-"Plugin 'Vim-JDE'
+"Plug 'Vim-JDE'
 "JAVA补全, 如方法等
-"Plugin 'javacomplete'
+"Plug 'javacomplete'
 "here is ZenCoding.vim's new name
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 "Live browser editing(实时更新html浏览)
-Plugin 'jaxbot/browserlink.vim'
-"taglist增强, NB!
-Plugin 'majutsushi/tagbar'
+Plug 'jaxbot/browserlink.vim'
+"majutsushi/tagbar是taglist增强, NB!
+"vim8, 异步显示函数列表
+Plug 'Yggdroot/LeaderF'
 "国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~
-"Plugin 'drmingdrmer/xptemplate'
+"Plug 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 "snipmate和ultisnips的代码片段集, utlisnips默认都会检索
-"Plugin 'honza/vim-snippets'
-Plugin 'needle-wang/vim-snippets'
+"Plug 'honza/vim-snippets'
+Plug 'needle-wang/vim-snippets'
 "snipmate与xptemplate快键不冲突,不支持嵌套,直接tab, 二者已停止更新~
-"Plugin 'msanders/snipmate.vim'
-"Plugin ''scrooloose/snipmate-snippets'
-"语法检查器,保存文本时检查(即默认的主动模式)
-Plugin 'scrooloose/syntastic'
+"Plug 'msanders/snipmate.vim'
+"Plug ''scrooloose/snipmate-snippets'
+"语法检查器,保存文本时才检查(即默认的主动模式)
+"Plug 'scrooloose/syntastic'
+"vim8, 异步实时代码检查器
+Plug 'w0rp/ale'
 "注释插件,评分最高
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 "中文文档(asins/vimcdoc里面有)
-"Plugin 'vimcn/NERD_commenter.cnx'
+"Plug 'vimcn/NERD_commenter.cnx'
 "command-T增强,模糊查找文件
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 "The plugin is a front for ag(the_silver_searcher)
-Plugin 'rking/ag.vim'
+Plug 'rking/ag.vim'
 "Ack, 通过配置可以使用ag搜索
-"Plugin 'mileszs/ack.vim'
+"Plug 'mileszs/ack.vim'
 "利用vundle把它下下来而已,非vim插件
-"Plugin 'sgerrand/xfce4-terminal-colors-solarized'
+"Plug 'sgerrand/xfce4-terminal-colors-solarized'
 
 "有lispbox就别老想着这东东了,巨麻烦~
-"Plugin 'slimv.vim'
+"Plug 'slimv.vim'
 
 "for snipmate, 不过ultisnips默认支持
-Plugin 'needle-wang/bootstrap-snippets'
+Plug 'needle-wang/bootstrap-snippets'
 "jinja2语法文件
-"Plugin 'Glench/Vim-Jinja2-Syntax'
+"Plug 'Glench/Vim-Jinja2-Syntax'
 "垂直缩进线
-"Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'Yggdroot/indentLine'
+"Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
+" 参数提示
+Plug 'Shougo/echodoc.vim'
 "enable repeating supported plugin maps with "."
-Plugin 'tpope/vim-repeat'
-Plugin 'suan/vim-instant-markdown'
+Plug 'tpope/vim-repeat'
+Plug 'suan/vim-instant-markdown'
 
 
-" All of your Plugins must be added before the following line
-call vundle#end()             " required
+" All of your Plugs must be added before the following line
+call plug#end()             " required
 filetype plugin indent on     " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
 " Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PlugList       - lists configured plugins
+" :PlugInstall    - installs plugins; append `!` to update or just :PlugUpdate
+" :PlugSearch foo - searches for foo; append `!` to refresh local cache
+" :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Put your non-Plug stuff after this line
 
 function Result_of_run(run_sign)
     "!ls这样运行, 显示的结果会切换到shell界面
@@ -240,6 +247,7 @@ set ignorecase
 set keywordprg=     "禁用man,使用内置help
 set laststatus=2    "让单窗口时也会出现lightline
 set nobackup
+set noshowmode
 set noswapfile
 set noundofile
 set number
@@ -341,7 +349,8 @@ nnoremap          <right>   :tab sbn<CR>
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
 
-inoremap    vv  <Esc>"+gpa
+"inoremap    vv  <Esc>"+gpa
+inoremap    vv  <C-o>"+gP
 inoremap <C-o>  <C-\><C-o>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -469,13 +478,13 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ }
-"让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
-let g:tagbar_status_func = 'TagbarStatusFunc'
+""让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
+"let g:tagbar_status_func = 'TagbarStatusFunc'
 
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
+"function! TagbarStatusFunc(current, sort, fname, ...) abort
+    "let g:lightline.fname = a:fname
+  "return lightline#statusline(0)
+"endfunction
 "------ for lightline ------
 
 "------ for easymotion ------
@@ -566,49 +575,74 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 "set complete+=k
 "------ for bootstrap-snippets ------
 
-"------ for syntastic ------
-"手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
-let g:syntastic_mode_map       = { 'mode' : 'passive' }
-let g:syntastic_error_symbol   = 'X>'
-let g:syntastic_warning_symbol = '⚠'
+""------ for syntastic ------
+""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
+"let g:syntastic_mode_map       = { 'mode' : 'passive' }
+"let g:syntastic_error_symbol   = 'X>'
+"let g:syntastic_warning_symbol = '⚠'
 
-let g:syntastic_check_on_wq = 0     "退出不检查
-"主动模式与python-mode冲突, 导致有两次语法检查, 要么设成被动模式
-"let g:pymode_lint_write = 0     "for python-mode
-"出现错误自动打开错误位置列表, 没有出现则不打开
-"let g:syntastic_auto_loc_list           = 1
-let g:syntastic_always_populate_loc_list = 1                          "即时刷新错误位置(:Errors)列表!
-let g:syntastic_quiet_messages           = {'level' : 'warnings'}     "去掉警告信息
-let g:syntastic_python_checkers          = ['pyflakes']
-"syntastic_java_checkers与eclim有冲突
-"html检查要联网, 或自己架server~
-"let g:syntastic_html_checkers       = ['w3']
-"let g:syntastic_javascript_checkers = ['javascript']
-"nnoremap gs :SyntasticCheck<CR>
+"let g:syntastic_check_on_wq = 0     "退出不检查
+""主动模式与python-mode冲突, 导致有两次语法检查, 要么设成被动模式
+""let g:pymode_lint_write = 0     "for python-mode
+""出现错误自动打开错误位置列表, 没有出现则不打开
+""let g:syntastic_auto_loc_list           = 1
+"let g:syntastic_always_populate_loc_list = 1                          "即时刷新错误位置(:Errors)列表!
+"let g:syntastic_quiet_messages           = {'level' : 'warnings'}     "去掉警告信息
+"let g:syntastic_python_checkers          = ['pyflakes']
+""syntastic_java_checkers与eclim有冲突
+""html检查要联网, 或自己架server~
+""let g:syntastic_html_checkers       = ['w3']
+""let g:syntastic_javascript_checkers = ['javascript']
+""nnoremap gs :SyntasticCheck<CR>
 
-function Syntastic_map(map_cmd1, map_cmd2)
-    "下行可以用\<bar> 或 \|
-    "nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(776\<bar>553\<bar>42\):/<bar>echo v:exception<bar>endtry<CR>
-    try
-        execute a:map_cmd1
-    "下行用\<bar>会无效
-    "catch /^Vim\%((\a\+)\)\=:E\%(776\<Bar>553\<Bar>42\):/
-    "E776: no location list, E553: no more error item, E42: no error
-    catch /^Vim\%((\a\+)\)\=:E\%(776\|553\|42\):/
-        try
-            up  "SyntasticCheck只能检查保存后的内容
-            SyntasticCheck
-            execute a:map_cmd2
-        catch /.*/
-            echo v:exception
-        endtry
-    catch
-        echo v:exception
-    endtry
-endfunction
-nnoremap <silent> [n :call Syntastic_map("lnext", "lfirst")<CR>
-nnoremap <silent> [N :call Syntastic_map("lprevious", "llast")<CR>
-"------ for syntastic ------
+"function Syntastic_map(map_cmd1, map_cmd2)
+    ""下行可以用\<bar> 或 \|
+    ""nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(776\<bar>553\<bar>42\):/<bar>echo v:exception<bar>endtry<CR>
+    "try
+        "execute a:map_cmd1
+    ""下行用\<bar>会无效
+    ""catch /^Vim\%((\a\+)\)\=:E\%(776\<Bar>553\<Bar>42\):/
+    ""E776: no location list, E553: no more error item, E42: no error
+    "catch /^Vim\%((\a\+)\)\=:E\%(776\|553\|42\):/
+        "try
+            "up  "SyntasticCheck只能检查保存后的内容
+            "SyntasticCheck
+            "execute a:map_cmd2
+        "catch /.*/
+            "echo v:exception
+        "endtry
+    "catch
+        "echo v:exception
+    "endtry
+"endfunction
+"nnoremap <silent> [n :call Syntastic_map("lnext", "lfirst")<CR>
+"nnoremap <silent> [N :call Syntastic_map("lprevious", "llast")<CR>
+""------ for syntastic ------
+
+"------ for ale ------
+let g:ale_linters_explicit = 1
+let g:ale_completion_delay = 500
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_insert_leave = 1
+let g:airline#extensions#ale#enabled = 1
+
+let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+let g:ale_c_cppcheck_options = ''
+let g:ale_cpp_cppcheck_options = ''
+
+let g:ale_sign_error = "\ue009\ue009"
+hi! clear SpellBad
+hi! clear SpellCap
+hi! clear SpellRare
+hi! SpellBad gui=undercurl guisp=red
+hi! SpellCap gui=undercurl guisp=blue
+hi! SpellRare gui=undercurl guisp=magenta
+"------ for ale ------
+
 
 "------ for tabular ------
 "g;和g,很有用
@@ -624,20 +658,39 @@ noremap      g<space>   :Tab / <CR>
 "noremap      g<Bar>     :Tab /<Bar><CR>
 "------ for tabular ------
 
-"------ for tagbar ------
-let g:tagbar_width = 37
-"每打开相应文件就会弹出来,不好
-"autocmd FileType python,java,cpp,c nested :TagbarOpen
-"autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
-"autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
-"let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
-"let g:tagbar_autoshowtag = 0    "自动打开折叠
-"let g:tagbar_sort        = 0    "标签按代码中的顺序排序
-let g:tagbar_compact     = 1    "去掉含有<F1>的首行
-let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
-let g:tagbar_singleclick = 1    "单击打开标签
-set updatetime=700              "自动高亮当前tag的间隔时间，全局的
-"------ for tagbar ------
+""------ for tagbar ------
+"let g:tagbar_width = 37
+""每打开相应文件就会弹出来,不好
+""autocmd FileType python,java,cpp,c nested :TagbarOpen
+""autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
+""autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
+""let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
+""let g:tagbar_autoshowtag = 0    "自动打开折叠
+""let g:tagbar_sort        = 0    "标签按代码中的顺序排序
+"let g:tagbar_compact     = 1    "去掉含有<F1>的首行
+"let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
+"let g:tagbar_singleclick = 1    "单击打开标签
+"set updatetime=700              "自动高亮当前tag的间隔时间，全局的
+""------ for tagbar ------
+
+"------ for LeaderF ------
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_ShortcutB = '<m-n>'
+noremap <c-n> :LeaderfMru<cr>
+noremap <m-p> :LeaderfFunction!<cr>
+noremap <m-n> :LeaderfBuffer<cr>
+noremap <m-m> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+"------ for LeaderF ------
 
 "------ for eclim ------
 "很完美,就是vim版eclipse,想受虐就用.
@@ -697,6 +750,19 @@ let g:instant_markdown_autostart = 0
 "只能第一次, 再次开启无效, 原因未知
 nnoremap X :InstantMarkdownPreview<CR>
 "------ for vim-instant-markdown ------
+
+"------ for asyncrun ------
+" 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 6
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+" 设置 F10 打开/关闭 Quickfix 窗口
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+" asyncrun根据特殊文件名 来识别 project 的根目录
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
+" "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
+" nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr> 
+"------ for asyncrun ------
 
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
