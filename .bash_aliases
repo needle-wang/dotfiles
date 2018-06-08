@@ -84,6 +84,7 @@ alias kaui='kuai'
 alias kuai='c /media/BACKUP/1LANDJ/快盘'
 alias kun='c /media/BACKUP/1LANDJ/kun'
 alias lj='c /media/BACKUP/1LANDJ'
+alias mout='mount'
 alias some='c /media/SOME'
 alias win='c /media/WIN'
 alias za='c /media/SOME/2ZA'
@@ -93,6 +94,7 @@ alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
 #alias gvim='UBUNTU_MENUPROXY=0 gvim -f'
 alias namp='nmap'
 
+#如果不是root用户
 if [ "$(id -u)" != "0" ]; then
     alias apt-get='sudo apt-get'
     #alias aptitude='sudo aptitude'

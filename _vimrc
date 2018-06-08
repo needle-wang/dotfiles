@@ -3,173 +3,163 @@ runtime vimrc_example.vim
 "vundle的配置
 filetype off                   " required!
 
-" set the runtime path to include Vundle and initialize
+" Specify a directory for plugins
+" - Avoid using standard Vim directory names like 'plugin'
 if has("win32")
-    "set rtp+=$HOME/vimfiles/bundle/Vundle.Vim
     call plug#begin('$HOME/vimfiles/bundle')
 else
-    "set rtp+=~/.vim/bundle/Vundle.vim
     call plug#begin('~/.vim/bundle')
 endif
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+"Make sure you use single quotes
 
-" let Vundle manage Vundle, required
-Plug 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plug commands between vundle#begin/end.
-" plugin on GitHub repo
-Plug 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plug 'L9'
-" Git plugin not hosted on GitHub
-"Plug 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plug 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-"Plug 'user/L9', {'name': 'newL9'}
-
+"######### 1. VIM-相关 #########
 "VIM中文文档(还集成了些常用的插件的中文文档!)
 Plug 'asins/vimcdoc'
+"最小空间占用的缓冲区列表   Plug 'fholgado/minibufexpl.vim'
+"缓冲区列表增强             Plug 'bufexplorer.zip'
+"分组式缓冲区列表           Plug 'TinyBufferExplorer'
+"窗口布局管理器 (自己配映射就用不着了,它自带了file和tag的explorer) "Plug 'winmanager'
+"<C-w>o变成最大化窗或还原布局, 太慢了.  Plug 'ZoomWin','regedarek/ZoomWin'
+"让html标签或endif支持%, 内置未启用, 交给vim-plug管吧
+Plug 'vim-scripts/matchit.zip'
 "operation+motion:(vim内置)
 "ci,di,yi,ca,da,ya接符号及dib,diB,cit为 删除(/复制)符号内的文本
 "操作对象增强: ds"为删除", cs"'为由"替换成', ys+{motion}+符号为加符号
 "可视模式(选中文本后)按S"为用"surround文本
 Plug 'tpope/vim-surround'
+"括号自动闭合 Plug 'kien/rainbow_parentheses.vim' 'jiangmiao/auto-pairs' 'kana/vim-smartinput' 'Townk/vim-autoclose'
+"<s-tab>跳出闭合,i_<C-g>g跳出最外一层,不支持<C-h>挺好
+Plug 'Raimondi/delimitMate'
+"enable repeating supported plugin maps with "."
+Plug 'tpope/vim-repeat'
+Plug 'easymotion/vim-easymotion'
 "目录浏览增强, 内置为netrw
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-"最小空间占用的缓冲区列表
-"Plug 'fholgado/minibufexpl.vim'
-"缓冲区列表增强
-"Plug 'bufexplorer.zip'
-"分组式缓冲区列表
-"Plug 'TinyBufferExplorer'
-"百分号增强html标签或endif,内置未启用,还是交给vundle管吧~
-Plug 'vim-scripts/matchit.zip'
-"状态行增强
+Plug 'scrooloose/nerdtree'
+"状态行增强                 Plug 'Lokaltog/powerline', 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
-"'Lokaltog/powerline', 'bling/vim-airline'
-"窗口布局管理器
-"自己配映射就用不着了,它自带了file和tag的explorer
-"Plug 'winmanager'
-"<C-w>o改成最大化窗或还原布局,太慢了～
-"Plug 'ZoomWin','regedarek/ZoomWin'
 "precision color scheme, 'altercation/solarized' is all in one.
 Plug 'altercation/vim-colors-solarized'
+
 "让fcitx响应vim的模式切换
 Plug 'vim-scripts/fcitx.vim'
-Plug 'easymotion/vim-easymotion'
-"shell模式
-"Plug 'Flolagale/conque'
-"shell模式,vimshell依赖vimproc
-"Plug 'Shougo/vimshell.vim'
-"Plug 'Shougo/vimproc.vim'
-"集成接口,功能像ctrlp,但可搜索显示任意来源的信息,且可自定义来源
-"Plug 'Shougo/unite.vim'
-"vim8之后的异步后台运行插件
-Plug 'skywind3000/asyncrun.vim'
 
-"括号自动闭合,<s-tab>跳出闭合,i_<C-g>g跳出最外一层,不支持<C-h>挺好
-Plug 'Raimondi/delimitMate'
-"Plug 'jiangmiao/auto-pairs'
-"还有kana/vim-smartinput,Townk/vim-autoclose,未试
-"设置见 https://github.com/kien/rainbow_parentheses.vim
-"Plug 'kien/rainbow_parentheses.vim'
-"c族语言 all in one!杀手级clang语法解析
+"command-T增强,模糊查找文件             Plug 'kien/ctrlp.vim'
+"Ack, 通过配置可以使用ag搜索            Plug 'mileszs/ack.vim'
+"The plugin is a front for ag(the_silver_searcher)
+Plug 'rking/ag.vim'
+"vim8, 异步, 文件搜索及显示函数列表, ctrlp增强
+Plug 'Yggdroot/LeaderF'
+"shell模式                  Plug 'Flolagale/conque'
+"   vimshell依赖vimproc     Plug 'Shougo/vimshell.vim' | Plug 'Shougo/vimproc.vim'
+"集成接口, 功能像ctrlp, 但可搜索显示任意来源的信息, 且可自定义来源  Plug 'Shougo/unite.vim'
+"vim8, 异步, 后台运行 某程序
+Plug 'skywind3000/asyncrun.vim'
+"######### 1. VIM-相关 END #########
+
+"######### 2. 编程-相关 #########
+"文本排版
+Plug 'godlygeek/tabular'
+"垂直缩进线         Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
+" 参数提示
+Plug 'Shougo/echodoc.vim'
+"majutsushi/tagbar是taglist增强, NB!
+Plug 'majutsushi/tagbar'
+
+"python all in one!         Plug 'klen/python-mode'
+"杀手级clang语法解析补全插件(all in one!)
 "2015年 12月 02日 星期三 14:38:58 CST
 "win下要用到visual studio(用2013版试后无法编译不再试)
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-"python all in one!
-"详情见: https://github.com/klen/python-mode
-"Plug 'klen/python-mode'
-Plug 'fs111/pydoc.vim'
-"Plug 'needle-wang/ViMango'
-Plug 'needle-wang/vim-jumptoview'
-"解决py方法定义的括号的缩进问题
-Plug 'hynek/vim-python-pep8-indent'
-"Plug 'othree/html5.vim'
-"Plug 'jaredly/vim-debug'
-Plug 'godlygeek/tabular'
-"JDE有单独菜单,上手难～
-"Plug 'Vim-JDE'
-"JAVA补全, 如方法等
-"Plug 'javacomplete'
-"here is ZenCoding.vim's new name
-Plug 'mattn/emmet-vim'
-"Live browser editing(实时更新html浏览)
-Plug 'jaxbot/browserlink.vim'
-"majutsushi/tagbar是taglist增强, NB!
-"vim8, 异步显示函数列表
-Plug 'Yggdroot/LeaderF'
-"国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~
-"Plug 'drmingdrmer/xptemplate'
+
+"语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
+"vim8, 异步, 实时代码检查器
+Plug 'w0rp/ale'
+
+"vim8, 异步生成ctags, ctags用于函数跳转的~
+Plug 'ludovicchabant/vim-gutentags'
+
+"注释插件           Plug 'vimcn/NERD_commenter.cnx'
+Plug 'scrooloose/nerdcommenter'
+
+"国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~ Plug 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
 Plug 'SirVer/ultisnips'
-"snipmate和ultisnips的代码片段集, utlisnips默认都会检索
-"Plug 'honza/vim-snippets'
+"snipmate和ultisnips的代码片段集, utlisnips默认都会检索     Plug 'honza/vim-snippets'
 Plug 'needle-wang/vim-snippets'
-"snipmate与xptemplate快键不冲突,不支持嵌套,直接tab, 二者已停止更新~
-"Plug 'msanders/snipmate.vim'
-"Plug ''scrooloose/snipmate-snippets'
-"语法检查器,保存文本时才检查(即默认的主动模式)
-"Plug 'scrooloose/syntastic'
-"vim8, 异步实时代码检查器
-Plug 'w0rp/ale'
-"注释插件,评分最高
-Plug 'scrooloose/nerdcommenter'
-"中文文档(asins/vimcdoc里面有)
-"Plug 'vimcn/NERD_commenter.cnx'
-"command-T增强,模糊查找文件
-Plug 'kien/ctrlp.vim'
-"The plugin is a front for ag(the_silver_searcher)
-Plug 'rking/ag.vim'
-"Ack, 通过配置可以使用ag搜索
-"Plug 'mileszs/ack.vim'
-"利用vundle把它下下来而已,非vim插件
-"Plug 'sgerrand/xfce4-terminal-colors-solarized'
 
-"有lispbox就别老想着这东东了,巨麻烦~
-"Plug 'slimv.vim'
+"snipmate与xptemplate快键不冲突, 不支持嵌套, 直接tab, 二者已停止更新~
+"Plug 'msanders/snipmate.vim' | Plug ''scrooloose/snipmate-snippets'
+
+"Plug 'jaredly/vim-debug'
+"######### 2. 编程-相关 END #########
+
+"######### 3. PYTHON-相关 #########
+Plug 'fs111/pydoc.vim'
+"解决py方法定义的括号的缩进问题     Plug 'hynek/vim-python-pep8-indent'
+
+"Plug 'needle-wang/ViMango'
+Plug 'needle-wang/vim-jumptoview'
 
 "for snipmate, 不过ultisnips默认支持
 Plug 'needle-wang/bootstrap-snippets'
 "jinja2语法文件
 "Plug 'Glench/Vim-Jinja2-Syntax'
-"垂直缩进线
-"Plug 'nathanaelkane/vim-indent-guides'
-Plug 'Yggdroot/indentLine'
-" 参数提示
-Plug 'Shougo/echodoc.vim'
-"enable repeating supported plugin maps with "."
-Plug 'tpope/vim-repeat'
+"######### 3. PYTHON-相关 END #########
+
+"######### 4. front-end-相关 #########
+"Plug 'othree/html5.vim'
+"here is ZenCoding.vim's new name
+Plug 'mattn/emmet-vim'
+"Live browser editing(实时更新html浏览)
+Plug 'jaxbot/browserlink.vim'
+
+"######### 4. front-end-相关 END #########
+
+"######### 5. JAVA-相关 #########
+"JDE有单独菜单,上手难~
+"Plug 'Vim-JDE'
+"JAVA补全, 如方法等
+"Plug 'javacomplete'
+"######### 5. JAVA-相关 END #########
+
+"######### 6. 其他-相关 #########
+Plug 'tpope/vim-fugitive'
 Plug 'suan/vim-instant-markdown'
+"利用vundle把它下下来而已,非vim插件     Plug 'sgerrand/xfce4-terminal-colors-solarized'
+"有lispbox就别老想着这东东了,巨麻烦~    Plug 'slimv.vim'
+"######### 6. 其他-相关 END #########
 
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+"Plug 'junegunn/vim-easy-align'
+" Any valid git URL is allowed
+"Plug 'https://github.com/junegunn/vim-github-dashboard.git'
+" Multiple Plug commands can be written in a single line using | separators
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" On-demand loading
+"Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+"Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+" Using a non-master branch
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
+" Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
+"Plug 'fatih/vim-go', { 'tag': '*' }
+" Plugin options
+"Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+" Plugin outside ~/.vim/plugged with post-update hook
+"Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Unmanaged plugin (manually installed and updated)
+"Plug '~/my-prototype-plugin'
+" Initialize plugin system
+call plug#end()
 
-" All of your Plugs must be added before the following line
-call plug#end()             " required
 filetype plugin indent on     " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PlugList       - lists configured plugins
-" :PlugInstall    - installs plugins; append `!` to update or just :PlugUpdate
-" :PlugSearch foo - searches for foo; append `!` to refresh local cache
-" :PlugClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plug stuff after this line
 
-function Result_of_run(run_sign)
+function! Result_of_run(run_sign)
     "!ls这样运行, 显示的结果会切换到shell界面
     echo system(a:run_sign . shellescape(expand('%')))
 endfunction
 
-function Add_space()
+function! Add_space()
     set switchbuf=usetab,newtab
     let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
     "如果文件类型不在fts_tmp之中, 就要inoremap .
@@ -193,21 +183,21 @@ function Add_space()
     endif
 endfunction
 
-function Template_py()
+function! Template_py()
     let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
-    let b:line = ["", "def main():", "  pass", "", "if __name__ == '__main__':", "  main()"]
+    let b:line = ["", "def main():", "  pass", "", "", "if __name__ == '__main__':", "  main()"]
     call append(line("$"), b:line)
     call cursor(6, 0)
 endfunction
 
-function Template_sh()
+function! Template_sh()
     let b:line = ['#!/bin/bash -', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
     call cursor(5, 0)
 endfunction
 
-function Template_html()
+function! Template_html()
     let b:line = ['bootstrap_basic', strftime("<!-- # %Y年 %m月 %d日 %A %H:%M:%S CST -->")]
     call append(0, b:line)
     normal dd
@@ -301,11 +291,10 @@ noremap          gq :Ag!<space>
 noremap          gs ms:up<CR>
 
 noremap          <F1> <Esc>
-noremap          <F3> mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
-noremap          <F4> :Errors<CR>
-noremap          <F5> :SyntasticCheck<CR>
+noremap          <F3> mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
 noremap <silent> <F7> :NERDTreeToggle<CR>
 noremap <silent> <F8> :TagbarToggle<CR>
+"如果语法颜色错乱, 按此键刷新
 noremap         <F12> :syntax sync fromstart<CR>
 
 nnoremap           j        gj
@@ -348,6 +337,9 @@ nnoremap          <right>   :tab sbn<CR>
 
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
+autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
+nnoremap <F5> :AsyncRun -cwd=<root> -raw python %<cr> 
+nnoremap <F6> :call asyncrun#quickfix_toggle(6)<cr>
 
 "inoremap    vv  <Esc>"+gpa
 inoremap    vv  <C-o>"+gP
@@ -361,9 +353,9 @@ inoremap <C-g>v <Esc>"+gpa
 "<C-/> doesn't work on gvim...
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
+inoremap <F1>  <Esc>
 autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>
-inoremap <F1>  <Esc>
 inoremap <F3>  <Esc>mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
@@ -392,7 +384,7 @@ vnoremap    gk <C-w><C-k>
 "ultisnips的片段使用了选择模式
 xnoremap <C-j> :m'>+<CR>`<my`>mzgv`yo`z
 xnoremap <C-k> :m'<-2<CR>`>my`<mzgv`yo`z
-"选择模式没法映射好像~
+"选择模式好像没法映射~
 "snoremap t <C-o>mc"+y`c
 
 cabbrev   e1   e!
@@ -404,7 +396,58 @@ cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-l> <Del>
-command W :execute 'silent w !sudo tee % > /dev/null' | :e!
+command! W :execute 'silent w !sudo tee % > /dev/null' | :e!
+
+
+"   ######### VIM-相关-插件配置 #########
+
+"------ for surround ------
+nmap q<space> ysiw<space><space>f<space>
+"为光标下的字串加双引号
+nmap q; ysiW"f"
+"为光标下的单词加双引号
+nmap q' ysiw"f"
+nmap q( ysiw(%
+nmap q) ysiw)%
+vmap q; S"f"
+vmap q' q;
+vmap q( S(%
+vmap q) S)%
+"------ for surround ------
+
+"------ for delimitMate ------
+"pep8-indent一定要
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
+"------ for delimitMate ------
+
+"------ for easymotion ------
+let g:EasyMotion_leader_key = ','
+"------ for easymotion ------
+
+"------ for nerdtree ------
+"let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI  = 1
+let NERDTreeMouseMode  = 2
+let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
+"最后一个窗口是nerdtree时, 关闭vim
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"自动打开nerdtree
+"autocmd VimEnter * NERDTree | wincmd l
+"------ for nerdtree ------
+
+"------ for lightline ------
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ }
+"让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+    let g:lightline.fname = a:fname
+  return lightline#statusline(0)
+endfunction
+"------ for lightline ------
 
 "------ for solarized ------
 let g:solarized_termcolors = 256
@@ -425,19 +468,73 @@ set ttimeoutlen=200
 inoremap <silent> <C-c> <Esc>
 "------ for fcitx --------
 
-"------ for surround ------
-nmap q<space> ysiw<space><space>f<space>
-"为光标下的字串加双引号
-nmap q; ysiW"f"
-"为光标下的单词加双引号
-nmap q' ysiw"f"
-nmap q( ysiw(%
-nmap q) ysiw)%
-vmap q; S"f"
-vmap q' q;
-vmap q( S(%
-vmap q) S)%
-"------ for surround ------
+""------ for ctrlp ------
+"let g:ctrlp_regexp        = 1
+"let g:ctrlp_by_filename   = 1
+"let g:ctrlp_custom_ignore = {
+    "\ 'dir'  :  '\v[\/]\.(git|hg|svn|rvm)$' ,
+    "\ 'file' :  '\v\.(exe|so|dll|pyc|swp)$' ,
+    "\ }
+""------ for ctrlp ------
+
+"------ for ack.vim ------
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+"------ for ack.vim ------
+
+"------ for ag.vim ------
+let g:ag_prg = 'ag --column --smart-case'
+"------ for ag.vim ------
+
+"------ for LeaderF ------
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_ShortcutB = '<m-n>'
+noremap <c-n> :LeaderfMru<cr>
+noremap <m-p> :LeaderfFunction!<cr>
+noremap <m-n> :LeaderfBuffer<cr>
+noremap <m-m> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+"------ for LeaderF ------
+
+"------ for asyncrun ------
+" 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 8
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+" asyncrun根据特殊文件名 来识别 project 的根目录
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
+" "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
+"nnoremap <silent> <F5> :AsyncRun -cwd=<root> make <cr> 
+" 设置 打开/关闭 Quickfix 窗口
+"nnoremap <F6> :call asyncrun#quickfix_toggle(6)<cr>
+let $PYTHONUNBUFFERED=1
+"------ for asyncrun ------
+
+"   ######### VIM-相关-插件配置 END -#########
+
+"   ######### 编程-相关-插件配置 #########
+
+"------ for tabular ------
+"g;和g,很有用
+noremap      g/         :Tab /
+noremap      g=         :Tab /=<CR>
+noremap      g1         :Tab /!=<CR>
+noremap      g2         :Tab /==<CR>
+noremap      g.         :Tab /,<CR>
+noremap      g"         :Tab /"<CR>
+noremap      g'         :Tab /'<CR>
+noremap      g:         :Tab /:<CR>
+noremap      g<space>   :Tab / <CR>
+"noremap      g<Bar>     :Tab /<Bar><CR>
+"------ for tabular ------
 
 "------ for indentLine ------
 let g:indentLine_char = '┊'
@@ -451,51 +548,16 @@ let g:indentLine_indentLevel = 4
 nnoremap g<Bar> :IndentLinesToggle<CR>
 "------ for indentLine ------
 
-"------ for emmet ------
-let g:user_emmet_leader_key = 'Q'
-let g:user_emmet_mode = 'nv'
-"emmet不能映射<Bar>, 会导致ultisnips失效
-"不能用noremap, leaderkey会失效
-map <C-n>  <Plug>(emmet-expand-abbr)
-"<C-/>, <C-&>, <C-_>可生成
-"还有一些特殊符号可改, 具体忘了
-map      <Plug>(emmet-expand-abbr)
-imap     <C-o><Plug>(emmet-expand-abbr)
-"------ for emmet ------
-
-"------ for nerdtree ------
-"let NERDTreeQuitOnOpen = 1
-let NERDTreeMinimalUI  = 1
-let NERDTreeMouseMode  = 2
-let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
-"最后一个窗口是nerdtree时, 关闭vim
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"自动打开nerdtree
-"autocmd VimEnter * NERDTree | wincmd l
-"------ for nerdtree ------
-
-"------ for lightline ------
-let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ }
-""让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
-"let g:tagbar_status_func = 'TagbarStatusFunc'
-
-"function! TagbarStatusFunc(current, sort, fname, ...) abort
-    "let g:lightline.fname = a:fname
-  "return lightline#statusline(0)
-"endfunction
-"------ for lightline ------
-
-"------ for easymotion ------
-let g:EasyMotion_leader_key = ','
-"------ for easymotion ------
-
-"------ for delimitMate ------
-"pep8-indent一定要
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
-"------ for delimitMate ------
+"------ for tagbar ------
+let g:tagbar_width = 37
+"let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
+"let g:tagbar_autoshowtag = 0    "自动打开折叠
+"let g:tagbar_sort        = 0    "标签按代码中的顺序排序
+let g:tagbar_compact     = 1    "去掉含有<F1>的首行
+let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
+let g:tagbar_singleclick = 1    "单击打开标签
+set updatetime=700              "自动高亮当前tag的间隔时间，全局的
+"------ for tagbar ------
 
 "------ for YouCompleteMe ------
 "vim中, <C-m>等价于Enter(<CR>)
@@ -537,43 +599,6 @@ let g:ycm_filetype_blacklist = {
         "\ 'python'     : 1,
         "\}
 "------ for YouCompleteMe ------
-
-"for java, ctags就是一砣, 太差了,一点都跳不准~
-"sudo ctags -R --fields=+iaS --extra=+q
-"autocmd FileType java set tags=/opt/jdk1.6.0_38/sourcecode/tags
-"for javacomplete
-"接口变量只能补全接口的方法,无Object的
-"完整包路径的对象变量的点补全
-"final类的对象变量的点补全,"someStr".也支持
-"不支持自定义的类～
-"已经相当不错了~
-"autocmd FileType java setlocal omnifunc=javacomplete#Complete
-"文档说是显示参数信息,不知道怎么用~,用vjde的
-"setlocal completefunc=javacomplete#CompleteParamsInfo
-"for pythoncomplete
-"vim自带pythoncomplete.vim, 智能启用, 但是找不到哪autocmd的~
-"YouCompleteMe自带了python补全~,且与下面的点映射冲突
-"有时要加<C-P>上移, 有时又不要, 不清楚~
-"autocmd FileType python inoremap <buffer> . .<C-X><C-O><C-P>
-
-"docString的预览窗口会闪屏,所以要取消preview, 设成全局的更好些
-set completeopt=longest,menu
-
-"------ for UltiSnips ------
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
-"------ for UltiSnips ------
-
-"------ for xptemplate ------
-"let g:xptemplate_nav_prev = '<C-k>'
-"------ for xptemplate ------
-
-"------ for bootstrap-snippets ------
-"有YouCompleteMe, 不用设置就支持了
-"set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
-"set complete+=k
-"------ for bootstrap-snippets ------
 
 ""------ for syntastic ------
 ""手动检查, 主动模式会卡一会(pylint的原因,用pyflakes就好了)
@@ -620,21 +645,33 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 ""------ for syntastic ------
 
 "------ for ale ------
-let g:ale_linters_explicit = 1
+"let g:ale_sign_column_always = 1
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-let g:ale_lint_on_text_changed = 'normal'
+
+"let g:ale_fix_on_save = 1
+"pip install yapf
+let g:ale_fixers = {
+\   'python': ['yapf'],
+\}
+
+let g:ale_lint_delay = 500
 let g:ale_lint_on_insert_leave = 1
-let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_linters_explicit = 1
 
-let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
-let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
-let g:ale_c_cppcheck_options = ''
-let g:ale_cpp_cppcheck_options = ''
+"pip install flake8
+let g:ale_linters = {
+\   'python' : ['flake8'],
+\   'vim'    : ['vint'],
+\}
 
-let g:ale_sign_error = "\ue009\ue009"
+let g:ale_python_flake8_options = '--ignore=E111,E114,E203,E251,E266,W391'
+let g:ale_python_yapf_options = '--style={indent_width:3}'
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
+
 hi! clear SpellBad
 hi! clear SpellCap
 hi! clear SpellRare
@@ -643,54 +680,104 @@ hi! SpellCap gui=undercurl guisp=blue
 hi! SpellRare gui=undercurl guisp=magenta
 "------ for ale ------
 
+"------ for vim-gutentags ------
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
-"------ for tabular ------
-"g;和g,很有用
-noremap      g/         :Tab /
-noremap      g=         :Tab /=<CR>
-noremap      g1         :Tab /!=<CR>
-noremap      g2         :Tab /==<CR>
-noremap      g.         :Tab /,<CR>
-noremap      g"         :Tab /"<CR>
-noremap      g'         :Tab /'<CR>
-noremap      g:         :Tab /:<CR>
-noremap      g<space>   :Tab / <CR>
-"noremap      g<Bar>     :Tab /<Bar><CR>
-"------ for tabular ------
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
 
-""------ for tagbar ------
-"let g:tagbar_width = 37
-""每打开相应文件就会弹出来,不好
-""autocmd FileType python,java,cpp,c nested :TagbarOpen
-""autocmd FileType python,java,javascript,cpp,c nested :TagbarOpen
-""autocmd BufReadPost *.c,*.cpp,*.h,*.py,*.java,*.sh call tagbar#autoopen()
-""let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
-""let g:tagbar_autoshowtag = 0    "自动打开折叠
-""let g:tagbar_sort        = 0    "标签按代码中的顺序排序
-"let g:tagbar_compact     = 1    "去掉含有<F1>的首行
-"let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
-"let g:tagbar_singleclick = 1    "单击打开标签
-"set updatetime=700              "自动高亮当前tag的间隔时间，全局的
-""------ for tagbar ------
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
 
-"------ for LeaderF ------
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_ShortcutB = '<m-n>'
-noremap <c-n> :LeaderfMru<cr>
-noremap <m-p> :LeaderfFunction!<cr>
-noremap <m-n> :LeaderfBuffer<cr>
-noremap <m-m> :LeaderfTag<cr>
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-"------ for LeaderF ------
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+"------ for vim-gutentags ------
+
+"------ for xptemplate ------
+"let g:xptemplate_nav_prev = '<C-k>'
+"------ for xptemplate ------
+
+"------ for UltiSnips ------
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
+"------ for UltiSnips ------
+
+"   ######### 编程-相关-插件配置 END #########
+
+"   ######### PYTHON-相关-插件配置 #########
+
+"------ for bootstrap-snippets ------
+"有YouCompleteMe, 不用设置就支持了
+"set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
+"set complete+=k
+"------ for bootstrap-snippets ------
+
+"   ######### PYTHON-相关-插件配置 END #########
+
+"   ######### front-end-相关-插件配置 #########
+
+"------ for emmet ------
+let g:user_emmet_leader_key = 'Q'
+let g:user_emmet_mode = 'nv'
+"emmet不能映射<Bar>, 会导致ultisnips失效
+"不能用noremap, leaderkey会失效
+map <C-n>  <Plug>(emmet-expand-abbr)
+"<C-/>, <C-&>, <C-_>可生成
+"还有一些特殊符号可改, 具体忘了
+map      <Plug>(emmet-expand-abbr)
+imap     <C-o><Plug>(emmet-expand-abbr)
+"------ for emmet ------
+
+"------ for browserlink ------
+"autocmd BufWritePost *.html :BLReloadPage
+"1. run: ~/.vim/bundle/browserlink.vim/browserlink/start.sh
+"要装nodejs, 并: sudo ln -s /usr/bin/nodejs /usr/bin/node
+"2. 在页面中加上<script src='http://127.0.0.1:9001/js/socket.js'></script>
+"下行写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
+"window.__BL_OVERRIDE_CACHE = true
+"------ for browserlink ------
+
+"   ######### front-end-相关-插件配置 END #########
+
+"   ######### JAVA-相关-插件配置 #########
+
+"------ for Vim-JDE" ------
+"autocmd FileType java inoremap <buffer> . .<C-X><C-U>
+"以这个为主(不支持"someStr".形式,编译后支持本类),javacomplete为辅
+"set completefunc=VjdeCompletionFun
+"let g:vjde_lib_path = "/opt/MyEclipse_10_0/Common/plugins/com.genuitec.eclipse.j2eedt.core_10.0.0.me201110301321/data/libraryset/EE_5/javaee.jar"
+"let g:vjde_javadoc_path = "/opt/jdk1.6.0_38/sourcecode/"
+"------ for Vim-JDE" ------
+
+"for java, ctags就是一砣, 太差了,一点都跳不准~
+"sudo ctags -R --fields=+iaS --extra=+q
+"autocmd FileType java set tags=/opt/jdk1.6.0_38/sourcecode/tags
+"for javacomplete
+"接口变量只能补全接口的方法,无Object的
+"完整包路径的对象变量的点补全
+"final类的对象变量的点补全,"someStr".也支持
+"不支持自定义的类～
+"已经相当不错了~
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
+"文档说是显示参数信息,不知道怎么用~,用vjde的
+"setlocal completefunc=javacomplete#CompleteParamsInfo
+"for pythoncomplete
+"vim自带pythoncomplete.vim, 智能启用, 但是找不到哪autocmd的~
+"YouCompleteMe自带了python补全~,且与下面的点映射冲突
+"有时要加<C-P>上移, 有时又不要, 不清楚~
+"autocmd FileType python inoremap <buffer> . .<C-X><C-O><C-P>
+
+"docString的预览窗口会闪屏,所以要取消preview, 设成全局的更好些
+set completeopt=longest,menu
 
 "------ for eclim ------
 "很完美,就是vim版eclipse,想受虐就用.
@@ -707,39 +794,9 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
 "------ for eclim ------
 
-"------ for Vim-JDE" ------
-"autocmd FileType java inoremap <buffer> . .<C-X><C-U>
-"以这个为主(不支持"someStr".形式,编译后支持本类),javacomplete为辅
-"set completefunc=VjdeCompletionFun
-"let g:vjde_lib_path = "/opt/MyEclipse_10_0/Common/plugins/com.genuitec.eclipse.j2eedt.core_10.0.0.me201110301321/data/libraryset/EE_5/javaee.jar"
-"let g:vjde_javadoc_path = "/opt/jdk1.6.0_38/sourcecode/"
-"------ for Vim-JDE" ------
+"   ######### JAVA-相关-插件配置 END #########
 
-"------ for ctrlp ------
-let g:ctrlp_regexp        = 1
-let g:ctrlp_by_filename   = 1
-let g:ctrlp_custom_ignore = {
-    \ 'dir'  :  '\v[\/]\.(git|hg|svn|rvm)$' ,
-    \ 'file' :  '\v\.(exe|so|dll|pyc|swp)$' ,
-    \ }
-"------ for ctrlp ------
-
-"------ for ack.vim ------
-"let g:ackprg = 'ag --nogroup --nocolor --column'
-"------ for ack.vim ------
-
-"------ for ag.vim ------
-let g:ag_prg = 'ag --column --smart-case'
-"------ for ag.vim ------
-
-"------ for browserlink ------
-"autocmd BufWritePost *.html :BLReloadPage
-"1. run: ~/.vim/bundle/browserlink.vim/browserlink/start.sh
-"要装nodejs, 并: sudo ln -s /usr/bin/nodejs /usr/bin/node
-"2. 在页面中加上<script src='http://127.0.0.1:9001/js/socket.js'></script>
-"下行写在browserlink.js里(将在chrome里的改动 动态写回 原文件中):
-"window.__BL_OVERRIDE_CACHE = true
-"------ for browserlink ------
+"   ######### 其他-相关-插件配置 #########
 
 "------ for vim-fugitive ------
 nnoremap \g :Gstatus<CR>
@@ -751,18 +808,8 @@ let g:instant_markdown_autostart = 0
 nnoremap X :InstantMarkdownPreview<CR>
 "------ for vim-instant-markdown ------
 
-"------ for asyncrun ------
-" 自动打开 quickfix window ，高度为 6
-let g:asyncrun_open = 6
-" 任务结束时候响铃提醒
-let g:asyncrun_bell = 1
-" 设置 F10 打开/关闭 Quickfix 窗口
-nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
-" asyncrun根据特殊文件名 来识别 project 的根目录
-let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
-" "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
-" nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr> 
-"------ for asyncrun ------
+"   ######### 其他-相关-插件配置 END #########
+
 
 "为一些特殊非通用的东西, 如只针对某些项目的配置
 if filereadable(expand("~/.lvimrc"))
