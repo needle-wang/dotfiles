@@ -81,13 +81,10 @@ alias dj='cd /usr/local/lib/python2.7/dist-packages/django'
 alias backup='c /media/BACKUP'
 alias kali='cd /media/KALI'
 alias kaui='kuai'
-alias kuai='c /media/BACKUP/1LANDJ/快盘'
-alias kun='c /media/BACKUP/1LANDJ/kun'
 alias lj='c /media/BACKUP/1LANDJ'
 alias mout='mount'
 alias some='c /media/SOME'
 alias win='c /media/WIN'
-alias za='c /media/SOME/2ZA'
 
 alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
 #编译安装后解决,而且是因下行导致关闭报错的
