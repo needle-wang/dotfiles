@@ -229,7 +229,7 @@ let &termencoding=&fileencoding
 "------乱码解决方案------
 
 set autoread
-set cedit=<C-G>     "ex模式打开命令行窗口的键
+set cedit=<C-g>     "ex模式打开命令行窗口的键
 set cursorline      "高亮光标所在行
 set expandtab
 set history=1000
@@ -337,12 +337,13 @@ nnoremap          <right>   :tab sbn<CR>
 
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
-autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
-nnoremap <F5> :AsyncRun -cwd=<root> -raw python %<cr> 
-nnoremap <F6> :call asyncrun#quickfix_toggle(6)<cr>
+"autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
+nnoremap <F4> :ALEFix<CR>
+nnoremap <F5> :AsyncRun -cwd=<root> -raw python %<CR> 
+nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 
-"inoremap    vv  <Esc>"+gpa
-inoremap    vv  <C-o>"+gP
+"inoremap    vv  <C-o>"+gP
+inoremap    vv  <C-r>+
 inoremap <C-o>  <C-\><C-o>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -488,10 +489,10 @@ let g:ag_prg = 'ag --column --smart-case'
 "------ for LeaderF ------
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<m-n>'
-noremap <c-n> :LeaderfMru<cr>
-noremap <m-p> :LeaderfFunction!<cr>
-noremap <m-n> :LeaderfBuffer<cr>
-noremap <m-m> :LeaderfTag<cr>
+noremap <c-n> :LeaderfMru<CR>
+noremap <m-p> :LeaderfFunction!<CR>
+noremap <m-n> :LeaderfBuffer<CR>
+noremap <m-m> :LeaderfTag<CR>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
@@ -512,9 +513,9 @@ let g:asyncrun_bell = 1
 " asyncrun根据特殊文件名 来识别 project 的根目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 " "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
-"nnoremap <silent> <F5> :AsyncRun -cwd=<root> make <cr> 
+"nnoremap <silent> <F5> :AsyncRun -cwd=<root> make <CR> 
 " 设置 打开/关闭 Quickfix 窗口
-"nnoremap <F6> :call asyncrun#quickfix_toggle(6)<cr>
+"nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 let $PYTHONUNBUFFERED=1
 "------ for asyncrun ------
 
@@ -649,11 +650,12 @@ let g:ycm_filetype_blacklist = {
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
-
 "let g:ale_fix_on_save = 1
-"pip install yapf
+
+"pip install yapf isort
+"语法修复器: ALEFix
 let g:ale_fixers = {
-\   'python': ['yapf'],
+\   'python': ['yapf', 'isort'],
 \}
 
 let g:ale_lint_delay = 500
@@ -662,13 +664,15 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_linters_explicit = 1
 
 "pip install flake8
+"语法检查器(自动检查)
 let g:ale_linters = {
 \   'python' : ['flake8'],
 \   'vim'    : ['vint'],
 \}
 
-let g:ale_python_flake8_options = '--ignore=E111,E114,E203,E251,E266,W391'
-let g:ale_python_yapf_options = '--style={indent_width:3}'
+let g:ale_python_flake8_options = '--ignore=E111,E114,E203,E251,E266,F841,W391'
+"没有这个yapf选项, 在项目的任意父目录加个.style.yapf
+"let g:ale_python_yapf_options = '--style={indent_width:2}'
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '⚡'
 
@@ -751,7 +755,7 @@ imap     <C-o><Plug>(emmet-expand-abbr)
 "   ######### JAVA-相关-插件配置 #########
 
 "------ for Vim-JDE" ------
-"autocmd FileType java inoremap <buffer> . .<C-X><C-U>
+"autocmd FileType java inoremap <buffer> . .<C-x><C-u>
 "以这个为主(不支持"someStr".形式,编译后支持本类),javacomplete为辅
 "set completefunc=VjdeCompletionFun
 "let g:vjde_lib_path = "/opt/MyEclipse_10_0/Common/plugins/com.genuitec.eclipse.j2eedt.core_10.0.0.me201110301321/data/libraryset/EE_5/javaee.jar"
@@ -773,8 +777,8 @@ imap     <C-o><Plug>(emmet-expand-abbr)
 "for pythoncomplete
 "vim自带pythoncomplete.vim, 智能启用, 但是找不到哪autocmd的~
 "YouCompleteMe自带了python补全~,且与下面的点映射冲突
-"有时要加<C-P>上移, 有时又不要, 不清楚~
-"autocmd FileType python inoremap <buffer> . .<C-X><C-O><C-P>
+"有时要加<C-p>上移, 有时又不要, 不清楚~
+"autocmd FileType python inoremap <buffer> . .<C-x><C-o><C-p>
 
 "docString的预览窗口会闪屏,所以要取消preview, 设成全局的更好些
 set completeopt=longest,menu
@@ -785,7 +789,7 @@ set completeopt=longest,menu
 "eclim默认会用pyflakes和python编译器验证语法,第一次检测没有pyflakes就不再用pyflakes
 "let g:EclimPythonValidate = 0  "禁用保存文件时验证,.py不需要开eclimd
 "有YouCompleteMe就不需要这个映射
-"autocmd FileType java inoremap <buffer> . .<C-X><C-U>
+"autocmd FileType java inoremap <buffer> . .<C-x><C-u>
 "autocmd FileType java nnoremap <silent> <buffer> [i :JavaImportOrganize<CR>
 "autocmd FileType java nnoremap <silent> <buffer> [d :JavaDocPreview<CR>
 "autocmd FileType java nnoremap <silent> <buffer> [f :%JavaFormat<CR>

@@ -34,7 +34,7 @@ noremap   <c-g>   /
 noremap   ;       :
 noremap   gf      :tab vie<CR>
 
-cnoremap  q       xall<CR>
+"cnoremap  q       xall<CR>
 cnoremap  <c-p>   <Up>
 cnoremap  <c-n>   <Down>
 
