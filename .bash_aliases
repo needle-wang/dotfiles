@@ -74,14 +74,16 @@ alias sl='ls'
 #must do: sudo chmod 4755 /bin/ss
 alias ss='ss -ntp'
 
+alias backup='c /media/BACKUP'
 alias desk='cd ~/桌面'
 alias down='c ~/下载'
 alias dwon='down'
 alias dj='cd /usr/local/lib/python2.7/dist-packages/django'
-alias backup='c /media/BACKUP'
+alias free='free -m -l -t'
 alias kali='cd /media/KALI'
 alias kaui='kuai'
 alias lj='c /media/BACKUP/1LANDJ'
+alias netstat='netstat -ntp'
 alias mout='mount'
 alias some='c /media/SOME'
 alias sqlmap='sqlmap --random-agent'
@@ -105,7 +107,6 @@ if [ "$(id -u)" != "0" ]; then
     alias iotop='sudo iotop'
     alias mount='sudo mount'
     alias nmap='sudo nmap'
-    alias netstat='sudo netstat -ntp'
     alias pip='sudo -H pip'
     alias reboot='sudo sync;sudo reboot'
     alias service='sudo service'
@@ -181,6 +182,10 @@ else
 fi
 }
 
+backfile() {
+    [ "$1" ] && cp "$1"{,.bak}
+}
+
 lo(){
     [ "$1" ] && locate -bei "$1" | g "$1"
 }
@@ -188,6 +193,11 @@ lo(){
 lo.(){
     #当前目录下 通过正则 搜索文件名包含${1}的文件
     [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
+}
+
+mcd(){
+    #新建目录, 并cd进去
+    [ "$1" ] && mkdir -p "$1" && cd "$1"
 }
 
 psg(){
@@ -216,6 +226,7 @@ addpypath(){
         export PYTHONPATH
     fi
 }
+
 
 if [[ -s "$HOME/.bash_tmp" ]]; then
     source $HOME/.bash_tmp

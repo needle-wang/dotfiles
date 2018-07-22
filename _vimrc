@@ -126,6 +126,7 @@ Plug 'jaxbot/browserlink.vim'
 "######### 6. 其他-相关 #########
 Plug 'tpope/vim-fugitive'
 Plug 'suan/vim-instant-markdown'
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 "利用vundle把它下下来而已,非vim插件     Plug 'sgerrand/xfce4-terminal-colors-solarized'
 "有lispbox就别老想着这东东了,巨麻烦~    Plug 'slimv.vim'
 "######### 6. 其他-相关 END #########
@@ -652,10 +653,11 @@ let g:ale_echo_delay = 20
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 "let g:ale_fix_on_save = 1
 
-"pip install yapf isort
 "语法修复器: ALEFix
+"pip install yapf isort
+"'sh': ['shfmt'], 但是shfmt不会装...
 let g:ale_fixers = {
-\   'python': ['yapf', 'isort'],
+\   'python' : ['yapf', 'isort'],
 \}
 
 let g:ale_lint_delay = 500
@@ -663,10 +665,12 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_linters_explicit = 1
 
-"pip install flake8
 "语法检查器(自动检查)
+"pip install flake8
+"apt-get install shellcheck
 let g:ale_linters = {
 \   'python' : ['flake8'],
+\   'sh'     : ['shellcheck'],
 \   'vim'    : ['vint'],
 \}
 
