@@ -85,8 +85,8 @@ Plug 'scrooloose/nerdcommenter'
 "国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~ Plug 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
 Plug 'SirVer/ultisnips'
-"snipmate和ultisnips的代码片段集, utlisnips默认都会检索     Plug 'honza/vim-snippets'
-Plug 'needle-wang/vim-snippets'
+    "snipmate和ultisnips引擎的代码片段集, utlisnips默认都会检索 Plug 'honza/vim-snippets'
+    Plug 'needle-wang/vim-snippets'
 
 "snipmate与xptemplate快键不冲突, 不支持嵌套, 直接tab, 二者已停止更新~
 "Plug 'msanders/snipmate.vim' | Plug ''scrooloose/snipmate-snippets'
@@ -95,14 +95,15 @@ Plug 'needle-wang/vim-snippets'
 "######### 2. 编程-相关 END #########
 
 "######### 3. PYTHON-相关 #########
-Plug 'fs111/pydoc.vim'
+"没必要用for, 有文件类型判断
+Plug 'fs111/pydoc.vim', { 'for': 'python' }
 "解决py方法定义的括号的缩进问题     Plug 'hynek/vim-python-pep8-indent'
 
 "Plug 'needle-wang/ViMango'
-Plug 'needle-wang/vim-jumptoview'
+Plug 'needle-wang/vim-jumptoview', { 'for': 'python' }
 
 "for snipmate, 不过ultisnips默认支持
-Plug 'needle-wang/bootstrap-snippets'
+Plug 'needle-wang/bootstrap-snippets', { 'for': ['html', 'htmldjango'] }
 "jinja2语法文件
 "Plug 'Glench/Vim-Jinja2-Syntax'
 "######### 3. PYTHON-相关 END #########
@@ -110,9 +111,9 @@ Plug 'needle-wang/bootstrap-snippets'
 "######### 4. front-end-相关 #########
 "Plug 'othree/html5.vim'
 "here is ZenCoding.vim's new name
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
 "Live browser editing(实时更新html浏览)
-Plug 'jaxbot/browserlink.vim'
+"Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
 
 "######### 4. front-end-相关 END #########
 
@@ -125,8 +126,10 @@ Plug 'jaxbot/browserlink.vim'
 
 "######### 6. 其他-相关 #########
 Plug 'tpope/vim-fugitive'
-Plug 'suan/vim-instant-markdown'
-Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+"vim-instant-markdown自己有文件类型判断
+Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+"shfmt命令不知道怎么安装...
+"Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 "利用vundle把它下下来而已,非vim插件     Plug 'sgerrand/xfce4-terminal-colors-solarized'
 "有lispbox就别老想着这东东了,巨麻烦~    Plug 'slimv.vim'
 "######### 6. 其他-相关 END #########
@@ -338,6 +341,7 @@ nnoremap          <right>   :tab sbn<CR>
 
 autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
 autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
+"这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
 nnoremap <F4> :ALEFix<CR>
 nnoremap <F5> :AsyncRun -cwd=<root> -raw python %<CR> 
@@ -546,7 +550,7 @@ let g:indentLine_color_tty_light = 7
 let g:indentLine_color_dark = 1
 let g:indentLine_enabled = 0
 let g:indentLine_fileType = ['python']
-let g:indentLine_indentLevel = 4
+let g:indentLine_indentLevel = 3
 nnoremap g<Bar> :IndentLinesToggle<CR>
 "------ for indentLine ------
 
@@ -647,6 +651,8 @@ let g:ycm_filetype_blacklist = {
 ""------ for syntastic ------
 
 "------ for ale ------
+nnoremap <silent> [n :ALENextWrap<CR>
+nnoremap <silent> [N :ALEPreviousWrap<CR>
 "let g:ale_sign_column_always = 1
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
