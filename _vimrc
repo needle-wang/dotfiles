@@ -680,7 +680,7 @@ let g:ale_linters = {
 \   'vim'    : ['vint'],
 \}
 
-let g:ale_python_flake8_options = '--ignore=E111,E114,E203,E251,E266,F841,W391'
+let g:ale_python_flake8_options = '--ignore=E111,E114,E121,E203,E251,E266,E501,F841,W391'
 "没有这个yapf选项, 在项目的任意父目录加个.style.yapf
 "let g:ale_python_yapf_options = '--style={indent_width:2}'
 let g:ale_sign_error = '✗'
