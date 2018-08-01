@@ -347,8 +347,9 @@ nnoremap <F4> :ALEFix<CR>
 nnoremap <F5> :AsyncRun -cwd=<root> -raw python %<CR> 
 nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 
-"inoremap    vv  <C-o>"+gP
-inoremap    vv  <C-r>+
+autocmd FileType python inoremap # #<space>
+"see :h paste
+inoremap <silent>   vv  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 inoremap <C-o>  <C-\><C-o>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -575,6 +576,8 @@ let g:ycm_complete_in_comments         = 1                       "在注释中�
 let g:ycm_goto_buffer_command          = 'new-or-existing-tab'   "设定跳转命令在哪里打开
 let g:ycm_key_list_select_completion   = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 "let g:ycm_add_preview_to_completeopt   = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "上行无效~, 下行有效~, 老出问题
@@ -695,6 +698,7 @@ hi! SpellRare gui=undercurl guisp=magenta
 "------ for ale ------
 
 "------ for vim-gutentags ------
+set tags=./.tags;,.tags "这句加跟不加没啥区别呀~
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
 " 所生成的数据文件的名称
@@ -846,8 +850,8 @@ if has("gui_running")
         set guifontwide=Consolas:h12:cANSI
     else
         "Ubuntu下, Ubuntu Mono 比 Bitstream显示效果要好
-        "set guifont=Ubuntu\ Mono\ 18,Bitstream\ Vera\ Sans\ Mono\ 16
-        set guifont=Bitstream\ Vera\ Sans\ Mono\ 16
+        set guifont=Ubuntu\ Mono\ 19
+        "set guifont=Bitstream\ Vera\ Sans\ Mono\ 16
     endif
 endif
 
