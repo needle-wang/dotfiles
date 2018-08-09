@@ -585,19 +585,20 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 "YouCompleteMe对不支持语义(semantic)补全的就会使用omnifunc, 如html
 "启用范围为 黑名单在白名单中的补集
 let g:ycm_filetype_blacklist = {
-        \ 'tagbar'   : 1,
-        \ 'qf'       : 1,
-        \ 'notes'    : 1,
-        \ 'unite'    : 1,
-        \ 'text'     : 1,
-        \ 'vimwiki'  : 1,
-        \ 'pandoc'   : 1,
-        \ 'infolog'  : 1,
-        \ 'mail'     : 1,
-        \ 'tar'      : 1,
-        \ 'nerdtree' : 1,
         \ 'c'        : 1,
         \ 'cpp'      : 1,
+        \ 'infolog'  : 1,
+        \ 'json'     : 1,
+        \ 'mail'     : 1,
+        \ 'nerdtree' : 1,
+        \ 'notes'    : 1,
+        \ 'pandoc'   : 1,
+        \ 'qf'       : 1,
+        \ 'tar'      : 1,
+        \ 'tagbar'   : 1,
+        \ 'text'     : 1,
+        \ 'unite'    : 1,
+        \ 'vimwiki'  : 1,
         \}
 "let g:ycm_filetype_whitelist = {
         "\ 'css'        : 1,
@@ -843,15 +844,14 @@ if has("gui_running")
     set columns=90
 
     if has("win32")
-        "在高分屏下要是字显小就调大些
-        set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI,Consolas:h12:cANSI
+        " win自带的consolas专门用来适配编程的
+        " 在高分屏下要是字显小就调大些
+        set guifont=Consolas:h12
         "win下中文(即双宽字体)需要gfw, ubuntu下中文应该是沿用guifont吧
-        "比Bitstream显示效果要好(Bitstream要下载, win自带consolas)
-        set guifontwide=Consolas:h12:cANSI
+        set guifontwide=Microsoft\ YaHei\ Mono:h12:cGB2312
     else
-        "Ubuntu下, Ubuntu Mono 比 Bitstream显示效果要好
+        "Ubuntu下, Ubuntu Mono比Bitstream显示效果要好
         set guifont=Ubuntu\ Mono\ 19
-        "set guifont=Bitstream\ Vera\ Sans\ Mono\ 16
     endif
 endif
 

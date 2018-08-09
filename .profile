@@ -21,13 +21,13 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export LANGUAGE="zh_CN:en"
+export LANGUAGE="zh_CN:zh"
 export LC_MESSAGES="zh_CN.UTF-8"
 export LC_CTYPE="zh_CN.UTF-8"
 export LC_COLLATE="zh_CN.UTF-8"
 
 #登陆自动禁用触摸板
-synclient touchpadoff=1 2>/dev/null
+#synclient touchpadoff=1 2>/dev/null
 #进入X时清除主目录下的goutputstream-*文件(无用)
 /home/needle/bin/cleanXoutput.py
 

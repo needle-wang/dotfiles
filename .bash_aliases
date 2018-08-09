@@ -75,6 +75,10 @@ alias sl='ls'
 alias ss='ss -ntp'
 
 alias backup='c /media/BACKUP'
+#dmesg只显示此次开机的kernel的日志, 其他deamon的输出不管
+#journalctl -b显示从此次开机到运行此命令间的所有日志
+alias journalctl='SYSTEMD_LESS=FRSXMKi journalctl --no-hostname'
+alias logfromboot='journalctl -b'
 alias desk='cd ~/桌面'
 alias down='c ~/下载'
 alias dwon='down'
@@ -87,6 +91,13 @@ alias netstat='netstat -ntp'
 alias mout='mount'
 alias some='c /media/SOME'
 alias sqlmap='sqlmap --random-agent'
+# The first word of each simple command, if unquoted,
+# is checked to see if it has an alias.
+# Bash does not try to recursively expand the replacement text.
+# If the last character of the alias value is a space or tab character,
+# then the next command word following the alias is also checked for alias expansion. 
+alias sudo='sudo '
+alias tailf='tail -f'
 alias win='c /media/WIN'
 
 alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
@@ -108,10 +119,12 @@ if [ "$(id -u)" != "0" ]; then
     alias mount='sudo mount'
     alias nmap='sudo nmap'
     alias pip='sudo -H pip'
+    alias powertop='sudo powertop'
     alias reboot='sudo sync;sudo reboot'
     alias service='sudo service'
     alias sqlmap='sudo sqlmap --random-agent'
     alias shutdown='sudo shutdown'
+    alias systemctl='sudo systemctl'
     alias updatedb='sudo updatedb'
     alias update-grub='sudo update-grub'
     #原始PS1
@@ -193,6 +206,16 @@ lo(){
 lo.(){
     #当前目录下 通过正则 搜索文件名包含${1}的文件
     [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
+}
+
+man () {
+  #包装man, 使其支持man bash内置命令
+  case "$(type -t "$1"):$1" in
+    builtin:*) help "$1" | "${PAGER:-less}";;     # built-in
+    *[[?*]*) help "$1" | "${PAGER:-less}";;       # pattern
+    *) command -p man "$@";;  # something else, presumed to be an external command
+                              # or options for the man command or a section number
+  esac
 }
 
 mcd(){
