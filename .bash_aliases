@@ -50,7 +50,7 @@ alias t='type -a'
 alias T='tree -F'
 alias W='which'
 alias x='bri.sh'
-alias z='touchpad.sh'
+alias z='touchpad_toggle.sh'
 #以下, 还未用，不一定都要用，避免失误
 #bash: type: o: 未找到
 #bash: type: u: 未找到
@@ -58,6 +58,7 @@ alias z='touchpad.sh'
 
 alias ag='ag --column --smart-case'
 alias bc='bc -q'
+alias c.='c ..'
 alias cp='cp -vi'
 alias df='df.sh -h | column -t'
 alias gi='git'
@@ -73,6 +74,7 @@ alias sl='ls'
 #alias ss='sudo ss -ntp'
 #must do: sudo chmod 4755 /bin/ss
 alias ss='ss -ntp'
+alias tf='tail -f'
 
 alias backup='c /media/BACKUP'
 #dmesg只显示此次开机的kernel的日志, 其他deamon的输出不管
@@ -97,7 +99,6 @@ alias sqlmap='sqlmap --random-agent'
 # If the last character of the alias value is a space or tab character,
 # then the next command word following the alias is also checked for alias expansion. 
 alias sudo='sudo '
-alias tailf='tail -f'
 alias win='c /media/WIN'
 
 alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
@@ -107,6 +108,7 @@ alias namp='nmap'
 
 #如果不是root用户
 if [ "$(id -u)" != "0" ]; then
+    alias aptitude='sudo aptitude'
     alias apt-get='sudo apt-get'
     #alias aptitude='sudo aptitude'
     alias atop='sudo atop'
