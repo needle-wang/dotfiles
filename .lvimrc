@@ -39,3 +39,10 @@ autocmd BufNewFile *.html call Template_html()
 "for jumptoview
 let g:jumptoview_patterns_prefix = ''
 
+"测试哪个python可用(:h has-python)
+"if has('python')
+  "echo '有 Python 2.x'
+"elseif has('python3')
+  "echo '有 Python 3.x'
+"endif
+
