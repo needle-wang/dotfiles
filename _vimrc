@@ -70,7 +70,7 @@ Plug 'majutsushi/tagbar'
 "杀手级clang语法解析补全插件(all in one!)
 "2015年 12月 02日 星期三 14:38:58 CST
 "win下要用到visual studio(用2013版试后无法编译不再试)
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --java-completer' }
 
 "语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
 "vim8, 异步, 实时代码检查器
@@ -158,11 +158,6 @@ call plug#end()
 
 filetype plugin indent on     " required
 
-function! Result_of_run(run_sign)
-    "!ls这样运行, 显示的结果会切换到shell界面
-    echo system(a:run_sign . shellescape(expand('%')))
-endfunction
-
 function! Add_space()
     set switchbuf=usetab,newtab
     let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
@@ -188,7 +183,7 @@ function! Add_space()
 endfunction
 
 function! Template_py()
-    let b:line = ['#!/usr/bin/env python', '# encoding: utf-8', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    let b:line = ['#!/usr/bin/env python3', '# encoding: utf-8', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
     let b:line = ["", "def main():", "  pass", "", "", "if __name__ == '__main__':", "  main()"]
     call append(line("$"), b:line)
@@ -282,14 +277,14 @@ noremap <silent> N  Nzz
 noremap          P  "+gp
 "noremap          Q  :Ag!<CR>
 noremap <silent> g* g*zz
-noremap          g\ ms:up<CR>
+"noremap          g\ ms:up<CR>
 "for hhkb
 noremap          g3 mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
 noremap <silent> g8 :TagbarToggle<CR>
-noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms:up<CR>
-noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms:up<CR>
-noremap <silent> gm :cal cursor(line("."), (col(".")+col("$"))/2)<CR>
-noremap <silent> gM :cal cursor(line("."), col(".")/2)<CR>
+noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms
+noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms
+noremap <silent> gm :call cursor(line("."), (col(".")+col("$"))/2)<CR>
+noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
 noremap          gq :Ag!<space>
 "for hhkb
 noremap          gs ms:up<CR>
@@ -310,6 +305,7 @@ nnoremap           Y        y$
 nnoremap          cd        :lcd %:p:h<CR>
 nnoremap          co        2o<Esc>k
 nnoremap          cO        O<Esc>j
+nnoremap          <C-g>     1<C-g>
 "g-与正常模式的u重复了,     还易按错
 nnoremap          g-        <nop>
 nnoremap          gf        <C-w>gf
@@ -339,12 +335,11 @@ nnoremap          gy        :tab sbn<CR>
 nnoremap          <Left>    :tab sbp<CR>
 nnoremap          <right>   :tab sbn<CR>
 
-autocmd BufNewFile,BufRead *.py nnoremap <buffer> <F2> :up<CR>:call Result_of_run("python ")<CR>
-autocmd BufNewFile,BufRead *.sh nnoremap <buffer> <F2> :up<CR>:call Result_of_run("bash ")<CR>
+autocmd FileType python,sh nnoremap <buffer> <F2> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
 nnoremap <F4> :ALEFix<CR>
-nnoremap <F5> :AsyncRun -cwd=<root> -raw python %<CR> 
+nnoremap <F5> :AsyncRun -cwd=<root> -raw $(VIM_FILEPATH)<CR> 
 nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 
 autocmd FileType python inoremap # #<space>
@@ -354,15 +349,14 @@ inoremap <C-o>  <C-\><C-o>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
 inoremap <C-l>  <Del>
-inoremap <C-s>  <Esc>ms:up<CR>a
-inoremap <C-g>\ <Esc>ms:up<CR>a
-inoremap <C-g>v <Esc>"+gpa
+inoremap <C-s>  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
+"inoremap <C-g>\ <Esc>ms:up<CR>a
+"inoremap <C-g>v <Esc>"+gpa
 "<C-/> doesn't work on gvim...
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
 inoremap <F1>  <Esc>
-autocmd BufNewFile,BufRead *.py inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("python ")<CR>
-autocmd BufNewFile,BufRead *.sh inoremap <buffer> <F2> <Esc>:up<CR>:call Result_of_run("bash ")<CR>
+autocmd FileType python,sh inoremap <buffer> <F2> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 inoremap <F3>  <Esc>mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
@@ -433,7 +427,7 @@ let g:EasyMotion_leader_key = ','
 "------ for easymotion ------
 
 "------ for nerdtree ------
-"let NERDTreeQuitOnOpen = 1
+let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI  = 1
 let NERDTreeMouseMode  = 2
 let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
@@ -578,7 +572,10 @@ let g:ycm_key_list_select_completion   = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_python_binary_path = 'python'
+"ycmd server使用的py版本
+"let g:ycm_server_python_interpreter='python3'
+"python completer使用的py版本, 忘了从哪里看到的此选项, 搜不到
+let g:ycm_python_binary_path = 'python3'
 "let g:ycm_add_preview_to_completeopt   = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "上行无效~, 下行有效~, 老出问题

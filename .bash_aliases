@@ -73,27 +73,31 @@ alias lt2='l | awk -f $HOME/bin/today_filter.awk'
 alias mv='mv -vi'
 alias rm='rm -vi'
 alias sl='ls'
-#alias ss='sudo ss -ntp'
-#must do: sudo chmod 4755 /bin/ss
-alias ss='ss -ntp'
+#sudo visudo: %needle ALL=(ALL:ALL) NOPASSWD:ALL
+alias ss='sudo ss -ntp'
 alias tf='tail -f'
+alias vm='mv'
 
+alias dj='c /usr/local/lib/python2.7/dist-packages/django'
+alias lj='c /media/BACKUP/1LANDJ'
 alias backup='c /media/BACKUP'
+alias some='c /media/SOME'
+alias desk='cd ~/桌面'
+alias down='c ~/下载'
+alias win='cd /media/WIN'
+alias kali='cd /media/KALI'
+alias dwon='down'
+
+alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
+alias free='free -m -l -t'
+alias flake8='flake8 --ignore=E111,E114,E121,E203,E251,E266,E501,F841,W391'
 #dmesg只显示此次开机的kernel的日志, 其他deamon的输出不管
 #journalctl -b显示从此次开机到运行此命令间的所有日志
 alias journalctl='SYSTEMD_LESS=FRSXMKi journalctl --no-hostname'
 alias logfromboot='journalctl -b'
-alias desk='cd ~/桌面'
-alias down='c ~/下载'
-alias dwon='down'
-alias dj='cd /usr/local/lib/python2.7/dist-packages/django'
-alias free='free -m -l -t'
-alias kali='cd /media/KALI'
-alias kaui='kuai'
-alias lj='c /media/BACKUP/1LANDJ'
-alias netstat='netstat -ntp'
 alias mout='mount'
-alias some='c /media/SOME'
+alias namp='nmap'
+alias netstat='netstat -ntp'
 alias sqlmap='sqlmap --random-agent'
 # The first word of each simple command, if unquoted,
 # is checked to see if it has an alias.
@@ -101,12 +105,7 @@ alias sqlmap='sqlmap --random-agent'
 # If the last character of the alias value is a space or tab character,
 # then the next command word following the alias is also checked for alias expansion. 
 alias sudo='sudo '
-alias win='c /media/WIN'
 
-alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
-#编译安装后解决,而且是因下行导致关闭报错的
-#alias gvim='UBUNTU_MENUPROXY=0 gvim -f'
-alias namp='nmap'
 
 #如果不是root用户
 if [ "$(id -u)" != "0" ]; then
@@ -123,6 +122,7 @@ if [ "$(id -u)" != "0" ]; then
     alias mount='sudo mount'
     alias nmap='sudo nmap'
     alias pip='sudo -H pip'
+    alias pip3='sudo -H pip3'
     alias powertop='sudo powertop'
     alias reboot='sudo sync;sudo reboot'
     alias service='sudo service'
@@ -212,9 +212,9 @@ lo.(){
     [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
 }
 
-man () {
+man() {
   #包装man, 使其支持man bash内置命令
-  case "$(type -t "$1"):$1" in
+  case "$(type -t "$1" 2>/dev/null):$1" in
     builtin:*) help "$1" | "${PAGER:-less}";;     # built-in
     *[[?*]*) help "$1" | "${PAGER:-less}";;       # pattern
     *) command -p man "$@";;  # something else, presumed to be an external command
