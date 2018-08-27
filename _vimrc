@@ -227,33 +227,34 @@ endif
 let &termencoding=&fileencoding
 "------乱码解决方案------
 
-set autoread
+set autoread        "默认关闭
 set cedit=<C-g>     "ex模式打开命令行窗口的键
-set cursorline      "高亮光标所在行
-set expandtab
-set history=1000
-set ignorecase
-set keywordprg=     "禁用man,使用内置help
-set laststatus=2    "让单窗口时也会出现lightline
-set nobackup
-set noshowmode
-set noswapfile
-set noundofile
-set number
+set cursorline      "高亮光标所在行, 默认关闭
+set expandtab       "默认关闭
+set history=1000    ":h 'history', 默认20
+set hlsearch        "默认关闭
+set ignorecase      ":h 'ignorecase', 默认关闭
+set keywordprg=     "禁用man,使用内置help, 默认man
+set laststatus=2    "让单窗口时也会出现lightline, 默认1
+set nobackup        "默认为nobackup
+set noshowmode      "默认为showmode
+set noswapfile      "默认为swapfile
+set noundofile      "默认为noundofile
+set number          ":h 'number', 默认关闭
 set sessionoptions=blank,buffers,curdir,folds,options,tabpages,winsize,slash,unix,resize
-set smartcase
-set scrolloff=4     "光标上下两侧最少保留的屏幕行数
-set shiftwidth=4    "自动缩进的空格数
-set smarttab        "<BS>/<C-h>删除行首空格时一次将删shiftwidth多个
+set smartcase       "默认关闭
+set scrolloff=4     "光标上下两侧最少保留的屏幕行数, 默认为0
+set shiftwidth=4    ":h 'shiftwidth', 自动缩进的空格数, 默认为8
+set smarttab        "<BS>/<C-h>删除行首空格时一次将删shiftwidth多个, 默认关闭
 "放这好像被莫名覆盖了~
 "set switchbuf=usetab,newtab
-set tabstop=4       "<tab>占的空格数
+set tabstop=4       "<tab>占的空格数, 默认为8
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store   "文件补全时忽略下列文件
-set wildmode=list:longest,full
+set wildmode=list:longest,full      "默认为full
 
 "setlocal autochdir "与fugitive有冲突
 
-let g:netrw_browsex_viewer = "google-chrome"
+let g:netrw_browsex_viewer = "firefox"
 
 noremap      <C-e>  2<C-e>
 noremap      <C-y>  2<C-y>
@@ -267,8 +268,9 @@ noremap          `  '
 noremap          /  /\v
 noremap <silent> *  *zz
 noremap <silent> #  #zz
-"高亮光标下的单词, 且光标坐标不变
-noremap          &  mcHmt`c*`tzt`c
+"高亮光标下的单词, 且光标坐标不变, 下行偶尔还是会跳屏
+"noremap          &  mcHmt`c*`tzt`c
+noremap <silent> &  :let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set hls<CR>
 noremap    <space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
@@ -309,7 +311,7 @@ nnoremap          <C-g>     1<C-g>
 "g-与正常模式的u重复了,     还易按错
 nnoremap          g-        <nop>
 nnoremap          gf        <C-w>gf
-nnoremap <silent> gX        :call system('google-chrome '.shellescape(expand('%')))<CR>
+nnoremap <silent> gX        :call system('firefox'.shellescape(expand('%')))<CR>
 nnoremap          gz        :tabnew<space>
 nnoremap <silent>  _        :tabm-1<CR>
 nnoremap <silent>  +        :tabm+1<CR>
@@ -339,7 +341,7 @@ autocmd FileType python,sh nnoremap <buffer> <F2> :up<Bar>echo system(expand('%:
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
 nnoremap <F4> :ALEFix<CR>
-nnoremap <F5> :AsyncRun -cwd=<root> -raw $(VIM_FILEPATH)<CR> 
+nnoremap <F5> :up<Bar>AsyncRun -cwd=<root> -raw $(VIM_FILEPATH)<CR> 
 nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 
 autocmd FileType python inoremap # #<space>
@@ -357,7 +359,7 @@ inoremap <C-s>  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
 inoremap <F1>  <Esc>
 autocmd FileType python,sh inoremap <buffer> <F2> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
-inoremap <F3>  <Esc>mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
+inoremap <F3>  <Esc>mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 "中文句号好像不会触发
