@@ -6,7 +6,7 @@
     branch = auto
     status = auto
     grep   = always
-	ui = false
+    ui = false
 [alias]
     a                 = add
     b                 = branch
@@ -16,22 +16,24 @@
     m                 = merge
     s                 = status -sb
     t                 = tag
-	br                = branch
-	ci                = commit -m
-	co                = checkout
+    br                = branch
+    ci                = commit -m
+    co                = checkout
     la                = log --graph --pretty         = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %Cblue%cn%Creset' --abbrev-commit --date = relative --all
     lc                = log --graph --pretty         = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %Cblue%cn%Creset' --abbrev-commit --date = relative
-	lg                = log --color --graph --pretty = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lg                = log --color --graph --pretty = format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     pl                = pull
     pu                = push
     rb                = rebase
-	st                = status
+    st                = status
     des               = describe --tags
-	last              = log -1
-	unstage           = reset HEAD
+    last              = log -1
+    unstage           = reset HEAD
     untrack           = rm -r --cached
     merge-branch-file = checkout --merge
 [push]
-	default = simple
+    default = simple
 [merge]
     tool = vimdiff
+[core]
+	quotepath = false

@@ -41,7 +41,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 
 "让fcitx响应vim的模式切换
-Plug 'vim-scripts/fcitx.vim'
+Plug 'lilydjwg/fcitx.vim'
 
 "command-T增强,模糊查找文件             Plug 'kien/ctrlp.vim'
 "Ack, 通过配置可以使用ag搜索            Plug 'mileszs/ack.vim'
@@ -98,7 +98,8 @@ Plug 'SirVer/ultisnips'
 "没必要用for, 有文件类型判断
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
 "解决py方法定义的括号的缩进问题     Plug 'hynek/vim-python-pep8-indent'
-
+"text objects for Python
+"Plug 'jeetsukumaran/vim-pythonsense'
 "Plug 'needle-wang/ViMango'
 Plug 'needle-wang/vim-jumptoview', { 'for': 'python' }
 
@@ -111,7 +112,7 @@ Plug 'needle-wang/bootstrap-snippets', { 'for': ['html', 'htmldjango'] }
 "######### 4. front-end-相关 #########
 "Plug 'othree/html5.vim'
 "here is ZenCoding.vim's new name
-Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css'] }
 "Live browser editing(实时更新html浏览)
 "Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
 
@@ -232,7 +233,7 @@ set cedit=<C-g>     "ex模式打开命令行窗口的键
 set cursorline      "高亮光标所在行, 默认关闭
 set expandtab       "默认关闭
 set history=1000    ":h 'history', 默认20
-set hlsearch        "默认关闭
+"set hlsearch        "默认关闭(在vimrc_example.vim设了), incsearch在defaults.vim设了
 set ignorecase      ":h 'ignorecase', 默认关闭
 set keywordprg=     "禁用man,使用内置help, 默认man
 set laststatus=2    "让单窗口时也会出现lightline, 默认1
@@ -262,7 +263,8 @@ noremap          -  _
 noremap          ;  :
 noremap          :  ;
 noremap          '  `
-noremap          `  '
+noremap          `  ~
+noremap          ~  '
 "noremap <silent> \| :call NERDComment("n", "Comment")<CR>
 "使特殊字符不用转义就默认变成正则含义(:h magic)
 noremap          /  /\v
@@ -337,12 +339,12 @@ nnoremap          gy        :tab sbn<CR>
 nnoremap          <Left>    :tab sbp<CR>
 nnoremap          <right>   :tab sbn<CR>
 
-autocmd FileType python,sh nnoremap <buffer> <F2> :up<Bar>echo system(expand('%:p'))<CR>
+autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
-"autocmd FileType python nnoremap <F4> :0,$!yapf --style='{indent_width:2}'<CR><C-o>
-nnoremap <F4> :ALEFix<CR>
-nnoremap <F5> :up<Bar>AsyncRun -cwd=<root> -raw $(VIM_FILEPATH)<CR> 
-nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
+"autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
+nnoremap          <F2> :ALEFix<CR>
+nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw $(VIM_FILEPATH)<CR>
+nnoremap          <F6> :call asyncrun#quickfix_toggle(6)<CR>
 
 autocmd FileType python inoremap # #<space>
 "see :h paste
@@ -358,7 +360,7 @@ inoremap <C-s>  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
 inoremap <F1>  <Esc>
-autocmd FileType python,sh inoremap <buffer> <F2> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
+autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 inoremap <F3>  <Esc>mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
@@ -376,7 +378,7 @@ inoremap ”  "<space>
 autocmd FileType python iabbrev none None
                      \| iabbrev true True
                      \| iabbrev false False
-                     \| iabbrev re return
+                     \| iabbrev r return
 
 autocmd BufNewFile,BufRead * call Add_space()
 
@@ -497,25 +499,38 @@ noremap <m-n> :LeaderfBuffer<CR>
 noremap <m-m> :LeaderfTag<CR>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_RootMarkers = ['.project','.root','.git','.hg','.svn']
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
+if has("win32")
+    let g:Lf_CacheDirectory = expand('$HOME/vimfiles/cache')
+else
+    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+endif
 let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+"git ls-files会列出的是octal形式的utf8, leaderf没有处理
+"如: "training\345\256\214\346\210\220\345\276\214.txt"
+"git config --global core.quotepath false
+"let g:Lf_UseVersionControlTool = 0
+let g:Lf_WildIgnore = {
+    \ 'dir'  : ['.git','.hg','.svn'],
+    \ 'file' : ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+    \}
+
 "------ for LeaderF ------
 
 "------ for asyncrun ------
-" 自动打开 quickfix window ，高度为 6
-let g:asyncrun_open = 8
-" 任务结束时候响铃提醒
-let g:asyncrun_bell = 1
+" 自动打开 quickfix window ，高度为8
+let g:asyncrun_open = 0
+" 任务结束时候响铃提醒, 0为关闭
+let g:asyncrun_bell = 0
 " asyncrun根据特殊文件名 来识别 project 的根目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 " "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
-"nnoremap <silent> <F5> :AsyncRun -cwd=<root> make <CR> 
+"nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> make <CR> 
 " 设置 打开/关闭 Quickfix 窗口
 "nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 let $PYTHONUNBUFFERED=1
@@ -630,7 +645,7 @@ let g:ycm_filetype_blacklist = {
 ""let g:syntastic_javascript_checkers = ['javascript']
 ""nnoremap gs :SyntasticCheck<CR>
 
-"function Syntastic_map(map_cmd1, map_cmd2)
+"function! Syntastic_map(map_cmd1, map_cmd2)
     ""下行可以用\<bar> 或 \|
     ""nnoremap ]l :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(776\<bar>553\<bar>42\):/<bar>echo v:exception<bar>endtry<CR>
     "try
@@ -745,15 +760,18 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 "   ######### front-end-相关-插件配置 #########
 
 "------ for emmet ------
-let g:user_emmet_leader_key = 'Q'
-let g:user_emmet_mode = 'nv'
 "emmet不能映射<Bar>, 会导致ultisnips失效
 "不能用noremap, leaderkey会失效
-map <C-n>  <Plug>(emmet-expand-abbr)
 "<C-/>, <C-&>, <C-_>可生成
 "还有一些特殊符号可改, 具体忘了
-map      <Plug>(emmet-expand-abbr)
-imap     <C-o><Plug>(emmet-expand-abbr)
+"这跟顺序有关嘛? 在EmmetInstall后面let有影响嘛?
+autocmd FileType html,htmldjango,css EmmetInstall
+            \| let g:user_emmet_install_global = 0
+            \| let g:user_emmet_leader_key = 'Q'
+            \| let g:user_emmet_mode = 'nv'
+            \| map <C-n>  <Plug>(emmet-expand-abbr)
+            \| map      <Plug>(emmet-expand-abbr)
+            \| imap     <C-o><Plug>(emmet-expand-abbr)
 "------ for emmet ------
 
 "------ for browserlink ------
@@ -805,12 +823,12 @@ set completeopt=longest,menu
 "let g:EclimPythonValidate = 0  "禁用保存文件时验证,.py不需要开eclimd
 "有YouCompleteMe就不需要这个映射
 "autocmd FileType java inoremap <buffer> . .<C-x><C-u>
-"autocmd FileType java nnoremap <silent> <buffer> [i :JavaImportOrganize<CR>
-"autocmd FileType java nnoremap <silent> <buffer> [d :JavaDocPreview<CR>
-"autocmd FileType java nnoremap <silent> <buffer> [f :%JavaFormat<CR>
-"autocmd FileType java nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
-"autocmd FileType java let g:EclimJavaCompleteCaseSensitive = 1
-"autocmd FileType java let g:EclimCompletionMethod = 'omnifunc'
+"                   \| nnoremap <silent> <buffer> [i :JavaImportOrganize<CR>
+"                   \| nnoremap <silent> <buffer> [d :JavaDocPreview<CR>
+"                   \| nnoremap <silent> <buffer> [f :%JavaFormat<CR>
+"                   \| nnoremap <silent> <buffer> <CR> :JavaSearchContext<CR>
+"                   \| let g:EclimJavaCompleteCaseSensitive = 1
+"                   \| let g:EclimCompletionMethod = 'omnifunc'
 "------ for eclim ------
 
 "   ######### JAVA-相关-插件配置 END #########
@@ -823,8 +841,8 @@ nnoremap \g :Gstatus<CR>
 
 "------ for vim-instant-markdown ------
 let g:instant_markdown_autostart = 0
-"只能第一次, 再次开启无效, 原因未知
-nnoremap X :InstantMarkdownPreview<CR>
+"只能第一次运行, 再次开启无效, 原因未知
+autocmd FileType markdow nnoremap X :InstantMarkdownPreview<CR>
 "------ for vim-instant-markdown ------
 
 "   ######### 其他-相关-插件配置 END #########

@@ -41,6 +41,8 @@ cnoremap  <c-n>   <Down>
 "禁用出错鸣叫
 hi Bell display: none;
 
+set nohlsearch
+
 " char hints plugin
 set hintchars=fdsaghjklwertyuiovbcnm
 
