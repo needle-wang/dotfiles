@@ -69,8 +69,9 @@ Plug 'majutsushi/tagbar'
 "python all in one!         Plug 'klen/python-mode'
 "杀手级clang语法解析补全插件(all in one!)
 "2015年 12月 02日 星期三 14:38:58 CST
-"win下要用到visual studio(用2013版试后无法编译不再试)
-Plug 'Valloric/YouCompleteMe', { 'do': 'python3 ./install.py --java-completer' }
+"win下要用到visual studio编译
+", { 'do': 'python3 ./install.py --java-completer' }
+Plug 'Valloric/YouCompleteMe'
 
 "语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
 "vim8, 异步, 实时代码检查器
@@ -127,8 +128,8 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css'] }
 
 "######### 6. 其他-相关 #########
 Plug 'tpope/vim-fugitive'
-"vim-instant-markdown自己有文件类型判断
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.vim'
 "shfmt命令不知道怎么安装...
 "Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 "利用vundle把它下下来而已,非vim插件     Plug 'sgerrand/xfce4-terminal-colors-solarized'
@@ -339,7 +340,7 @@ nnoremap          gy        :tab sbn<CR>
 nnoremap          <Left>    :tab sbp<CR>
 nnoremap          <right>   :tab sbn<CR>
 
-autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
+"autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
 nnoremap          <F2> :ALEFix<CR>
@@ -360,7 +361,7 @@ inoremap <C-s>  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
 inoremap <F1>  <Esc>
-autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
+"autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 inoremap <F3>  <Esc>mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
@@ -839,11 +840,9 @@ set completeopt=longest,menu
 nnoremap \g :Gstatus<CR>
 "------ for vim-fugitive ------
 
-"------ for vim-instant-markdown ------
-let g:instant_markdown_autostart = 0
-"只能第一次运行, 再次开启无效, 原因未知
-autocmd FileType markdow nnoremap X :InstantMarkdownPreview<CR>
-"------ for vim-instant-markdown ------
+"------ for markdown-preview ------
+autocmd FileType markdown nnoremap X :MarkdownPreview<CR>
+"------ for markdown-preview ------
 
 "   ######### 其他-相关-插件配置 END #########
 
