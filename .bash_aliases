@@ -62,7 +62,7 @@ alias c-='c -'
 alias c.='c ..'
 alias c..='c ../..'
 alias cp='cp -vi'
-alias df='df.sh -h | column -t'
+alias df='df.sh | column -t'
 alias gi='git'
 alias lg='l | g'
 alias li='l | g -v "\.pyc$"'
@@ -75,7 +75,8 @@ alias rm='rm -vi'
 alias sl='ls'
 #sudo visudo: %needle ALL=(ALL:ALL) NOPASSWD:ALL
 alias ss='sudo ss -ntp'
-alias tf='tail -f'
+#tailf有bug, 已过时, 连包都没有了~
+alias tf='multitail'
 alias vm='mv'
 
 alias dj='c /usr/local/lib/python2.7/dist-packages/django'
@@ -105,6 +106,7 @@ alias sqlmap='sqlmap --random-agent'
 # If the last character of the alias value is a space or tab character,
 # then the next command word following the alias is also checked for alias expansion. 
 alias sudo='sudo '
+alias tailf='tail -f  '
 
 
 #如果不是root用户
@@ -141,7 +143,7 @@ else
 fi
 
 #使tty1, 3, 5可显示中文
-#must do: sudo chmod 4755 $(W zhcon)
+#must do: sudo chmod 4755 $(W zhcon), 2018-09-11: 好像不需要加S位了
 if tty | grep -q '^/dev/tty[135]$'; then
     zhcon --utf8 --drv=fb
 fi

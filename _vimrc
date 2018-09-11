@@ -20,8 +20,8 @@ Plug 'asins/vimcdoc'
 "分组式缓冲区列表           Plug 'TinyBufferExplorer'
 "窗口布局管理器 (自己配映射就用不着了,它自带了file和tag的explorer) "Plug 'winmanager'
 "<C-w>o变成最大化窗或还原布局, 太慢了.  Plug 'ZoomWin','regedarek/ZoomWin'
-"让html标签或endif支持%, 内置未启用, 交给vim-plug管吧
-Plug 'vim-scripts/matchit.zip'
+"让html标签或endif支持%, vim --startuptime /tmp/log 显示已加载自带的
+"Plug 'vim-scripts/matchit.zip'
 "operation+motion:(vim内置)
 "ci,di,yi,ca,da,ya接符号及dib,diB,cit为 删除(/复制)符号内的文本
 "操作对象增强: ds"为删除", cs"'为由"替换成', ys+{motion}+符号为加符号
@@ -86,8 +86,8 @@ Plug 'scrooloose/nerdcommenter'
 "国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~ Plug 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
 Plug 'SirVer/ultisnips'
-    "snipmate和ultisnips引擎的代码片段集, utlisnips默认都会检索 Plug 'honza/vim-snippets'
-    Plug 'needle-wang/vim-snippets'
+  "snipmate和ultisnips引擎的代码片段集, utlisnips默认都会检索 Plug 'honza/vim-snippets'
+  Plug 'needle-wang/vim-snippets'
 
 "snipmate与xptemplate快键不冲突, 不支持嵌套, 直接tab, 二者已停止更新~
 "Plug 'msanders/snipmate.vim' | Plug ''scrooloose/snipmate-snippets'
@@ -115,7 +115,7 @@ Plug 'needle-wang/bootstrap-snippets', { 'for': ['html', 'htmldjango'] }
 "here is ZenCoding.vim's new name
 Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css'] }
 "Live browser editing(实时更新html浏览)
-"Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
+Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
 
 "######### 4. front-end-相关 END #########
 
@@ -129,7 +129,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css'] }
 "######### 6. 其他-相关 #########
 Plug 'tpope/vim-fugitive'
 Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
-Plug 'iamcco/markdown-preview.vim'
+Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 "shfmt命令不知道怎么安装...
 "Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
 "利用vundle把它下下来而已,非vim插件     Plug 'sgerrand/xfce4-terminal-colors-solarized'
@@ -339,6 +339,7 @@ nnoremap          gb        :tab sbp<CR>
 nnoremap          gy        :tab sbn<CR>
 nnoremap          <Left>    :tab sbp<CR>
 nnoremap          <right>   :tab sbn<CR>
+autocmd BufEnter * echo expand('%:p') | let &titlestring = expand("%:p:h")
 
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
@@ -402,6 +403,9 @@ cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-l> <Del>
+"上下键有补全效果, 类似bash的ctrl-r
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
 command! W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
 
@@ -443,16 +447,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "------ for nerdtree ------
 
 "------ for lightline ------
-let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ }
-"让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
-let g:tagbar_status_func = 'TagbarStatusFunc'
+let g:lightline = {'colorscheme': 'powerline'}
 
-function! TagbarStatusFunc(current, sort, fname, ...) abort
-    let g:lightline.fname = a:fname
-  return lightline#statusline(0)
-endfunction
+"function! TagbarStatusFunc(current, sort, fname, ...) abort
+    "let g:lightline.fname = a:fname
+    "return lightline#statusline(0)
+"endfunction
+""让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
+"let g:tagbar_status_func = 'TagbarStatusFunc'
 "------ for lightline ------
 
 "------ for solarized ------
