@@ -13,14 +13,14 @@ endif
 "Make sure you use single quotes
 
 "######### 1. VIM-相关 #########
-"VIM中文文档(还集成了些常用的插件的中文文档!)
-Plug 'asins/vimcdoc'
+"VIM中文文档(还集成了些常用的插件的中文文档!) Plug 'asins/vimcdoc'
+Plug 'yianwillis/vimcdoc'
 "最小空间占用的缓冲区列表   Plug 'fholgado/minibufexpl.vim'
 "缓冲区列表增强             Plug 'bufexplorer.zip'
 "分组式缓冲区列表           Plug 'TinyBufferExplorer'
 "窗口布局管理器 (自己配映射就用不着了,它自带了file和tag的explorer) "Plug 'winmanager'
 "<C-w>o变成最大化窗或还原布局, 太慢了.  Plug 'ZoomWin','regedarek/ZoomWin'
-"让html标签或endif支持%, vim --startuptime /tmp/log 显示已加载自带的
+"让html标签或endif支持%, vim --startuptime /tmp/log 显示已加载自带的了
 "Plug 'vim-scripts/matchit.zip'
 "operation+motion:(vim内置)
 "ci,di,yi,ca,da,ya接符号及dib,diB,cit为 删除(/复制)符号内的文本
@@ -113,7 +113,7 @@ Plug 'needle-wang/bootstrap-snippets', { 'for': ['html', 'htmldjango'] }
 "######### 4. front-end-相关 #########
 "Plug 'othree/html5.vim'
 "here is ZenCoding.vim's new name
-Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css'] }
+Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css', 'jsp'] }
 "Live browser editing(实时更新html浏览)
 Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
 
@@ -768,7 +768,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 "<C-/>, <C-&>, <C-_>可生成
 "还有一些特殊符号可改, 具体忘了
 "这跟顺序有关嘛? 在EmmetInstall后面let有影响嘛?
-autocmd FileType html,htmldjango,css EmmetInstall
+autocmd FileType html,htmldjango,css,jsp EmmetInstall
             \| let g:user_emmet_install_global = 0
             \| let g:user_emmet_leader_key = 'Q'
             \| let g:user_emmet_mode = 'nv'

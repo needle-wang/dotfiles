@@ -25,8 +25,7 @@ test -s /usr/share/autojump/autojump.sh && \
 . /usr/share/autojump/autojump.sh
 
 to_alias(){
-#below, must do: ln -s /usr/bin/ack-grep /bin/agrep
-alias a='agrep'
+alias a='ag'
 alias b='vi ~/.bash_aliases'
 alias C='column -t'
 alias d='date'
@@ -56,7 +55,6 @@ alias z='touchpad_toggle.sh'
 #bash: type: u: 未找到
 #bash: type: y: 未找到
 
-alias ag='ag --column --smart-case'
 alias bc='bc -q'
 alias c-='c -'
 alias c.='c ..'
@@ -81,7 +79,7 @@ alias vm='mv'
 
 alias dj='c /usr/local/lib/python2.7/dist-packages/django'
 alias lj='c /media/BACKUP/1LANDJ'
-alias backup='c /media/BACKUP'
+alias bu='c /media/BACKUP/2BACKUP'
 alias some='c /media/SOME'
 alias desk='cd ~/桌面'
 alias down='c ~/下载'
@@ -116,6 +114,8 @@ if [ "$(id -u)" != "0" ]; then
     #alias aptitude='sudo aptitude'
     alias atop='sudo atop'
     alias blkid='sudo blkid'
+    alias chown='sudo chown'
+    alias chmod='sudo chmod'
     alias dpkg='sudo dpkg'
     alias fdisk='sudo fdisk'
     #这样更好一些: sudo chmod 4755 /usr/sbin/iftop

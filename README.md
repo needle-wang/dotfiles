@@ -1,5 +1,5 @@
-# dotfiles
-Ubuntu 14.04.3 LTS / xfce4.10
+## dotfiles
+debian 9 / xfce4.12
 
 hope it's useful to you. 
 
