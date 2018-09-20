@@ -185,11 +185,11 @@ function! Add_space()
 endfunction
 
 function! Template_py()
-    let b:line = ['#!/usr/bin/env python3', '# encoding: utf-8', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+    let b:line = ['#!/usr/bin/env python3', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
     call append(0, b:line)
     let b:line = ["", "def main():", "  pass", "", "", "if __name__ == '__main__':", "  main()"]
     call append(line("$"), b:line)
-    call cursor(6, 0)
+    call cursor(5, 0)
 endfunction
 
 function! Template_sh()
