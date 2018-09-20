@@ -21,13 +21,8 @@
 !即改成hhkb键盘模式:Caps_Lock改成ctrl_L,Caps_Lock改到Alt_R上
 !重置只要运行一下setxkbmap(也是键盘映射工具)即可
 
-remove lock = Caps_Lock
-keysym Caps_Lock = Control_L
-add control = Control_L
 
-remove mod1 = Alt_R
-keysym Alt_R = Caps_Lock
-add lock = Caps_Lock
+keycode 108 = Caps_Lock
 
 
 !为HHKB能控制媒体键，增加media映射

@@ -100,3 +100,12 @@ github.com##.rounded-1.mb-4.text-center.p-4.signup-prompt
 ! 2018/8/21 下午8:17:14 https://www.douban.com/group/topic/28927073/
 www.douban.com###landing-bar
 
+! 2018/9/13 下午5:26:08 https://zhidao.baidu.com/question/814335584943255372.html?qbl=relate_question_7&word=%CF%FB%B7%C0%B9%A4%B3%CC%CA%A6%B9%A4%D7%F7%D6%A4%C3%F7%D4%F5%C3%B4%BF%AA
+###selectsearch-icon
+
+! 2018/9/19 下午3:55:30 https://www.w3cschool.cn/groovy/
+www.w3cschool.cn##.widget-body
+
+! 2018/9/19 下午4:02:08 https://juejin.im/post/5b21e48e6fb9a01e573c4be4
+juejin.im##.recommend-box
+

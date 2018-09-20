@@ -118,8 +118,7 @@ if [ "$(id -u)" != "0" ]; then
     alias chmod='sudo chmod'
     alias dpkg='sudo dpkg'
     alias fdisk='sudo fdisk'
-    #这样更好一些: sudo chmod 4755 /usr/sbin/iftop
-    #alias iftop='sudo iftop'
+    alias iftop='sudo iftop -c ~/.iftoprc'
     alias iotop='sudo iotop'
     alias mount='sudo mount'
     alias nmap='sudo nmap'
