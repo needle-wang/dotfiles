@@ -31,7 +31,6 @@ alias C='column -t'
 alias d='date'
 alias e='vi ~/_vimrc'
 alias f='file'
-alias F='find . -iname'
 alias g='grep -i'
 alias h='history'
 alias i='ipconfig.sh'
@@ -192,6 +191,10 @@ c(){
     fi
 }
 
+F(){
+  find . -iname "*$1*"
+}
+
 v(){
 if [ "$2" ]; then
     vimdiff "$1" "$2"
@@ -211,6 +214,11 @@ lo(){
 lo.(){
     #当前目录下 通过正则 搜索文件名包含${1}的文件
     [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
+}
+
+lo.BACKUP(){
+  echo "  updatedb -l 0 -U '/media/BACKUP' -o '/media/BACKUP/mlocate.db'"
+  [ "$1" ] && locate -d '/media/BACKUP/mlocate.db' -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
 }
 
 man() {

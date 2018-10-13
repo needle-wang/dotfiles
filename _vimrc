@@ -339,7 +339,7 @@ nnoremap          gb        :tab sbp<CR>
 nnoremap          gy        :tab sbn<CR>
 nnoremap          <Left>    :tab sbp<CR>
 nnoremap          <right>   :tab sbn<CR>
-autocmd BufEnter * echo expand('%:p') | let &titlestring = expand("%:p:h")
+"autocmd BufEnter * echomsg expand('%:p') | let &titlestring = expand("%:p:h")
 
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
@@ -723,8 +723,12 @@ let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 
+if has("win32")
+    let s:vim_tags = expand('$HOME/vimfiles/cache/tags')
+else
+    let s:vim_tags = expand('~/.vim/cache/tags')
+endif
 " 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 
 " 配置 ctags 的参数
