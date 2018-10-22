@@ -17,6 +17,7 @@ autocmd FileType css,htmldjango,javascript,python,sh setlocal tabstop=2
 "autocmd BufWritePost */templates/*.html     BLReloadPage
 autocmd BufWritePost *.html                 BLReloadPage
 
+autocmd BufNewFile,BufRead * call Add_space()
 autocmd BufNewFile *.py   call Template_py()
 autocmd BufNewFile *.sh   call Template_sh()
 autocmd BufNewFile *.html call Template_html()

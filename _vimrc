@@ -225,8 +225,6 @@ autocmd FileType python iabbrev none None
                      \| iabbrev false False
                      \| iabbrev r return
 
-autocmd BufNewFile,BufRead * call Add_space()
-
 "vmap应用于可视+选择模式, xmap只用于可视模式
 xnoremap     t mc"+y`c
 vnoremap    gj <C-w><C-j>
