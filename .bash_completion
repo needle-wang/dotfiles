@@ -342,7 +342,8 @@ _complete_alias () {
 
 alias sctl='systemctl'
 alias apt='aptitude'
-complete -F _complete_alias m
-complete -F _complete_alias apt
 complete -F _complete_alias sctl
-
+complete -F _complete_alias apt
+complete -F _complete_alias m
+complete -F _complete_alias t
+complete -F _complete_alias gi

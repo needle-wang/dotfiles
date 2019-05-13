@@ -81,8 +81,8 @@ set history=1000    ":h 'history', 默认20
 set ignorecase      ":h 'ignorecase', 默认关闭
 set keywordprg=     "禁用man,使用内置help, 默认man
 set laststatus=2    "让单窗口时也会出现lightline, 默认1
-set nobackup        "默认为nobackup
 set noshowmode      "默认为showmode
+set nobackup        "默认为nobackup
 set noswapfile      "默认为swapfile
 set noundofile      "默认为noundofile
 set number          ":h 'number', 默认关闭
@@ -109,9 +109,8 @@ noremap          :  ;
 noremap          '  `
 noremap          `  ~
 noremap          ~  '
-"noremap <silent> \| :call NERDComment("n", "Comment")<CR>
 "使特殊字符不用转义就默认变成正则含义(:h magic)
-noremap          /  /\v
+"noremap          /  /\v
 noremap <silent> *  *zz
 noremap <silent> #  #zz
 "高亮光标下的单词, 且光标坐标不变, 下行偶尔还是会跳屏
@@ -194,6 +193,9 @@ nnoremap          <F6> :call asyncrun#quickfix_toggle(6)<CR>
 autocmd FileType python inoremap # #<space>
 "see :h paste
 inoremap <silent>   vv  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
+"fcitx和ale不支持ctrl-c
+"另外, YouCompleteMe手册也说不要用<C-c>: vim手册说会中断一些自动命令
+inoremap <silent> <C-c> <Esc>
 inoremap <C-o>  <C-\><C-o>
 inoremap <C-b>  <Left>
 inoremap <C-f>  <Right>
@@ -238,8 +240,6 @@ xnoremap <C-k> :m'<-2<CR>`>my`<mzgv`yo`z
 cabbrev   e1   e!
 cabbrev   q1   q!
 cabbrev  qa1   qa!
-"cnoremap cwd   lcd %:p:h
-"cnoremap cd.   lcd %:p:h
 cnoremap <C-a> <Home>
 cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
@@ -254,15 +254,15 @@ if has("gui_running")
     behave mswin
 
     set guioptions-=T       "gvim去掉工具栏
-    "set novisualbell
-    "set vb t_vb=            "去掉出错鸣叫
+    set novisualbell
+    set vb t_vb=            "去掉出错鸣叫
     set columns=90
 
     if has("win32")
         " win自带的consolas专门用来适配编程的
         " 在高分屏下要是字显小就调大些
         set guifont=Consolas:h12
-        "win下中文(即双宽字体)需要gfw, ubuntu下中文应该是沿用guifont吧
+        "win下中文(即双宽字体)需要gfw选项, ubuntu下中文应该是沿用guifont吧
         set guifontwide=Microsoft\ YaHei\ Mono:h12:cGB2312
     else
         "Ubuntu下, Ubuntu Mono比Bitstream显示效果要好
@@ -275,7 +275,47 @@ if filereadable(expand("~/_vimrc_dev"))
     source ~/_vimrc_dev
 endif
 
-"为一些特殊非通用的东西, 如只针对某些项目的配置
-if filereadable(expand("~/_lvimrc"))
-    source ~/_lvimrc
-endif
+"------ 一些特殊非通用的东西, 如只针对某种语言/特定项目的配置 ------
+
+"如果想用jinja2模板, 就改为如下:
+"autocmd FileType html set filetype=htmljinja
+autocmd FileType html   setlocal filetype=htmldjango
+autocmd FileType text   setlocal textwidth=100
+
+"写成多行时, 中间有行注释, 语句都算没连上!!
+"必须放在setlocal filetype=htmldjango的后面
+"autocmd FileType css,htmldjango,javascript setlocal tabstop=2 | setlocal shiftwidth=2
+autocmd FileType css,htmldjango,javascript,python,sh setlocal tabstop=2
+            \| setlocal shiftwidth=2
+
+"for browserlink
+" /*/*.html 的形式不生效
+"autocmd BufWritePost */templates/*/*.html   BLReloadPage
+"autocmd BufWritePost */templates_bs3/*.html BLReloadPage
+"autocmd BufWritePost */templates/*.html     BLReloadPage
+autocmd BufWritePost *.html                 BLReloadPage
+
+autocmd BufNewFile,BufRead * call Add_space()
+autocmd BufNewFile *.py   call Template_py()
+autocmd BufNewFile *.sh   call Template_sh()
+autocmd BufNewFile *.html call Template_html()
+"直接进入插入模式, 但会感觉启动减慢1秒
+"autocmd BufNewFile *.py,*.sh startinsert
+
+"for django note
+"from django.shortcuts import render_to_response
+"from django.http import Http404 , HttpResponse , HttpResponseRedirect
+"from django.template import RequestContext
+"from django.conf.urls import patterns, include, url
+"from django.contrib import admin
+
+"from django.template.loader import get_template  
+"from django.template import Context 
+"from django.core.urlresolvers import reverse
+
+"测试哪个python可用(:h has-python)
+"if has('python')
+  "echo '有 Python 2.x'
+"elseif has('python3')
+  "echo '有 Python 3.x'
+"endif

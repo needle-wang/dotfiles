@@ -3,11 +3,17 @@
 # 因为linux的桌面环境(DE)并不会加载任何profile, bash(即不会使用此机制)
 # 而是使用.xsessionrc(或其他的什么配置文件, 不用管其他的)
 
-if [ -f '/etc/profile.d/java_path.sh' ] ; then
-    . '/etc/profile.d/java_path.sh'
-fi
+# 2019年 04月 18日 星期四 13:51:30 CST
+# in mint xfce4 好像不遵从标准debian的方式(即不加载profile的模式)
+# 所以不用此文件
+# if [ -f '/etc/profile.d/java_path.sh' ] ; then
+    # . '/etc/profile.d/java_path.sh'
+# fi
 
-if [ -f "$HOME/.profile" ] ; then
-    . "$HOME/.profile"
-fi
+# if [ -f "$HOME/.profile" ] ; then
+    # . "$HOME/.profile"
+# fi
+
+# mint xfce启动过程中生效, 但之后又被覆盖了?
+# xmodmap "$HOME/.Xmodmap"
 

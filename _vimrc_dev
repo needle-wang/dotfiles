@@ -57,7 +57,7 @@ Plug 'godlygeek/tabular'
 "垂直缩进线         Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
 " 参数提示
-Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/echodoc.vim', { 'for': 'python' }
 "majutsushi/tagbar是taglist增强, NB!
 Plug 'majutsushi/tagbar'
 
@@ -215,9 +215,7 @@ highlight VertSplit ctermbg=NONE guibg=NONE
 
 "------ for fcitx --------
 set ttimeoutlen=200
-"fcitx不支持ctrl-c,它不支持ex模式
-"另外,YouCompleteMe手册也说不要用<C-c>: vim手册说会中断一些自动命令
-inoremap <silent> <C-c> <Esc>
+"fcitx不支持ex模式
 "------ for fcitx --------
 
 ""------ for ctrlp ------
@@ -266,7 +264,6 @@ let g:Lf_WildIgnore = {
     \ 'dir'  : ['.git','.hg','.svn'],
     \ 'file' : ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
     \}
-
 "------ for LeaderF ------
 
 "------ for asyncrun ------
@@ -313,6 +310,10 @@ let g:indentLine_indentLevel = 3
 nnoremap g<Bar> :IndentLinesToggle<CR>
 "------ for indentLine ------
 
+"------ for echodoc.vim ------
+let g:echodoc_enable_at_startup = 1
+"------ for echodoc.vim ------
+
 "------ for tagbar ------
 let g:tagbar_width = 37
 "let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
@@ -329,6 +330,7 @@ set updatetime=700              "自动高亮当前tag的间隔时间，全局�
 "跳转到定义
 "nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent>        go :YcmCompleter GoTo<CR>
+nnoremap <silent>        gd :YcmCompleter GoToDeclaration<CR>
 let g:ycm_seed_identifiers_with_syntax = 1                       "语法关键字补全
 let g:ycm_complete_in_comments         = 1                       "在注释中也启用补全
 let g:ycm_goto_buffer_command          = 'new-or-existing-tab'   "设定跳转命令在哪里打开
@@ -446,7 +448,7 @@ let g:ale_linters = {
 \   'vim'    : ['vint'],
 \}
 
-let g:ale_python_flake8_options = '--ignore=E111,E114,E121,E203,E251,E266,E501,F841,W391'
+let g:ale_python_flake8_options = '--ignore=E111,E114,E121,E128,E203,E251,E266,E501,F841,W391,W503'
 "没有这个yapf选项, 在项目的任意父目录加个.style.yapf
 "let g:ale_python_yapf_options = '--style={indent_width:2}'
 let g:ale_sign_error = '✗'
@@ -500,6 +502,10 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 "   ######### PYTHON-相关-插件配置 #########
 
+"------ for vim-jumptoview ------
+let g:jumptoview_patterns_prefix = ''
+"------ for vim-jumptoview ------
+"
 "------ for bootstrap-snippets ------
 "有YouCompleteMe, 不用设置就支持了
 "set dictionary+=~/.vim/bundle/bootstrap-snippets/dictionary
@@ -595,3 +601,4 @@ autocmd FileType markdown nnoremap X :MarkdownPreview<CR>
 "------ for markdown-preview ------
 
 "   ######### 其他-相关-插件配置 END #########
+
