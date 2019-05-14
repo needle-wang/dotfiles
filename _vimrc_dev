@@ -156,7 +156,7 @@ call plug#end()
 "   ######### VIM-相关-插件配置 #########
 
 "------ for surround ------
-nmap q<space> ysiw<space><space>f<space>
+nmap q<Space> ysiw<Space><Space>f<Space>
 "为光标下的字串加双引号
 nmap q; ysiW"f"
 "为光标下的单词加双引号
@@ -294,7 +294,7 @@ noremap      g.         :Tab /,<CR>
 noremap      g"         :Tab /"<CR>
 noremap      g'         :Tab /'<CR>
 noremap      g:         :Tab /:<CR>
-noremap      g<space>   :Tab / <CR>
+noremap      g<Space>   :Tab / <CR>
 "noremap      g<Bar>     :Tab /<Bar><CR>
 "------ for tabular ------
 

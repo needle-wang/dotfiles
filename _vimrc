@@ -36,18 +36,19 @@ function! Add_space()
             return
         endif
         "一定要加<buffer>表示当前缓冲区
-        inoremap <buffer> . .<space>
+        inoremap <buffer> . .<Space>
     else
         if index(['htmldjango', 'sh'], &ft) < 0
-            inoremap <buffer> - <space>-<space>
-            inoremap <buffer> = <space>=<space>
-            inoremap <buffer> % <space>%<space>
+            inoremap <buffer> - <Space>-<Space>
+            inoremap <buffer> <Bar> <Space><Bar><Space>
+            inoremap <buffer> = <Space>=<Space>
+            inoremap <buffer> % <Space>%<Space>
             if &ft != 'python'
                 inoremap <buffer> <CR> ;<CR>
             endif
         endif
-        inoremap <buffer> + <space>+<space>
-        inoremap <buffer> * <space>*<space>
+        inoremap <buffer> + <Space>+<Space>
+        inoremap <buffer> * <Space>*<Space>
     endif
 endfunction
 
@@ -116,9 +117,9 @@ noremap <silent> #  #zz
 "高亮光标下的单词, 且光标坐标不变, 下行偶尔还是会跳屏
 "noremap          &  mcHmt`c*`tzt`c
 noremap <silent> &  :let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set hls<CR>
-noremap    <space>  :nohl<CR><C-l>
+noremap    <Space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
-noremap   ,<space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
+noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 noremap <silent> n  nzz
 noremap <silent> N  Nzz
 noremap          P  "+gp
@@ -132,7 +133,7 @@ noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms
 noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms
 noremap <silent> gm :call cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
-noremap          gq :Ag!<space>
+noremap          gq :Ag!<Space>
 "for hhkb
 noremap          gs ms:up<CR>
 
@@ -157,7 +158,7 @@ nnoremap          <C-g>     1<C-g>
 nnoremap          g-        <nop>
 nnoremap          gf        <C-w>gf
 nnoremap <silent> gX        :call system('firefox'.shellescape(expand('%')))<CR>
-nnoremap          gz        :tabnew<space>
+nnoremap          gz        :tabnew<Space>
 nnoremap <silent>  _        :tabm-1<CR>
 nnoremap <silent>  +        :tabm+1<CR>
 nnoremap <silent> gr        gT
@@ -190,7 +191,7 @@ nnoremap          <F2> :ALEFix<CR>
 nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw $(VIM_FILEPATH)<CR>
 nnoremap          <F6> :call asyncrun#quickfix_toggle(6)<CR>
 
-autocmd FileType python inoremap # #<space>
+autocmd FileType python inoremap # #<Space>
 "see :h paste
 inoremap <silent>   vv  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "fcitx和ale不支持ctrl-c
@@ -212,14 +213,14 @@ inoremap <F3>  <Esc>mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 "中文句号好像不会触发
-inoremap ,  ,<space>
-inoremap ， ,<space>
-inoremap :  :<space>
-inoremap ： :<space>
-inoremap 。 .<space>
-inoremap ； ;<space>
-inoremap “  "<space>
-inoremap ”  "<space>
+inoremap ,  ,<Space>
+inoremap ， ,<Space>
+inoremap :  :<Space>
+inoremap ： :<Space>
+inoremap 。 .<Space>
+inoremap ； ;<Space>
+inoremap “  "<Space>
+inoremap ”  "<Space>
 "用iabbrev需要空格或回车触发
 "所以某些输入或有补全菜单时iab不会触发
 autocmd FileType python iabbrev none None
