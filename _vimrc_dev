@@ -243,7 +243,8 @@ set ttimeoutlen=200
 ""------ for ctrlp ------
 
 "------ for ack.vim ------
-"noremap gq :Ack!<Space>
+noremap gq :Ack!<Space>
+noremap Q :Ack!<CR>
 let g:ackprg = 'ag --vimgrep'
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
@@ -350,8 +351,9 @@ nnoremap g<Bar> :IndentLinesToggle<CR>
 noremap <silent> <F8> :Vista!!<CR>
 noremap <silent> g8 :Vista!!<CR>
 let g:vista_icon_indent = ["▸ ", ""]
+let g:vista_sidebar_width = 40
 let g:vista_default_executive = 'ctags'
-let g:vista_fzf_preview = ['right:60%']
+"let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
 \   "function": "\uf794",
@@ -525,7 +527,7 @@ endif
 "------ for vim-gutentags ------
 
 "------ for nerdcommenter ------
-noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms
+noremap <silent> gc :call NERDComment("n", "alignLeft")<CR>ms
 noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms
 "------ for nerdcommenter ------
 
