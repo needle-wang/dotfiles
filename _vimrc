@@ -1,7 +1,7 @@
 " 2018年 10月 13日 星期六 16:33:36 CST
 " 重构成两文件, 此文件为基本配置, 插件相关均放在_vimrc_dev中
-
 runtime vimrc_example.vim
+noremap Q <Nop>
 
 "------乱码解决方案------
 "设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
@@ -123,17 +123,12 @@ noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 noremap <silent> n  nzz
 noremap <silent> N  Nzz
 noremap          P  "+gp
-"noremap          Q  :Ag!<CR>
 noremap <silent> g* g*zz
 "noremap          g\ ms:up<CR>
 "for hhkb
 noremap          g3 mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
-noremap <silent> g8 :TagbarToggle<CR>
-noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms
-noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms
 noremap <silent> gm :call cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
-noremap          gq :Ag!<Space>
 "for hhkb
 noremap          gs ms:up<CR>
 
@@ -178,15 +173,6 @@ nnoremap          gy        :tab sbn<CR>
 nnoremap          <Left>    :tab sbp<CR>
 nnoremap          <right>   :tab sbn<CR>
 "autocmd BufEnter * echomsg expand('%:p') | let &titlestring = expand("%:p:h")
-
-"autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
-"这样映射yapf不好, 不管有无修改vim都视为已修改
-"autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
-nnoremap          <F2> :ALEFix<CR>
-nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw $(VIM_FILEPATH)<CR>
-nnoremap          <F6> :call asyncrun#quickfix_toggle(6)<CR>
-
-autocmd FileType python inoremap # #<Space>
 "see :h paste
 inoremap <silent>   vv  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "fcitx和ale不支持ctrl-c
@@ -256,13 +242,13 @@ if has("gui_running")
 
     if has("win32")
         " win自带的consolas专门用来适配编程的
-        " 在高分屏下要是字显小就调大些
+        " 在高分屏下要是字显小, 就调大些
         set guifont=Consolas:h12
         "win下中文(即双宽字体)需要gfw选项, ubuntu下中文应该是沿用guifont吧
         set guifontwide=Microsoft\ YaHei\ Mono:h12:cGB2312
     else
         "Ubuntu下, Ubuntu Mono比Bitstream显示效果要好
-        set guifont=Ubuntu\ Mono\ 19
+        set guifont=Ubuntu\ Mono\ 14
     endif
 endif
 
@@ -273,6 +259,10 @@ endif
 
 "------ 一些特殊非通用的东西, 如只针对某种语言/特定项目的配置 ------
 
+"autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
+"这样映射yapf不好, 不管有无修改vim都视为已修改
+"autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
+autocmd FileType python inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
 "autocmd FileType html set filetype=htmljinja
 autocmd FileType html   setlocal filetype=htmldjango

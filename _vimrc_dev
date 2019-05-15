@@ -37,11 +37,10 @@ Plug 'altercation/vim-colors-solarized'
 
 "让fcitx响应vim的模式切换
 Plug 'lilydjwg/fcitx.vim'
-
+"The plugin is a front for ag(the_silver_searcher)  Plug 'rking/ag.vim'
+"字符串查找, 通过配置可以使用ag搜索
+Plug 'mileszs/ack.vim'
 "command-T增强,模糊查找文件             Plug 'kien/ctrlp.vim'
-"Ack, 通过配置可以使用ag搜索            Plug 'mileszs/ack.vim'
-"The plugin is a front for ag(the_silver_searcher)
-Plug 'rking/ag.vim'
 "vim8, 异步, 文件搜索及显示函数列表, ctrlp增强
 Plug 'Yggdroot/LeaderF'
 "shell模式                  Plug 'Flolagale/conque'
@@ -57,7 +56,7 @@ Plug 'godlygeek/tabular'
 "垂直缩进线         Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
 " 参数提示
-Plug 'Shougo/echodoc.vim', { 'for': 'python' }
+"Plug 'Shougo/echodoc.vim', { 'for': 'python' }
 "majutsushi/tagbar是taglist增强!    Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'
 
@@ -244,20 +243,23 @@ set ttimeoutlen=200
 ""------ for ctrlp ------
 
 "------ for ack.vim ------
-"let g:ackprg = 'ag --nogroup --nocolor --column'
+"noremap gq :Ack!<Space>
+let g:ackprg = 'ag --vimgrep'
+set grepprg=ag\ --vimgrep\ $*
+set grepformat=%f:%l:%c:%m
 "------ for ack.vim ------
 
 "------ for ag.vim ------
-let g:ag_prg = 'ag --column --smart-case'
+"let g:ag_prg = 'ag --column'
 "------ for ag.vim ------
 
 "------ for LeaderF ------
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_ShortcutB = '<m-n>'
-noremap <c-n> :LeaderfMru<CR>
-noremap <m-p> :LeaderfFunction!<CR>
-noremap <m-n> :LeaderfBuffer<CR>
-noremap <m-m> :LeaderfTag<CR>
+let g:Lf_ShortcutF = '<C-p>'
+noremap <C-n> :LeaderfFunction<CR>
+"let g:Lf_ShortcutB = '<C-n>'
+"noremap <m-n> :LeaderfMru<CR>
+"noremap <C-n> :LeaderfBuffer<CR>
+"noremap <m-m> :LeaderfTag<CR>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 let g:Lf_RootMarkers = ['.project','.root','.git','.hg','.svn']
@@ -291,8 +293,9 @@ let g:asyncrun_bell = 0
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 " "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
 "nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> make <CR> 
+nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw $(VIM_FILEPATH)<CR>
 " 设置 打开/关闭 Quickfix 窗口
-"nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
+nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 let $PYTHONUNBUFFERED=1
 "------ for asyncrun ------
 
@@ -326,12 +329,13 @@ let g:indentLine_indentLevel = 3
 nnoremap g<Bar> :IndentLinesToggle<CR>
 "------ for indentLine ------
 
-"------ for echodoc.vim ------
-let g:echodoc_enable_at_startup = 1
-"------ for echodoc.vim ------
+""------ for echodoc.vim ------
+"let g:echodoc_enable_at_startup = 1
+""------ for echodoc.vim ------
 
 "------ for tagbar ------
 "noremap <silent> <F8> :TagbarToggle<CR>
+"noremap <silent> g8 :TagbarToggle<CR>
 "let g:tagbar_width = 37
 ""let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
 ""let g:tagbar_autoshowtag = 0    "自动打开折叠
@@ -344,6 +348,7 @@ let g:echodoc_enable_at_startup = 1
 
 "------ for vista ------
 noremap <silent> <F8> :Vista!!<CR>
+noremap <silent> g8 :Vista!!<CR>
 let g:vista_icon_indent = ["▸ ", ""]
 let g:vista_default_executive = 'ctags'
 let g:vista_fzf_preview = ['right:60%']
@@ -448,6 +453,7 @@ let g:ycm_filetype_blacklist = {
 ""------ for syntastic ------
 
 "------ for ale ------
+nnoremap          <F2> :ALEFix<CR>
 nnoremap <silent> [n :ALENextWrap<CR>
 nnoremap <silent> [N :ALEPreviousWrap<CR>
 "let g:ale_sign_column_always = 1
@@ -492,6 +498,7 @@ hi! SpellRare gui=undercurl guisp=magenta
 "------ for ale ------
 
 "------ for vim-gutentags ------
+"http://www.skywind.me/blog/archives/2084
 set tags=./.tags;,.tags "这句加跟不加没啥区别呀~
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 
@@ -516,6 +523,11 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 "------ for vim-gutentags ------
+
+"------ for nerdcommenter ------
+noremap <silent> gc :call NERDComment("n", "Comment")<CR>ms
+noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms
+"------ for nerdcommenter ------
 
 "------ for xptemplate ------
 "let g:xptemplate_nav_prev = '<C-k>'

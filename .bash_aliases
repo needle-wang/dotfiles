@@ -38,7 +38,7 @@ alias h='history'
 alias i='ipconfig.sh'
 alias k='gitk --all'
 alias l='\ls --color=auto -AlFhrt'
-alias L='less -i'
+#alias L='less -ci'
 alias m='man -L en'
 alias n='Thunar'
 alias p='ipython'
@@ -180,9 +180,9 @@ c(){
   # Check to see if a pipe exists on stdin.
   if [ -p /dev/stdin ]; then
     if type bat &>/dev/null; then
-      bat "$@"    #要加双引号
+      bat --pager "less -Rci" "$@"    #要加双引号
     else
-      cat "$@"    #要加双引号
+      less -ci
     fi
     return 0
   fi
@@ -240,8 +240,8 @@ lo.BACKUP(){
 man() {
   #包装man, 使其支持man bash内置命令
   case "$(type -t "$1" 2>/dev/null):$1" in
-    builtin:*) help "$1" | "${PAGER:-less}";;     # built-in
-    *[[?*]*) help "$1" | "${PAGER:-less}";;       # pattern
+    builtin:*) help "$1" | "${PAGER:-less}" -ci;;     # built-in
+    *[[?*]*) help "$1" | "${PAGER:-less}" -ci;;       # pattern
     *) command -p man "$@";;  # something else, presumed to be an external command
                               # or options for the man command or a section number
   esac
