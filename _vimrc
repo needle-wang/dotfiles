@@ -139,8 +139,6 @@ noremap          gs ms:up<CR>
 
 noremap          <F1> <Esc>
 noremap          <F3> mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
-noremap <silent> <F7> :NERDTreeToggle<CR>
-noremap <silent> <F8> :TagbarToggle<CR>
 "如果语法颜色错乱, 按此键刷新
 noremap         <F12> :syntax sync fromstart<CR>
 
@@ -148,7 +146,6 @@ nnoremap           j        gj
 nnoremap           k        gk
 nnoremap           t        "+y
 nnoremap           T        "+yy
-nnoremap           G        Gzz
 nnoremap           Y        y$
 nnoremap          cd        :lcd %:p:h<CR>
 nnoremap          co        2o<Esc>k
@@ -166,8 +163,6 @@ nnoremap <silent> <C-h>     gT
 nnoremap <silent> <C-l>     gt
 nnoremap <silent> g[        :tabfirst<CR>
 nnoremap <silent> g]        :tablast<CR>
-nnoremap <silent> gn        :NERDTreeFind<CR>
-nnoremap <silent> gN        :NERDTree<CR>
 nnoremap <silent> gh        <C-w><C-h>
 nnoremap <silent> gj        <C-w><C-j>
 nnoremap <silent> gk        <C-w><C-k>

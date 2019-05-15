@@ -58,8 +58,8 @@ Plug 'godlygeek/tabular'
 Plug 'Yggdroot/indentLine'
 " 参数提示
 Plug 'Shougo/echodoc.vim', { 'for': 'python' }
-"majutsushi/tagbar是taglist增强, NB!
-Plug 'majutsushi/tagbar'
+"majutsushi/tagbar是taglist增强!    Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 
 "python all in one!         Plug 'klen/python-mode'
 "杀手级clang语法解析补全插件(all in one!)
@@ -180,6 +180,9 @@ let g:EasyMotion_leader_key = ','
 "------ for easymotion ------
 
 "------ for nerdtree ------
+noremap <silent> <F7> :NERDTreeToggle<CR>
+nnoremap <silent> gn        :NERDTreeFind<CR>
+nnoremap <silent> gN        :NERDTree<CR>
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI  = 1
 let NERDTreeMouseMode  = 2
@@ -191,8 +194,21 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "------ for nerdtree ------
 
 "------ for lightline ------
-let g:lightline = {'colorscheme': 'powerline'}
-
+"vista
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+let g:lightline = {
+      \'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified', 'method' ] ]
+      \ },
+      \ 'component_function': {
+      \   'method': 'NearestMethodOrFunction'
+      \ },
+      \ }
+"tagbar
 "function! TagbarStatusFunc(current, sort, fname, ...) abort
     "let g:lightline.fname = a:fname
     "return lightline#statusline(0)
@@ -262,7 +278,7 @@ let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "let g:Lf_UseVersionControlTool = 0
 let g:Lf_WildIgnore = {
     \ 'dir'  : ['.git','.hg','.svn'],
-    \ 'file' : ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+    \ 'file' : ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.ico']
     \}
 "------ for LeaderF ------
 
@@ -315,15 +331,28 @@ let g:echodoc_enable_at_startup = 1
 "------ for echodoc.vim ------
 
 "------ for tagbar ------
-let g:tagbar_width = 37
-"let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
-"let g:tagbar_autoshowtag = 0    "自动打开折叠
-"let g:tagbar_sort        = 0    "标签按代码中的顺序排序
-let g:tagbar_compact     = 1    "去掉含有<F1>的首行
-let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
-let g:tagbar_singleclick = 1    "单击打开标签
-set updatetime=700              "自动高亮当前tag的间隔时间，全局的
+"noremap <silent> <F8> :TagbarToggle<CR>
+"let g:tagbar_width = 37
+""let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
+""let g:tagbar_autoshowtag = 0    "自动打开折叠
+""let g:tagbar_sort        = 0    "标签按代码中的顺序排序
+"let g:tagbar_compact     = 1    "去掉含有<F1>的首行
+"let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
+"let g:tagbar_singleclick = 1    "单击打开标签
+"set updatetime=700              "自动高亮当前tag的间隔时间，全局的
 "------ for tagbar ------
+
+"------ for vista ------
+noremap <silent> <F8> :Vista!!<CR>
+let g:vista_icon_indent = ["▸ ", ""]
+let g:vista_default_executive = 'ctags'
+let g:vista_fzf_preview = ['right:60%']
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+"------ for vista ------
 
 "------ for YouCompleteMe ------
 "vim中, <C-m>等价于Enter(<CR>)

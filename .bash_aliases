@@ -14,9 +14,9 @@
 # pip bash completion start
 _pip_completion()
 {
-    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
-                   COMP_CWORD=$COMP_CWORD \
-                   PIP_AUTO_COMPLETE=1 $1 ) )
+  COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                 COMP_CWORD=$COMP_CWORD \
+                 PIP_AUTO_COMPLETE=1 $1 ) )
 }
 complete -o default -F _pip_completion pip
 # pip bash completion end
@@ -26,12 +26,14 @@ test -s /usr/share/autojump/autojump.sh && \
 
 to_alias(){
 alias a='ag'
-alias b='vi ~/.bash_aliases'
+alias b='v ~/.bash_aliases'
 alias C='column -t'
 alias d='date'
-alias e='vi ~/_vimrc'
+alias e='v ~/_vimrc'
+alias E='v ~/_vimrc_dev'
 alias f='file'
-alias g='grep -i'
+#alias g='grep -i'
+alias g='ag'
 alias h='history'
 alias i='ipconfig.sh'
 alias k='gitk --all'
@@ -42,7 +44,6 @@ alias n='Thunar'
 alias p='ipython'
 alias P='python3 -B'
 alias q='quote'
-alias r='vi ~/_lvimrc'
 alias s='sort'
 alias t='type -a'
 alias T='tree -F'
@@ -54,6 +55,7 @@ alias z='touchpad_toggle.sh'
 #bash: type: u: 未找到
 #bash: type: y: 未找到
 
+alias ap='aptitude'
 alias bc='bc -q'
 alias c-='c -'
 alias c.='c ..'
@@ -62,7 +64,6 @@ alias cp='cp -vi'
 alias df='df.sh | column -t'
 alias gi='git'
 alias lg='l | g'
-alias li='l | g -v "\.pyc$"'
 alias ll='ls -AlFh'
 alias ls='\ls --color=auto -v'
 alias lt='l | awk "{if(index(\$8, \":\")){print}}" | g "$(date "+%-m月 *%-d")"'
@@ -96,6 +97,7 @@ alias logfromboot='journalctl -b'
 alias mout='mount'
 alias namp='nmap'
 alias netstat='netstat -ntp'
+alias sctl='systemctl'
 alias sqlmap='sqlmap --random-agent'
 # The first word of each simple command, if unquoted,
 # is checked to see if it has an alias.
@@ -145,8 +147,7 @@ fi
 if tty | grep -q '^/dev/tty[135]$'; then
     zhcon --utf8 --drv=fb
 fi
-
-#使用byobu,且不让它接管文本界面.
+#使用byobu,且不让它接管tty.
 #if pstree -sp $$ | grep -q 'gnome-terminal'; then
 #	byobu
 #fi
@@ -163,10 +164,8 @@ if [ "$(pwd)" == "$HOME" ]; then
 	[ -d "$HOME/test" ] && cd "$HOME/test"
 fi
 
-if [ -e "$HOME/.dmrc" ]; then
-    if cat "$HOME/.dmrc" | grep -q 'Session=ubuntu'; then
-        xmodmap "$HOME/.Xmodmap" 2>/dev/null
-    fi
+if [ "$DISPLAY" ]; then
+  xmodmap "$HOME/.Xmodmap" 2>/dev/null
 fi
 
 #在此处, 此行运行竟然报错!(t：未找到命令)
@@ -177,18 +176,31 @@ to_alias
 #to_alias执行后, 下面的立即受影响(很正常嘛)
 
 c(){
-    #don't run clear
-    #test -d && echo ok
-    #竟然输出ok
-    #test -d "" 为失败
-    #cd "" 为当前目录
-    if [ -z "$1" ] || [ "$1" == "$HOME" ]; then
-        cd && ls
-    elif [ -d "$1" ] || [ "$1" == "-" ]; then
-        cd "$1" && l
+  # https://stackoverflow.com/questions/19408649/pipe-input-into-a-script
+  # Check to see if a pipe exists on stdin.
+  if [ -p /dev/stdin ]; then
+    if type bat &>/dev/null; then
+      bat "$@"    #要加双引号
     else
-        cat "$@"    #要加双引号
+      cat "$@"    #要加双引号
     fi
+    return 0
+  fi
+  #don't run clear
+  #test -d && echo ok #竟然输出ok
+  #test -d "" #为失败
+  #cd "" 为当前目录
+  if [ -z "$1" ] || [ "$1" == "$HOME" ]; then
+    cd && ls
+  elif [ -d "$1" ] || [ "$1" == "-" ]; then
+    cd "$1" && l
+  else
+    if type bat &>/dev/null; then
+      bat "$@"    #要加双引号
+    else
+      cat "$@"    #要加双引号
+    fi
+  fi
 }
 
 F(){
@@ -197,23 +209,27 @@ F(){
 
 v(){
 if [ "$2" ]; then
-    vimdiff "$1" "$2"
+  vimdiff "$1" "$2"
 else
-    [ "$1" ] && vi "$1" || vi
+  if [ "$1" ]; then
+    vi "$1"
+  else
+    vi
+  fi
 fi
 }
 
 backfile() {
-    [ "$1" ] && cp "$1"{,.bak}
+  [ "$1" ] && cp "$1"{,.bak}
 }
 
 lo(){
-    [ "$1" ] && locate -bei "$1" | g "$1"
+  [ "$1" ] && locate -bei "$1" | g "$1"
 }
 
 lo.(){
-    #当前目录下 通过正则 搜索文件名包含${1}的文件
-    [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
+  #当前目录下 通过正则 搜索文件名包含${1}的文件
+  [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
 }
 
 lo.BACKUP(){
@@ -232,40 +248,40 @@ man() {
 }
 
 mcd(){
-    #新建目录, 并cd进去
-    [ "$1" ] && mkdir -p "$1" && cd "$1"
+  #新建目录, 并cd进去
+  [ "$1" ] && mkdir -p "$1" && cd "$1"
 }
 
 psg(){
-    [ "$1" ] || return 1
-    ps -f  | head -n 1
-    ps -ef | g "$(echo "$1" | sed 's;\(.\)$;[\1];')"
+  [ "$1" ] || return 1
+  ps -f  | head -n 1
+  ps -ef | g "$(echo "$1" | sed 's;\(.\)$;[\1];')"
 }
 
 whif(){
-    #使用通配符的which
-    [ "$1" ] || return 1
-    find $(echo "$PATH" | sed 's;:; ;g') -maxdepth 1 -type f -executable -iname "*$1*"
+  #使用通配符的which
+  [ "$1" ] || return 1
+  find $(echo "$PATH" | sed 's;:; ;g') -maxdepth 1 -type f -executable -iname "*$1*"
 }
 
 addpypath(){
-    #若该path下有跟PATH中模块同名会出错~, 如abc.py:
-    #command-not-found是py文件, path里有abc.py会抛:
-    #"已放弃"
-    local path_to_add=$(pwd)
-    if [[ "$1" ]]; then
-        path_to_add=$(cd $1 && pwd)
-    fi
-    if [[ "${path_to_add}" ]]; then
-        PYTHONPATH="${path_to_add}:${PYTHONPATH}"
-        echo "export PYTHONPATH=${PYTHONPATH}"
-        export PYTHONPATH
-    fi
+  #若该path下有跟PATH中模块同名会出错~, 如abc.py:
+  #command-not-found是py文件, path里有abc.py会抛:
+  #"已放弃"
+  local path_to_add=$(pwd)
+  if [[ "$1" ]]; then
+      path_to_add=$(cd $1 && pwd)
+  fi
+  if [[ "${path_to_add}" ]]; then
+      PYTHONPATH="${path_to_add}:${PYTHONPATH}"
+      echo "export PYTHONPATH=${PYTHONPATH}"
+      export PYTHONPATH
+  fi
 }
 
 
 if [[ -s "$HOME/.bash_tmp" ]]; then
-    source $HOME/.bash_tmp
+  source $HOME/.bash_tmp
 fi
 
 unset to_alias
