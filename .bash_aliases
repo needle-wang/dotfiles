@@ -27,6 +27,7 @@ test -s /usr/share/autojump/autojump.sh && \
 to_alias(){
 alias a='ag'
 alias b='v ~/.bash_aliases'
+alias B='v ~/.bashrc'
 alias C='column -t'
 alias d='date'
 alias e='v ~/_vimrc'
@@ -195,10 +196,14 @@ c(){
   elif [ -d "$1" ] || [ "$1" == "-" ]; then
     cd "$1" && l
   else
-    if type bat &>/dev/null; then
-      bat "$@"    #要加双引号
+    if [[ "$1" != -* ]] && [[ ! -f "$1" ]]; then
+      j "$1"
     else
-      cat "$@"    #要加双引号
+      if type bat &>/dev/null; then
+        bat "$@"    #要加双引号
+      else
+        cat "$@"    #要加双引号
+      fi
     fi
   fi
 }

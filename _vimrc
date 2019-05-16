@@ -264,7 +264,7 @@ endif
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
-autocmd FileType python inoremap # #<Space>
+autocmd FileType python,sh inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
 "autocmd FileType html set filetype=htmljinja
 autocmd FileType html   setlocal filetype=htmldjango
