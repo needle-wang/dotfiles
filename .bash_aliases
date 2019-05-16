@@ -219,7 +219,7 @@ else
 fi
 }
 
-backfile() {
+mkbak() {
   [ "$1" ] && cp "$1"{,.bak}
 }
 

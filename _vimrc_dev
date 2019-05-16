@@ -17,6 +17,7 @@ Plug 'yianwillis/vimcdoc'
 "<C-w>o变成最大化窗或还原布局, 太慢了.  Plug 'ZoomWin','regedarek/ZoomWin'
 "让html标签或endif支持%, vim --startuptime /tmp/log 显示已加载自带的了
 "Plug 'vim-scripts/matchit.zip'
+Plug 'andymass/vim-matchup'
 "operation+motion:(vim内置)
 "ci,di,yi,ca,da,ya接符号及dib,diB,cit为 删除(/复制)符号内的文本
 "操作对象增强: ds"为删除", cs"'为由"替换成', ys+{motion}+符号为加符号

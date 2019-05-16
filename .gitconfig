@@ -16,6 +16,7 @@
     m                 = merge
     s                 = status -sb
     t                 = tag
+    ad                = add
     br                = branch
     ci                = commit -m
     co                = checkout

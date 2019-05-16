@@ -75,6 +75,7 @@ endfunction
 
 set autoread        "默认关闭
 set cedit=<C-g>     "ex模式打开命令行窗口的键
+set colorcolumn=101  "第101列, 高亮
 set cursorline      "高亮光标所在行, 默认关闭
 set expandtab       "默认关闭
 set history=1000    ":h 'history', 默认20
@@ -87,7 +88,7 @@ set nobackup        "默认为nobackup
 set noswapfile      "默认为swapfile
 set noundofile      "默认为noundofile
 set number          ":h 'number', 默认关闭
-set sessionoptions=blank,buffers,curdir,folds,options,tabpages,winsize,slash,unix,resize
+set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize,slash,unix,resize
 set smartcase       "默认关闭
 set scrolloff=4     "光标上下两侧最少保留的屏幕行数, 默认为0
 set shiftwidth=4    ":h 'shiftwidth', 自动缩进的空格数, 默认为8
@@ -120,9 +121,7 @@ noremap <silent> &  :let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set
 noremap    <Space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
-noremap <silent> n  nzz
-noremap <silent> N  Nzz
-noremap          P  "+gp
+noremap <silent> G  Gzb
 noremap <silent> g* g*zz
 "noremap          g\ ms:up<CR>
 "for hhkb
@@ -131,6 +130,9 @@ noremap <silent> gm :call cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
 "for hhkb
 noremap          gs ms:up<CR>
+noremap <silent> n  nzz
+noremap <silent> N  Nzz
+noremap          P  "+gp
 
 noremap          <F1> <Esc>
 noremap          <F3> mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
@@ -189,7 +191,6 @@ inoremap <C-s>  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
 inoremap <F1>  <Esc>
-"autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 inoremap <F3>  <Esc>mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
@@ -259,6 +260,7 @@ endif
 
 "------ 一些特殊非通用的东西, 如只针对某种语言/特定项目的配置 ------
 
+"autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
@@ -266,7 +268,6 @@ autocmd FileType python inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
 "autocmd FileType html set filetype=htmljinja
 autocmd FileType html   setlocal filetype=htmldjango
-autocmd FileType text   setlocal textwidth=100
 
 "写成多行时, 中间有行注释, 语句都算没连上!!
 "必须放在setlocal filetype=htmldjango的后面
