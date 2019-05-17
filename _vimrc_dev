@@ -65,8 +65,12 @@ Plug 'liuchengxu/vista.vim'
 "杀手级clang语法解析补全插件(all in one!)
 "2015年 12月 02日 星期三 14:38:58 CST
 "win下要用到visual studio编译
-", { 'do': 'python3 ./install.py --java-completer' }
-Plug 'Valloric/YouCompleteMe'
+if has("win32")
+  Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
+else
+  ", { 'do': 'python3 ./install.py --java-completer' }
+  Plug 'Valloric/YouCompleteMe'
+endif
 
 "语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
 "vim8, 异步, 实时代码检查器
@@ -367,7 +371,7 @@ let g:vista#renderer#icons = {
 "跳转到定义
 "nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent>        go :tab YcmCompleter GoTo<CR>
-autocmd FileType python nnoremap <silent> gd :tab YcmCompleter GoToDeclaration<CR>
+autocmd FileType python nnoremap <silent> gd :tab YcmCompleter GoToDeclaration<CR>:let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set hls<CR>
 let g:ycm_seed_identifiers_with_syntax = 1                          "语法关键字补全
 let g:ycm_complete_in_comments         = 1                          "在注释中也启用补全
 let g:ycm_goto_buffer_command          = 'split-or-existing-window' "设定跳转命令打开方式

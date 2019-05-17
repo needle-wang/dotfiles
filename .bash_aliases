@@ -25,7 +25,8 @@ test -s /usr/share/autojump/autojump.sh && \
 . /usr/share/autojump/autojump.sh
 
 to_alias(){
-alias a='ag'
+# grep还是要的, ag会默认忽略点文件
+alias a='grep -i'
 alias b='v ~/.bash_aliases'
 alias B='v ~/.bashrc'
 alias C='column -t'
@@ -39,7 +40,8 @@ alias h='history'
 alias i='ipconfig.sh'
 alias k='gitk --all'
 alias l='\ls --color=auto -AlFhrt'
-#alias L='less -ci'
+# 如果行太长了, bat会展现得不好
+alias L='less -ci'
 alias m='man -L en'
 alias n='Thunar'
 alias p='ipython'
@@ -213,15 +215,11 @@ F(){
 }
 
 v(){
-if [ "$2" ]; then
-  vimdiff "$1" "$2"
-else
-  if [ "$1" ]; then
-    vi "$1"
+  if [ "$#" -eq 2 ]; then
+    vimdiff "$1" "$2"
   else
-    vi
+    vi "$@"
   fi
-fi
 }
 
 mkbak() {

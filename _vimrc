@@ -75,7 +75,6 @@ endfunction
 
 set autoread        "默认关闭
 set cedit=<C-g>     "ex模式打开命令行窗口的键
-set colorcolumn=101  "第101列, 高亮
 set cursorline      "高亮光标所在行, 默认关闭
 set expandtab       "默认关闭
 set history=1000    ":h 'history', 默认20
@@ -121,7 +120,8 @@ noremap <silent> &  :let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set
 noremap    <Space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
-noremap <silent> G  Gzb
+"行跳转时用的, 忽略 跳文末的不便
+noremap <silent> G  Gzz
 noremap <silent> g* g*zz
 "noremap          g\ ms:up<CR>
 "for hhkb
@@ -237,8 +237,10 @@ if has("gui_running")
     behave mswin
 
     set guioptions-=T       "gvim去掉工具栏
-    set novisualbell
-    set vb t_vb=            "去掉出错鸣叫
+    "禁用响铃和闪烁
+    set vb t_vb=
+    "GUI启动时会将t_vb重置, 要在gvimrc里再设一次, 除非如下:
+    au GuiEnter * set t_vb=
     set columns=90
 
     if has("win32")
@@ -264,6 +266,7 @@ endif
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
+autocmd FileType python,sh setlocal colorcolumn=101  "第101列, 高亮
 autocmd FileType python,sh inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
 "autocmd FileType html set filetype=htmljinja
@@ -296,8 +299,8 @@ autocmd BufNewFile *.html call Template_html()
 "from django.conf.urls import patterns, include, url
 "from django.contrib import admin
 
-"from django.template.loader import get_template  
-"from django.template import Context 
+"from django.template.loader import get_template
+"from django.template import Context
 "from django.core.urlresolvers import reverse
 
 "测试哪个python可用(:h has-python)
