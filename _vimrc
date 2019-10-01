@@ -132,7 +132,7 @@ noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
 noremap          gs ms:up<CR>
 noremap <silent> n  nzz
 noremap <silent> N  Nzz
-noremap          P  "+gp
+noremap          P  m'"+gp
 
 noremap          <F1> <Esc>
 noremap          <F3> mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
@@ -283,7 +283,8 @@ autocmd FileType css,htmldjango,javascript,python,sh setlocal tabstop=2
 "autocmd BufWritePost */templates/*/*.html   BLReloadPage
 "autocmd BufWritePost */templates_bs3/*.html BLReloadPage
 "autocmd BufWritePost */templates/*.html     BLReloadPage
-autocmd BufWritePost *.html                 BLReloadPage
+"需要先运行了browserlink, 再加载此命令, 不然每次保存都会报错
+"autocmd BufWritePost *.html                 BLReloadPage
 
 autocmd BufNewFile,BufRead * call Add_space()
 autocmd BufNewFile *.py   call Template_py()
