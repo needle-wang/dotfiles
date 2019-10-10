@@ -108,7 +108,7 @@ alias sqlmap='sqlmap --random-agent'
 # If the last character of the alias value is a space or tab character,
 # then the next command word following the alias is also checked for alias expansion. 
 alias sudo='sudo '
-alias tailf='tail -f  '
+alias tailf='tail -f'
 
 
 #如果不是root用户

@@ -395,6 +395,7 @@ let g:ycm_filetype_blacklist = {
         \ 'infolog'  : 1,
         \ 'json'     : 1,
         \ 'mail'     : 1,
+        \ 'markdown' : 1,
         \ 'nerdtree' : 1,
         \ 'notes'    : 1,
         \ 'pandoc'   : 1,

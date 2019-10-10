@@ -21,7 +21,9 @@
 !即改成hhkb键盘模式:Caps_Lock改成ctrl_L,Caps_Lock改到Alt_R上
 !重置只要运行一下setxkbmap(也是键盘映射工具)即可
 
-
+! 2019年 04月 17日 星期三 23:04:22 CST
+! 只要修改/etc/default/keyboard: 即可将Caps_Lock换成Ctrl_L(tty[1-7]也会有效!)
+! XKBOPTIONS="ctrl:nocaps"
 keycode 108 = Caps_Lock
 
 
