@@ -121,7 +121,7 @@ noremap    <Space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 "行跳转时用的, 忽略 跳文末的不便
-noremap <silent> G  Gzz
+"noremap <silent> G  Gzz
 noremap <silent> g* g*zz
 "noremap          g\ ms:up<CR>
 "for hhkb

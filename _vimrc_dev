@@ -66,10 +66,10 @@ Plug 'liuchengxu/vista.vim'
 "2015年 12月 02日 星期三 14:38:58 CST
 "win下要用到visual studio编译
 if has("win32")
-  Plug 'Valloric/YouCompleteMe', { 'frozen': '1' }
+  Plug 'ycm-core/YouCompleteMe', { 'frozen': '1' }
 else
   ", { 'do': 'python3 ./install.py --java-completer' }
-  Plug 'Valloric/YouCompleteMe'
+  Plug 'ycm-core/YouCompleteMe'
 endif
 
 "语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
@@ -361,8 +361,8 @@ let g:vista_default_executive = 'ctags'
 "let g:vista_fzf_preview = ['right:50%']
 let g:vista#renderer#enable_icon = 1
 let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
+\   "function": "Ⓜ",
+\   "variable": "Ⓥ",
 \  }
 "------ for vista ------
 
