@@ -80,7 +80,7 @@ alias ss='sudo ss -ntp'
 alias tf='multitail'
 alias vm='mv'
 
-alias dj='c /usr/local/lib/python2.7/dist-packages/django'
+alias dj='c /usr/local/lib/python3.8/dist-packages/django'
 alias lj='c /media/BACKUP/1LANDJ'
 alias bu='c /media/BACKUP/2BACKUP'
 alias some='c /media/SOME'
@@ -106,16 +106,15 @@ alias sqlmap='sqlmap --random-agent'
 # is checked to see if it has an alias.
 # Bash does not try to recursively expand the replacement text.
 # If the last character of the alias value is a space or tab character,
-# then the next command word following the alias is also checked for alias expansion. 
+# then the next command word following the alias is also checked for alias expansion.
 alias sudo='sudo '
 alias tailf='tail -f'
 
 
 #如果不是root用户
 if [ "$(id -u)" != "0" ]; then
-    alias aptitude='sudo aptitude'
     alias apt-get='sudo apt-get'
-    #alias aptitude='sudo aptitude'
+    alias aptitude='sudo aptitude'
     alias atop='sudo atop'
     alias blkid='sudo blkid'
     alias chown='sudo chown'
@@ -141,7 +140,6 @@ if [ "$(id -u)" != "0" ]; then
     #给命令符加颜色
     export PS1='\[\e[33m\]\u\[\e[0m\]@\h:\[\e[33m\]\w\[\e[33m\]\$\[\e[0m\] '
 else
-    alias netstat='netstat -ntp'
     export PS1='\[\e[35m\]\u\[\e[0m\]@\h:\[\e[33m\]\w\[\e[33m\]\$\[\e[0m\] '
 fi
 
@@ -171,7 +169,7 @@ if [ "$DISPLAY" ]; then
   xmodmap "$HOME/.Xmodmap" 2>/dev/null
 fi
 
-#在此处, 此行运行竟然报错!(t：未找到命令)
+#在此处, 下行运行竟然报错!(t：未找到命令)
 #t l
 }
 
@@ -211,7 +209,7 @@ c(){
 }
 
 F(){
-  find . -iname "*$1*"
+  [ "$1" ] && find . -iname "*$1*"
 }
 
 v(){
@@ -222,25 +220,25 @@ v(){
   fi
 }
 
-mkbak() {
-  [ "$1" ] && cp "$1"{,.bak}
-}
-
 lo(){
-  [ "$1" ] && locate -bei "$1" | g "$1"
+  [ "$1" ] && locate -bei "$1" | g -- "$1"
 }
 
 lo.(){
-  #当前目录下 通过正则 搜索文件名包含${1}的文件
-  [ "$1" ] && locate -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
+  #当前目录下 通过正则 搜索文件名包含$1的文件
+  [ "$1" ] && locate -eir "$(pwd)/.*$1" | awk -F'/' '$NF~/'"$1"'/'
 }
 
 lo.BACKUP(){
   echo "  updatedb -l 0 -U '/media/BACKUP' -o '/media/BACKUP/mlocate.db'"
-  [ "$1" ] && locate -d '/media/BACKUP/mlocate.db' -eir "$(pwd)/.*${1}" | g -v "${1}.*/" | g "${1}"
+  [ "$1" ] && locate -d '/media/BACKUP/mlocate.db' -eir "$(pwd)/.*$1" | awk -F'/' '$NF~/'"$1"'/'
 }
 
-man() {
+dpkgg(){
+  [ "$1" ] && dpkg -l | awk '$2~/'"$1"'/' | g -- "$1"
+}
+
+man(){
   #包装man, 使其支持man bash内置命令
   case "$(type -t "$1" 2>/dev/null):$1" in
     builtin:*) help "$1" | "${PAGER:-less}" -ci;;     # built-in
@@ -255,10 +253,15 @@ mcd(){
   [ "$1" ] && mkdir -p "$1" && cd "$1"
 }
 
+mkbak(){
+  [ "$1" ] && cp "$1"{,.bak}
+}
+
 psg(){
   [ "$1" ] || return 1
   ps -f  | head -n 1
-  ps -ef | g "$(echo "$1" | sed 's;\(.\)$;[\1];')"
+  ps -ef | g -- "$(echo "$1" | sed 's;\(.\)$;[\1];')"
+  #ps -ef | awk '{if(NR==1)print($0)}$0~/vim/'
 }
 
 whif(){
@@ -269,8 +272,7 @@ whif(){
 
 addpypath(){
   #若该path下有跟PATH中模块同名会出错~, 如abc.py:
-  #command-not-found是py文件, path里有abc.py会抛:
-  #"已放弃"
+  #command-not-found是py文件, path里竟然有个abc.py文件, 会抛: #"已放弃"
   local path_to_add=$(pwd)
   if [[ "$1" ]]; then
       path_to_add=$(cd $1 && pwd)

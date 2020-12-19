@@ -372,6 +372,7 @@ let g:vista#renderer#icons = {
 "nnoremap <silent> <leader>g :YcmCompleter GoTo<CR>
 nnoremap <silent>        go :tab YcmCompleter GoTo<CR>
 autocmd FileType python nnoremap <silent> gd :tab YcmCompleter GoToDeclaration<CR>:let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set hls<CR>
+let g:ycm_auto_hover = ''                                           "禁用光标悬停(updatetime秒后)弹出doc
 let g:ycm_seed_identifiers_with_syntax = 1                          "语法关键字补全
 let g:ycm_complete_in_comments         = 1                          "在注释中也启用补全
 let g:ycm_goto_buffer_command          = 'split-or-existing-window' "设定跳转命令打开方式
@@ -379,6 +380,7 @@ let g:ycm_key_list_select_completion   = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_log_level = 'warning'
 "ycmd server使用的py版本
 "let g:ycm_server_python_interpreter='python3'
 "python completer使用的py版本, 忘了从哪里看到的此选项, 搜不到
