@@ -95,6 +95,7 @@ alias dwon='down'
 alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
 alias free='free -m -l -t'
 alias flake8='flake8 --ignore=E111,E114,E121,E203,E251,E266,E501,F841,W391'
+alias iotop='\iotop -o'
 #dmesg只显示此次开机的kernel的日志, 其他deamon的输出不管
 #journalctl -b显示从此次开机到运行此命令间的所有日志
 alias journalctl='SYSTEMD_LESS=FRSXMKi journalctl --no-hostname'
@@ -256,7 +257,7 @@ mcd(){
 }
 
 mkbak(){
-  [ "$1" ] && cp "$1"{,.bak}
+  [ "$1" ] && cp -a "$1"{,.bak}
 }
 
 psg(){
