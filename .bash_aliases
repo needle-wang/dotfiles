@@ -222,6 +222,14 @@ v(){
   fi
 }
 
+gv(){
+  if [ -p /dev/stdin ]; then
+    [ "$1" ] || return 0
+    local args=$(echo "$@" | sed 's; \+;|;g')
+    grep -vE -- "($args)"
+  fi
+}
+
 lo(){
   [ "$1" ] && locate -bei "$1" | g -- "$1"
 }
