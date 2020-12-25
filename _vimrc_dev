@@ -473,7 +473,7 @@ let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 "let g:ale_fix_on_save = 1
 
 "语法修复器: ALEFix
-"pip install yapf isort
+"pip3 install isort yapf
 "'sh': ['shfmt'], 但是shfmt不会装...
 let g:ale_fixers = {
 \   'python' : ['yapf', 'isort'],
@@ -485,7 +485,7 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_linters_explicit = 1
 
 "语法检查器(自动检查)
-"pip install flake8
+"pip3 install flake8
 "apt-get install shellcheck
 let g:ale_linters = {
 \   'python' : ['flake8'],
@@ -494,6 +494,7 @@ let g:ale_linters = {
 \}
 
 let g:ale_python_flake8_options = '--ignore=E111,E114,E121,E128,E203,E251,E266,E501,F841,W391,W503'
+let g:ale_python_yapf_executable = 'yapf3'
 "没有这个yapf选项, 在项目的任意父目录加个.style.yapf
 "let g:ale_python_yapf_options = '--style={indent_width:2}'
 let g:ale_sign_error = '✗'
