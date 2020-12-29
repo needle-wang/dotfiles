@@ -554,6 +554,11 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 "   ######### PYTHON-相关-插件配置 #########
 
+"------ for pydoc.vim ------
+let g:pydoc_cmd = 'python3 -m pydoc'
+let g:pydoc_open_cmd = 'vsplit'
+"------ for pydoc.vim ------
+
 "------ for vim-jumptoview ------
 let g:jumptoview_patterns_prefix = ''
 "------ for vim-jumptoview ------

@@ -91,6 +91,7 @@ alias down='c "$HOME/下载"'
 alias win='cd /media/WIN'
 alias kali='cd /media/KALI'
 alias dwon='down'
+alias donw='down'
 
 alias dust='ls -A | xargs -I{} du -sh {} | s -h | tail; du -sh'
 alias free='free -m -l -t'
