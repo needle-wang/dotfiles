@@ -1,0 +1,78 @@
+priority -40
+###########################################################################
+#                            ultisnips SNIPPETS                           #
+###########################################################################
+
+#! header
+snippet #! "Shebang header for python3" b
+#!/usr/bin/env python3
+#
+# `date "+%Y年 %m月 %d日 %A %H:%M:%S CST"`
+$0
+endsnippet
+
+snippet #!2 "Shebang header for python2" b
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+#
+# `date "+%Y年 %m月 %d日 %A %H:%M:%S CST"`
+$0
+endsnippet
+
+snippet ifm "ifm" b
+def main():
+	${0:pass}
+
+if __name__ == '__main__':
+	main()
+endsnippet
+
+snippet while "while for-loop" b
+while ${1:True}:
+	${2:pass}
+endsnippet
+
+snippet i "import" b
+import 
+endsnippet
+
+snippet p "print()" b
+print(${1})
+
+endsnippet
+
+snippet for "for loop" b
+for ${1:i} in ${2:range(${3})}:
+	${4:${VISUAL:pass}}
+endsnippet
+
+snippet cl "simple class without docstr" b
+class ${1:MyClass}(${2:object}):
+	${3:pass}
+
+endsnippet
+
+snippet de "simple function without docstr" b
+def ${1:function}(${2:arg1}):
+	${3:pass}
+
+endsnippet
+
+snippet popen "subprocess.Popen" b
+from subprocess import (Popen, PIPE, STDOUT)
+_args = ['${1:cat}', ]
+_subp = Popen(_args, stdout = PIPE, stderr = STDOUT, text = True)
+
+endsnippet
+
+snippet thread "subprocess.Popen" b
+from threading import Thread
+t = Thread(target = ${1:func},
+           args = (${2:arg_of_func},))
+t.daemon = True  # 守护进程(主线程退出后才跟着退出), 一次性线程不要加
+t.start()
+# t.join()
+
+endsnippet
+
+# vim:ft=snippets:
