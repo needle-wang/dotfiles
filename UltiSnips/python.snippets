@@ -28,7 +28,7 @@ if __name__ == '__main__':
 endsnippet
 
 snippet while "while for-loop" b
-while ${1:True}:
+while ${1:1}:
 	${2:pass}
 endsnippet
 
@@ -37,8 +37,7 @@ import
 endsnippet
 
 snippet p "print()" b
-print(${1})
-
+print(${0})
 endsnippet
 
 snippet for "for loop" b
@@ -53,13 +52,13 @@ class ${1:MyClass}(${2:object}):
 endsnippet
 
 snippet de "simple function without docstr" b
-def ${1:function}(${2:arg1}):
+def ${1:function}(${2:self}):
 	${3:pass}
 
 endsnippet
 
 snippet popen "subprocess.Popen" b
-from subprocess import (Popen, PIPE, STDOUT)
+from subprocess import Popen, PIPE, STDOUT
 _args = ['${1:cat}', ]
 _subp = Popen(_args, stdout = PIPE, stderr = STDOUT, text = True)
 

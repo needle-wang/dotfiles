@@ -79,7 +79,7 @@ alias sl='ls'
 #sudo visudo: %needle ALL=(ALL:ALL) NOPASSWD:ALL
 alias ss='sudo ss -ntp'
 #tailf有bug, 已过时, 连包都没有了~
-alias tf='multitail'
+alias tf='tail -f'
 alias vm='mv'
 
 alias dj='c /usr/local/lib/python3.8/dist-packages/django'
@@ -112,7 +112,7 @@ alias sqlmap='\sqlmap --random-agent'
 # If the last character of the alias value is a space or tab character,
 # then the next command word following the alias is also checked for alias expansion.
 alias sudo='sudo '
-alias tailf='tail -f'
+alias tailf='multitail'
 
 
 #如果不是root用户
@@ -136,6 +136,7 @@ if [ "$(id -u)" != "0" ]; then
     alias sqlmap='sudo sqlmap'
     alias shutdown='sudo shutdown'
     alias systemctl='sudo systemctl'
+    alias top='sudo top -c'
     alias updatedb='sudo updatedb'
     alias update-grub='sudo update-grub'
     #原始PS1
