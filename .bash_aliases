@@ -271,9 +271,10 @@ mkbak(){
 
 psg(){
   [ "$1" ] || return 1
-  ps -f  | head -n 1
-  ps -ef | g -- "$(echo "$1" | sed 's;\(.\)$;[\1];')"
-  #ps -ef | awk '{if(NR==1)print($0)}$0~/vim/'
+  # ps -ef | grep vi[m]  # 加[]可以过滤掉grep本身的进程
+  ps -ef | grep -- " PI[D]\|$(echo "$1" | sed 's;\(.\)$;[\1];')"
+  # https://stackoverflow.com/questions/9399005/grep-like-tool-that-colors-boldens-but-not-filter
+  # ps -ef | awk '{if(NR==1)print($0)}$0~/vi[m]/' | grep '^\|vi[m]'
 }
 
 whif(){
