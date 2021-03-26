@@ -58,25 +58,28 @@ Plug 'godlygeek/tabular'
 Plug 'Yggdroot/indentLine'
 " 参数提示
 "Plug 'Shougo/echodoc.vim', { 'for': 'python' }
-"majutsushi/tagbar是taglist增强!    Plug 'majutsushi/tagbar'
-Plug 'liuchengxu/vista.vim'
+"preservim/tagbar是taglist增强!
+"vista十分的不好用!
+"Plug 'liuchengxu/vista.vim'
+Plug 'preservim/tagbar'
 
 "python all in one!         Plug 'klen/python-mode'
 "杀手级clang语法解析补全插件(all in one!)
 "2015年 12月 02日 星期三 14:38:58 CST
-"win下要用到visual studio编译
-if has("win32") == 0
+"win下要用到visual studio2019编译
+"if has("win32") == 0
 "  Plug 'ycm-core/YouCompleteMe', { 'frozen': '0' }
 "else
   ", { 'do': 'python3 ./install.py --java-completer' }
-  Plug 'ycm-core/YouCompleteMe'
-endif
+Plug 'ycm-core/YouCompleteMe'
+"endif
 
 "语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
 "vim8, 异步, 实时代码检查器
 Plug 'w0rp/ale'
 
-"vim8, 异步生成ctags, ctags用于函数跳转的~
+"vim8, 异步生成ctags, ctags用于函数 静态跳转的
+"for ctrl-]
 Plug 'ludovicchabant/vim-gutentags'
 
 "注释插件           Plug 'vimcn/NERD_commenter.cnx'
@@ -191,6 +194,9 @@ let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI  = 1
 let NERDTreeMouseMode  = 2
 let NERDTreeIgnore     = ['\.vim$', '\~$', '\.pyc$', '\.ttf$']
+let NERDTreeNaturalSort = 1
+let NERDTreeDirArrowExpandable=">"
+let NERDTreeDirArrowCollapsible="v"
 "最后一个窗口是nerdtree时, 关闭vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "自动打开nerdtree
@@ -198,27 +204,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "------ for nerdtree ------
 
 "------ for lightline ------
-"vista
-function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
-endfunction
 let g:lightline = {
       \'colorscheme': 'powerline',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified', 'method' ] ]
-      \ },
-      \ 'component_function': {
-      \   'method': 'NearestMethodOrFunction'
-      \ },
       \ }
-"tagbar
-"function! TagbarStatusFunc(current, sort, fname, ...) abort
-    "let g:lightline.fname = a:fname
-    "return lightline#statusline(0)
+"vista
+"function! NearestMethodOrFunction() abort
+"  return get(b:, 'vista_nearest_method_or_function', '')
 "endfunction
-""让lightline嵌入tagbar中(默认支持nerdtree和ctrlp)
-"let g:tagbar_status_func = 'TagbarStatusFunc'
+"tagbar
+let g:tagbar_status_func = 'TagbarStatusFunc'
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+  return lightline#statusline(0)
+endfunction
 "------ for lightline ------
 
 "------ for solarized ------
@@ -261,23 +258,27 @@ set grepformat=%f:%l:%c:%m
 
 "------ for LeaderF ------
 let g:Lf_ShortcutF = '<C-p>'
-noremap <C-n> :LeaderfFunction<CR>
+noremap <C-n> :LeaderfBufTag<CR>
+"noremap <C-n> :LeaderfFunction<CR>
 "let g:Lf_ShortcutB = '<C-n>'
 "noremap <m-n> :LeaderfMru<CR>
 "noremap <C-n> :LeaderfBuffer<CR>
-"noremap <m-m> :LeaderfTag<CR>
+"noremap <m-m> :LeaderfBufTag<CR>
+let g:Lf_HideHelp = 1
+let g:Lf_DefaultExternalTool = "ag"
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-
 let g:Lf_RootMarkers = ['.project','.root','.git','.hg','.svn']
 let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_WindowHeight = 0.30
+"与vim-gutentags联动
+let g:Lf_GtagsGutentags = 1
 if has("win32")
-    let g:Lf_CacheDirectory = expand('$HOME/vimfiles/cache')
+    let g:Lf_CacheDirectory = expand('$HOME/vimfiles')
 else
-    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+    let g:Lf_CacheDirectory = expand('~/.vim')
 endif
+let g:Lf_GtagsAutoUpdate = 0
 let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 "git ls-files会列出的是octal形式的utf8, leaderf没有处理
@@ -340,30 +341,34 @@ nnoremap g<Bar> :IndentLinesToggle<CR>
 ""------ for echodoc.vim ------
 
 "------ for tagbar ------
-"noremap <silent> <F8> :TagbarToggle<CR>
-"noremap <silent> g8 :TagbarToggle<CR>
-"let g:tagbar_width = 37
-""let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
-""let g:tagbar_autoshowtag = 0    "自动打开折叠
-""let g:tagbar_sort        = 0    "标签按代码中的顺序排序
-"let g:tagbar_compact     = 1    "去掉含有<F1>的首行
-"let g:tagbar_indent      = 3    "修改tagbar内的缩进空间
-"let g:tagbar_singleclick = 1    "单击打开标签
-"set updatetime=700              "自动高亮当前tag的间隔时间，全局的
+noremap <silent> <F8> :TagbarToggle<CR>
+noremap <silent> g8 :TagbarToggle<CR>
+let g:tagbar_width = 40
+let g:tagbar_compact     = 1    "去掉含有<F1>的首行
+let g:tagbar_indent      = 2    "修改tagbar内的缩进空间
+let g:tagbar_singleclick = 1    "单击打开标签
+let g:tagbar_autofocus   = 1    "打开tagbar时自动获取焦点
+"let g:tagbar_autoshowtag = 0    "自动打开折叠
+let g:tagbar_sort        = 0    "标签按代码中的顺序排序
+let g:tagbar_scrolloff   = 200  "tagbar窗口的scrolloff
+let g:tagbar_jump_offset = 200  "我一直想要的, 跳转后zt!, 999会失效
+"let g:tagbar_jump_lazy_scroll = 1   "好功能, 但与tagbar_jump_offset冲突
+let g:tagbar_iconchars   = ['>', 'v']
+set updatetime=700              "自动高亮当前tag的间隔时间，全局的
 "------ for tagbar ------
 
 "------ for vista ------
-noremap <silent> <F8> :Vista!!<CR>
-noremap <silent> g8 :Vista!!<CR>
-let g:vista_icon_indent = ["▸ ", ""]
-let g:vista_sidebar_width = 40
-let g:vista_default_executive = 'ctags'
-"let g:vista_fzf_preview = ['right:50%']
-let g:vista#renderer#enable_icon = 1
-let g:vista#renderer#icons = {
-\   "function": "Ⓜ",
-\   "variable": "Ⓥ",
-\  }
+"noremap <silent> <F8> :Vista!!<CR>
+"noremap <silent> g8 :Vista!!<CR>
+""let g:vista_icon_indent = ["▸ ", ""]
+"let g:vista_sidebar_width = 40
+"let g:vista_default_executive = 'ctags'
+""let g:vista_fzf_preview = ['right:50%']
+"let g:vista#renderer#enable_icon = 1
+"let g:vista#renderer#icons = {
+"\   "function": "Ⓜ",
+"\   "variable": "Ⓥ",
+"\  }
 "------ for vista ------
 
 "------ for YouCompleteMe ------
@@ -384,7 +389,12 @@ let g:ycm_log_level = 'warning'
 "ycmd server使用的py版本
 "let g:ycm_server_python_interpreter='python3'
 "python completer使用的py版本, 忘了从哪里看到的此选项, 搜不到
-let g:ycm_python_binary_path = 'python3'
+"https://stackoverflow.com/questions/41650902/how-to-change-python-auto-completion-to-venv-directory-in-vim-ycm
+if executable("python3")
+    let g:ycm_python_binary_path = 'python3'
+else
+    let g:ycm_python_binary_path = 'python'
+endif
 "let g:ycm_add_preview_to_completeopt   = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "上行无效~, 下行有效~, 老出问题
@@ -466,11 +476,13 @@ let g:ycm_filetype_blacklist = {
 nnoremap          <F2> :ALEFix<CR>
 nnoremap <silent> [n :ALENextWrap<CR>
 nnoremap <silent> [N :ALEPreviousWrap<CR>
-"let g:ale_sign_column_always = 1
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 "let g:ale_fix_on_save = 1
+"let g:ale_sign_column_always = 1
+let g:ale_sign_error = '✗'
+let g:ale_sign_warning = '⚡'
 
 "语法修复器: ALEFix
 "pip3 install isort yapf
@@ -478,6 +490,14 @@ let g:ale_echo_msg_format = '[%linter%] %code: %%s'
 let g:ale_fixers = {
 \   'python' : ['yapf', 'isort'],
 \}
+
+if executable("yapf3")
+    let g:ale_python_yapf_executable = 'yapf3'
+else
+    let g:ale_python_yapf_executable = 'yapf'
+endif
+"没有这个yapf选项, 在项目的任意父目录加个.style.yapf
+"let g:ale_python_yapf_options = '--style={indent_width:2}'
 
 let g:ale_lint_delay = 500
 let g:ale_lint_on_insert_leave = 1
@@ -494,11 +514,6 @@ let g:ale_linters = {
 \}
 
 let g:ale_python_flake8_options = '--ignore=E111,E114,E121,E128,E203,E251,E266,E501,F841,W391,W503'
-let g:ale_python_yapf_executable = 'yapf3'
-"没有这个yapf选项, 在项目的任意父目录加个.style.yapf
-"let g:ale_python_yapf_options = '--style={indent_width:2}'
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '⚡'
 
 hi! clear SpellBad
 hi! clear SpellCap
@@ -509,18 +524,19 @@ hi! SpellRare gui=undercurl guisp=magenta
 "------ for ale ------
 
 "------ for vim-gutentags ------
-if has("win32")
-    let s:vim_tags = expand('$HOME/vimfiles/cache/tags')
-else
-    let s:vim_tags = expand('~/.vim/cache/tags')
-endif
+"if has("win32")
+"    let s:vim_tags = expand('$HOME/vimfiles/cache/tags')
+"else
+"    let s:vim_tags = expand('~/.vim/cache/tags')
+"endif
 " 检测 ~/.cache/tags 不存在就新建, 不加了, 报错再自己创建吧!
 "if !isdirectory(s:vim_tags)
 "   silent! call mkdir(s:vim_tags, 'p')
 "endif
 
-" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-let g:gutentags_cache_dir = s:vim_tags
+" 将自动生成的tags文件全部放入.LfCache/gtags目录中，避免污染工程目录
+"let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_cache_dir = expand(g:Lf_CacheDirectory.'/.LfCache/gtags')
 
 "http://www.skywind.me/blog/archives/2084
 set tags=./.tags;,.tags "这句加跟不加没啥区别呀~
