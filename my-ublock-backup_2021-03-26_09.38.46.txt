@@ -1,0 +1,57 @@
+{
+  "timeStamp": 1616722726463,
+  "version": "1.34.0",
+  "userSettings": {
+    "externalLists": "https://gitcdn.xyz/repo/NanoMeow/MDLMirror/master/hosts.txt\nhttps://mirror.cedia.org.ec/malwaredomains/justdomains\nhttps://gitcdn.xyz/repo/NanoMeow/MDLMirror/master/hosts.txt\nhttps://mirror.cedia.org.ec/malwaredomains/justdomains",
+    "importedLists": [
+      "https://gitcdn.xyz/repo/NanoMeow/MDLMirror/master/hosts.txt",
+      "https://mirror.cedia.org.ec/malwaredomains/justdomains",
+      "https://gitcdn.xyz/repo/NanoMeow/MDLMirror/master/hosts.txt",
+      "https://mirror.cedia.org.ec/malwaredomains/justdomains",
+      "https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjxlist.txt"
+    ],
+    "popupPanelSections": 15,
+    "showIconBadge": false
+  },
+  "selectedFilterLists": [
+    "https://raw.githubusercontent.com/cjx82630/cjxlist/master/cjxlist.txt",
+    "https://mirror.cedia.org.ec/malwaredomains/justdomains",
+    "https://gitcdn.xyz/repo/NanoMeow/MDLMirror/master/hosts.txt",
+    "urlhaus-1",
+    "user-filters",
+    "assets.json",
+    "public_suffix_list.dat",
+    "ublock-resources",
+    "ublock-filters",
+    "ublock-badware",
+    "ublock-privacy",
+    "ublock-abuse",
+    "ublock-unbreak",
+    "easylist",
+    "easyprivacy",
+    "malware-0",
+    "malware-1",
+    "plowe-0",
+    "CHN-0",
+    "CHN-1"
+  ],
+  "hiddenSettings": {},
+  "whitelist": [
+    "about-scheme",
+    "chrome-extension-scheme",
+    "chrome-scheme",
+    "hot.cnbeta.com",
+    "movie.youku.com",
+    "moz-extension-scheme",
+    "opera-scheme",
+    "vivaldi-scheme",
+    "www.cnbeta.com",
+    "www.ruanyifeng.com",
+    "www.youku.com",
+    "wyciwyg-scheme"
+  ],
+  "dynamicFilteringString": "behind-the-scene * * noop\nbehind-the-scene * inline-script noop\nbehind-the-scene * 1p-script noop\nbehind-the-scene * 3p-script noop\nbehind-the-scene * 3p-frame noop\nbehind-the-scene * image noop\nbehind-the-scene * 3p noop",
+  "urlFilteringString": "",
+  "hostnameSwitchesString": "no-large-media: behind-the-scene false\nno-scripting: behind-the-scene false\nno-csp-reports: * true",
+  "userFilters": "www.baidu.com###ftCon\nwww.baidu.com###ec_im_container\nwww.baidu.com##div[style~=\"display:block\"]\n! 2015/11/11 下午1:45:35 http://zhidao.baidu.com/question/571032569.html\nzhidao.baidu.com###selectsearch-icon[alt=\"搜索\"]\nzhidao.baidu.com###union-qbbanner\nzhidao.baidu.com##.nav-menu-container\nzhidao.baidu.com##.left-promotion\nzhidao.baidu.com##.jump-task-list\nzhidao.baidu.com##.wgt-push\nzhidao.baidu.com##.EC_ads_listborder\nzhidao.baidu.com##.wgt-ad-baidushifu\nzhidao.baidu.com##.wgt-bottom-union\nzhidao.baidu.com##.footer-wp\nzhidao.baidu.com##li[class=\"shop-entrance\"]\nzhidao.baidu.com##aside[id=\"qb-side\"]\nzhidao.baidu.com##ins[class=\"share-area\"]\nzhidao.baidu.com##.answer-share-widget\nzhidao.baidu.com##.wgt-bottom-ask\nzhidao.baidu.com###header > .adTopImg\n! 2015/11/8 上午12:27:42 http://tieba.baidu.com/p/2382088152\ntieba.baidu.com##span[class=\"j_jb_ele\"]\ntieba.baidu.com##li[class=\"j_jb_ele\"]\ntieba.baidu.com##span[class=\"lzl_jb\"]\ntieba.baidu.com##div[class=\"share_btn_wrapper\"]\ntieba.baidu.com##div[id=\"pb_adbanner\"]\ntieba.baidu.com##div[id=\"encourage_entry\"]\ntieba.baidu.com##div[id=\"com_userbar\"]\ntieba.baidu.com##div[id=\"guide_fc\"]\ntieba.baidu.com##a[id=\"selectsearch-icon\"]\ntieba.baidu.com##div[class=\"thread_recommend thread-recommend\"]\ntieba.baidu.com##div[data-daid]\n\n! 2015/11/8 上午12:56:36 http://www.dytt8.net/\n||www.37cs.com/html/click/8040_2133.html\n||www.37cs.com/html/click/8040_1800.html\n||www.37cs.com/html/click/8040_2134.html\n\nwww.fanjian.net##div[id=\"vad\"]\n\n! 2015/11/8 下午3:09:57 http://blog.163.com\nblog.163.com###btmlayer > .blbg\n\n##a[id=\"selectsearch-icon\"]\n##img[id=\"selectsearch-icon\"]\n##div[class^=\"ad-widget-\"]\n##div[class^=\"baiduimageplus-s\"]\n##a[id$=\"-icon\"][href=\"javascript:void(0);\"]\n\n! 2015/11/8 下午9:13:19 http://study.163.com/course/courseMain.htm?courseId=320022\n||study.163.com/src/statichtml/dacuNav.html\n\n! 2015/11/18 下午4:14:32 http://alexliyu.blog.163.com/blog/static/16275449620126239949478/\nalexliyu.blog.163.com##.js-show-regGuideLayer.f-trans.m-regGuideLayer\nalexliyu.blog.163.com###topbar_loftcamArea\nalexliyu.blog.163.com###topbar_lofterDldArea\nalexliyu.blog.163.com###topbar_yxpArea\nalexliyu.blog.163.com###topbar_randShowArea\n\nwww.douyu.com##.two_img\nwww.douyu.com##.illeagalReminds\nwww.douyu.com##.show_watch\nwww.douyu.com##.no_login\nwww.douyu.com##.chat-top-ad\nwww.douyu.com##.chat-right-ad\nwww.douyu.com##.chat_top_pic\nwww.douyu.com##.room_qrcode\nwww.douyu.com##.r_share\nwww.douyu.com##.giftbox\nwww.douyu.com###dy_bottom_shadow\nwww.douyu.com###mainbody > .clearfix.live-room > .room-ad-top\nwww.douyu.com###anchor-info > .fr.btn-group > .sq-wrap\nwww.douyu.com###js-live-room-normal-equal-left > .room-ad-video-down\nwww.douyu.com###js-recommand > .tab-body > .promote.tab-content\nwww.douyu.com###js-live-room-normal-equal-left > .room-ad-bottom\nwww.douyu.com###js-live-room-recommend\nwww.douyu.com###js-stats-and-actions > .fl.get-yw > .get-fc2.get-fc\nwww.douyu.com###js-chat-right-ad\nwww.douyu.com###anchor-info > .focus-lead\nwww.douyu.com###main-col > .allList-cont.content > .padding-right0.padding-left0.tse-content > .lol-ad\nwww.douyu.com###header > .head > .fl.head-nav > .funny.fl\nwww.douyu.com###header > .head > .fl.head-nav > .yuba.fl\n\n! 2016/5/6 下午3:34:54 http://v.youku.com/v_show/id_XMTU1MDc0MDA4MA==.html\nv.youku.com###lotteryToolbarBig\n\n##div#js-gdpr-consent-banner\n\n##.pulllog-box\n\n! 2018/8/12 下午11:06:43 https://stackoverflow.com/questions/46253472/allocating-size-to-gtk-warning-when-using-gtk-treeview-inside-gtk-scrolledw\nstackoverflow.com##.js-dismissable-hero._fixed.hero-container.old-hero\n\n! 2018/8/12 下午11:18:09 https://bugs.eclipse.org/bugs/show_bug.cgi?id=486068\nbugs.eclipse.org##.cc-color-override-1434350510.cc-bottom.cc-theme-block.cc-type-opt-in.cc-banner.cc-window\n\n! 2018/8/13 下午4:16:28 https://github.com/Bumblebee-Project/Bumblebee/issues/962\ngithub.com##.rounded-1.mb-4.text-center.p-4.signup-prompt\n\n! 2018/8/21 下午8:17:14 https://www.douban.com/group/topic/28927073/\nwww.douban.com###landing-bar\n\n! 2018/9/13 下午5:26:08 https://zhidao.baidu.com/question/814335584943255372.html?qbl=relate_question_7&word=%CF%FB%B7%C0%B9%A4%B3%CC%CA%A6%B9%A4%D7%F7%D6%A4%C3%F7%D4%F5%C3%B4%BF%AA\n###selectsearch-icon\n\n! 2018/9/19 下午3:55:30 https://www.w3cschool.cn/groovy/\nwww.w3cschool.cn##.widget-body\n\n! 2018/9/19 下午4:02:08 https://juejin.im/post/5b21e48e6fb9a01e573c4be4\njuejin.im##.recommend-box\n\n! 2018/9/27 上午3:56:07 https://buyertrade.taobao.com/trade/itemlist/list_bought_items.htm?spm=a21bo.2017.1997525045.2.5af911d9GAIVMA\nbuyertrade.taobao.com###J_xiaomi_dialog\n"
+}

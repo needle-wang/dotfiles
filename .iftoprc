@@ -1,15 +1,1 @@
-interface: wlan0
-
-dns-resolution: yes
-hide-source: yes
-hide-destination: no
-
-port-resolution: no
-port-display: on
-
-use-bytes: yes
-show-totals: yes
-
-line-display: two-line
-
-
+/home/needle/bin/.iftoprc
