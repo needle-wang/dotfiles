@@ -65,7 +65,7 @@ _subp = Popen(_args, stdout = PIPE, stderr = STDOUT, text = True)
 
 endsnippet
 
-snippet thread "subprocess.Popen" b
+snippet thread "threading.Thread" b
 from threading import Thread
 t = Thread(target = ${1:func},
            args = (${2:arg_of_func},))
