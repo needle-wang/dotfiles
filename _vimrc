@@ -14,12 +14,12 @@ set fileencodings=utf-8,cp936,latin-1   "fileencodings: 探测文件编码时的
 
 "fileencoding: 设置此缓冲区所在文件的字符编码, 保存时也以此为依据
 if has("win32")
-    set fileencoding=chinese            "help chinese
-    source $VIMRUNTIME/delmenu.vim      "处理菜单及右键菜单乱码, only win, 因为encoding
-    source $VIMRUNTIME/menu.vim
-    language messages zh_CN.utf-8       "处理vim的consle输出乱码, only win
+  set fileencoding=chinese            "help chinese
+  source $VIMRUNTIME/delmenu.vim      "处理菜单及右键菜单乱码, only win, 因为encoding
+  source $VIMRUNTIME/menu.vim
+  language messages zh_CN.utf-8       "处理vim的consle输出乱码, only win
 else
-    set fileencoding=utf-8
+  set fileencoding=utf-8
 endif
 
 "termencoding是针对vim的, 管不到gvim
@@ -28,49 +28,49 @@ let &termencoding=&fileencoding
 "------乱码解决方案------
 
 function! Add_space()
-    set switchbuf=usetab,newtab
-    let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
-    "如果文件类型不在fts_tmp之中, 就要inoremap .
-    if index(fts_tmp, &ft) < 0
-        if &ft == 'css'
-            return
-        endif
-        "一定要加<buffer>表示当前缓冲区
-        inoremap <buffer> . .<Space>
-    else
-        if index(['htmldjango', 'sh'], &ft) < 0
-            inoremap <buffer> - <Space>-<Space>
-            inoremap <buffer> <Bar> <Space><Bar><Space>
-            inoremap <buffer> = <Space>=<Space>
-            inoremap <buffer> % <Space>%<Space>
-            if &ft != 'python'
-                inoremap <buffer> <CR> ;<CR>
-            endif
-        endif
-        inoremap <buffer> + <Space>+<Space>
-        inoremap <buffer> * <Space>*<Space>
+  set switchbuf=usetab,newtab
+  let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
+  "如果文件类型不在fts_tmp之中, 就要inoremap .
+  if index(fts_tmp, &ft) < 0
+    if &ft == 'css'
+      return
     endif
+    "一定要加<buffer>表示当前缓冲区
+    inoremap <buffer> . .<Space>
+  else
+    if index(['htmldjango', 'sh'], &ft) < 0
+      inoremap <buffer> - <Space>-<Space>
+      inoremap <buffer> <Bar> <Space><Bar><Space>
+      inoremap <buffer> = <Space>=<Space>
+      inoremap <buffer> % <Space>%<Space>
+      if &ft != 'python'
+        inoremap <buffer> <CR> ;<CR>
+      endif
+    endif
+    inoremap <buffer> + <Space>+<Space>
+    inoremap <buffer> * <Space>*<Space>
+  endif
 endfunction
 
 function! Template_py()
-    let b:line = ['#!/usr/bin/env python3', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
-    call append(0, b:line)
-    let b:line = ["", "def main():", "  pass", "", "", "if __name__ == '__main__':", "  main()"]
-    call append(line("$"), b:line)
-    call cursor(5, 0)
+  let b:line = ['#!/usr/bin/env python3', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+  call append(0, b:line)
+  let b:line = ["", "def main():", "  pass", "", "", "if __name__ == '__main__':", "  main()"]
+  call append(line("$"), b:line)
+  call cursor(5, 0)
 endfunction
 
 function! Template_sh()
-    let b:line = ['#!/bin/bash -', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
-    call append(0, b:line)
-    call cursor(5, 0)
+  let b:line = ['#!/bin/bash -', '#', strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST"), '', '']
+  call append(0, b:line)
+  call cursor(5, 0)
 endfunction
 
 function! Template_html()
-    let b:line = ['bootstrap_basic', strftime("<!-- # %Y年 %m月 %d日 %A %H:%M:%S CST -->")]
-    call append(0, b:line)
-    normal dd
-    call cursor(1, 15)
+  let b:line = ['bootstrap_basic', strftime("<!-- # %Y年 %m月 %d日 %A %H:%M:%S CST -->")]
+  call append(0, b:line)
+  normal dd
+  call cursor(1, 15)
 endfunction
 
 set autoread        "默认关闭
@@ -234,30 +234,30 @@ command! W :execute 'silent w !sudo tee % > /dev/null' | :e!
 
 "for gvim
 if has("gui_running")
-    behave mswin
+  behave mswin
 
-    set guioptions-=T       "gvim去掉工具栏
-    "禁用响铃和闪烁
-    set vb t_vb=
-    "GUI启动时会将t_vb重置, 要在gvimrc里再设一次, 除非如下:
-    au GuiEnter * set t_vb=
-    set columns=90
+  set guioptions-=T       "gvim去掉工具栏
+  "禁用响铃和闪烁
+  set vb t_vb=
+  "GUI启动时会将t_vb重置, 要在gvimrc里再设一次, 除非如下:
+  au GuiEnter * set t_vb=
+  set columns=90
 
-    if has("win32")
-        " win自带的consolas专门用来适配编程的
-        " 在高分屏下要是字显小, 就调大些
-        set guifont=Consolas:h12
-        "win下中文(即双宽字体)需要gfw选项, ubuntu下中文应该是沿用guifont吧
-        set guifontwide=Microsoft\ YaHei\ Mono:h12:cGB2312
-    else
-        "Ubuntu下, Ubuntu Mono比Bitstream显示效果要好
-        set guifont=Ubuntu\ Mono\ 14
-    endif
+  if has("win32")
+    " win自带的consolas专门用来适配编程的
+    " 在高分屏下要是字显小, 就调大些
+    set guifont=Consolas:h12
+    "win下中文(即双宽字体)需要gfw选项, ubuntu下中文应该是沿用guifont吧
+    set guifontwide=Microsoft\ YaHei\ Mono:h12:cGB2312
+  else
+    "Ubuntu下, Ubuntu Mono比Bitstream显示效果要好
+    set guifont=Ubuntu\ Mono\ 14
+  endif
 endif
 
 "插件及开发相关配置
 if filereadable(expand("~/_vimrc_dev"))
-    source ~/_vimrc_dev
+  source ~/_vimrc_dev
 endif
 
 "------ 一些特殊非通用的东西, 如只针对某种语言/特定项目的配置 ------

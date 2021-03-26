@@ -1,9 +1,9 @@
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
 if has("win32")
-    call plug#begin('$HOME/vimfiles/bundle')
+  call plug#begin('$HOME/vimfiles/bundle')
 else
-    call plug#begin('~/.vim/bundle')
+  call plug#begin('~/.vim/bundle')
 endif
 "Make sure you use single quotes
 
@@ -65,14 +65,9 @@ Plug 'preservim/tagbar'
 
 "python all in one!         Plug 'klen/python-mode'
 "杀手级clang语法解析补全插件(all in one!)
-"2015年 12月 02日 星期三 14:38:58 CST
+"2021年 03月 27日 星期六 03:31:26 CST
 "win下要用到visual studio2019编译
-"if has("win32") == 0
-"  Plug 'ycm-core/YouCompleteMe', { 'frozen': '0' }
-"else
-  ", { 'do': 'python3 ./install.py --java-completer' }
 Plug 'ycm-core/YouCompleteMe'
-"endif
 
 "语法检查器,保存文本时才检查(即默认的主动模式)  Plug 'scrooloose/syntastic'
 "vim8, 异步, 实时代码检查器
@@ -85,12 +80,11 @@ Plug 'ludovicchabant/vim-gutentags'
 "注释插件           Plug 'vimcn/NERD_commenter.cnx'
 Plug 'scrooloose/nerdcommenter'
 
-"国人写的snipMate增强,按<C-\>,很好很强大,自定义很难~ Plug 'drmingdrmer/xptemplate'
+"国人写的snipMate增强,按<C-\>,很好很强大,自定义很难: Plug 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
 Plug 'SirVer/ultisnips'
-  "snipmate和ultisnips引擎的代码片段集, utlisnips默认都会检索 Plug 'honza/vim-snippets'
-  Plug 'needle-wang/vim-snippets'
-
+  "snipmate和ultisnips引擎的代码片段集, utlisnips默认都会检索
+  Plug 'honza/vim-snippets'
 "snipmate与xptemplate快键不冲突, 不支持嵌套, 直接tab, 二者已停止更新~
 "Plug 'msanders/snipmate.vim' | Plug ''scrooloose/snipmate-snippets'
 
@@ -273,9 +267,9 @@ let g:Lf_WindowHeight = 0.30
 "与vim-gutentags联动
 let g:Lf_GtagsGutentags = 1
 if has("win32")
-    let g:Lf_CacheDirectory = expand('$HOME/vimfiles')
+  let g:Lf_CacheDirectory = expand('$HOME/vimfiles')
 else
-    let g:Lf_CacheDirectory = expand('~/.vim')
+  let g:Lf_CacheDirectory = expand('~/.vim')
 endif
 let g:Lf_GtagsAutoUpdate = 0
 let g:Lf_ShowRelativePath = 0
@@ -391,9 +385,9 @@ let g:ycm_log_level = 'warning'
 "python completer使用的py版本, 忘了从哪里看到的此选项, 搜不到
 "https://stackoverflow.com/questions/41650902/how-to-change-python-auto-completion-to-venv-directory-in-vim-ycm
 if executable("python3")
-    let g:ycm_python_binary_path = 'python3'
+  let g:ycm_python_binary_path = 'python3'
 else
-    let g:ycm_python_binary_path = 'python'
+  let g:ycm_python_binary_path = 'python'
 endif
 "let g:ycm_add_preview_to_completeopt   = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -492,9 +486,9 @@ let g:ale_fixers = {
 \}
 
 if executable("yapf3")
-    let g:ale_python_yapf_executable = 'yapf3'
+  let g:ale_python_yapf_executable = 'yapf3'
 else
-    let g:ale_python_yapf_executable = 'yapf'
+  let g:ale_python_yapf_executable = 'yapf'
 endif
 "没有这个yapf选项, 在项目的任意父目录加个.style.yapf
 "let g:ale_python_yapf_options = '--style={indent_width:2}'
