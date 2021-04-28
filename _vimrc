@@ -236,6 +236,7 @@ command! W :execute 'silent w !sudo tee % > /dev/null' | :e!
 if has("gui_running")
   behave mswin
 
+  "set guioptions-=m       "gvim去掉菜单栏
   set guioptions-=T       "gvim去掉工具栏
   "禁用响铃和闪烁
   set vb t_vb=

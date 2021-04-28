@@ -286,15 +286,15 @@ let g:Lf_WildIgnore = {
 "------ for LeaderF ------
 
 "------ for asyncrun ------
-" 自动打开 quickfix window ，高度为8
-let g:asyncrun_open = 0
+" 自动打开 quickfix window ，高度为5
+let g:asyncrun_open = 5
 " 任务结束时候响铃提醒, 0为关闭
 let g:asyncrun_bell = 0
 " asyncrun根据特殊文件名 来识别 project 的根目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 " "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
 "nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> make <CR> 
-nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw $(VIM_FILEPATH)<CR>
+nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw python3 $(VIM_FILEPATH)<CR>
 " 设置 打开/关闭 Quickfix 窗口
 nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 let $PYTHONUNBUFFERED=1
@@ -661,7 +661,7 @@ set completeopt=longest,menu
 "   ######### 其他-相关-插件配置 #########
 
 "------ for vim-fugitive ------
-nnoremap \g :Gstatus<CR>
+nnoremap \g :Git<CR>
 "------ for vim-fugitive ------
 
 "------ for markdown-preview ------
