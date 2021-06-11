@@ -483,6 +483,7 @@ let g:ale_sign_warning = '⚡'
 "'sh': ['shfmt'], 但是shfmt不会装...
 let g:ale_fixers = {
 \   'python' : ['yapf', 'isort'],
+\   'json' : ['jq'],
 \}
 
 if executable("yapf3")

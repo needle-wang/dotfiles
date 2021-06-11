@@ -236,13 +236,14 @@ command! W :execute 'silent w !sudo tee % > /dev/null' | :e!
 if has("gui_running")
   behave mswin
 
-  "set guioptions-=m       "gvim去掉菜单栏
+  set guioptions-=m       "gvim去掉菜单栏
   set guioptions-=T       "gvim去掉工具栏
   "禁用响铃和闪烁
   set vb t_vb=
   "GUI启动时会将t_vb重置, 要在gvimrc里再设一次, 除非如下:
   au GuiEnter * set t_vb=
   set columns=90
+  set guicursor+=a:blinkon0
 
   if has("win32")
     " win自带的consolas专门用来适配编程的
