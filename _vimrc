@@ -117,7 +117,6 @@ noremap <silent> #  #zz
 "高亮光标下的单词, 且光标坐标不变, 下行偶尔还是会跳屏
 "noremap          &  mcHmt`c*`tzt`c
 noremap <silent> &  :let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'<Bar>set hls<CR>
-noremap    <Space>  :nohl<CR><C-l>
 "去行尾空格, tab, \r
 noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 "行跳转时用的, 忽略 跳文末的不便
@@ -139,6 +138,7 @@ noremap          <F3> mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<C
 "如果语法颜色错乱, 按此键刷新
 noremap         <F12> :syntax sync fromstart<CR>
 
+nnoremap     <Space>        :nohl<CR><C-l>
 nnoremap           j        gj
 nnoremap           k        gk
 nnoremap           t        "+y
@@ -210,10 +210,10 @@ autocmd FileType python iabbrev none None
                      \| iabbrev false False
                      \| iabbrev r return
 
-"vmap应用于可视+选择模式, xmap只用于可视模式
-xnoremap     t mc"+y`c
 vnoremap    gj <C-w><C-j>
 vnoremap    gk <C-w><C-k>
+"vmap应用于可视+选择模式, xmap只用于可视模式
+xnoremap     t mc"+y`c
 "ultisnips的片段使用了选择模式
 xnoremap <C-j> :m'>+<CR>`<my`>mzgv`yo`z
 xnoremap <C-k> :m'<-2<CR>`>my`<mzgv`yo`z
@@ -268,6 +268,11 @@ endif
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
+"autocmd FileType python setlocal foldmethod=indent
+"            \| setlocal foldnestmax=3
+"            \| setlocal foldlevel=3
+"autocmd FileType python nnoremap <buffer> <space> za
+autocmd FileType python vnoremap <buffer> <space> zf
 autocmd FileType python,sh setlocal colorcolumn=101  "第101列, 高亮
 autocmd FileType python,sh inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
