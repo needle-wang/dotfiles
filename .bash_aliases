@@ -64,8 +64,7 @@ alias c-='c -'
 alias c.='c ..'
 alias c..='c ../..'
 alias cp='\cp -vi'
-#alias df='df.sh | column -t'
-alias df='\df -h | awk "{if(NR==1)print}\$0~/^\/dev/" | C'
+alias df='\df -h|gv ^tmpfs|gv ^udev|s'
 alias gi='git'
 alias lg='l | g'
 alias ll='ls -AlFh'
@@ -131,8 +130,6 @@ if [ "$(id -u)" != "0" ]; then
     alias iftop='sudo iftop -c ~/.iftoprc'
     alias mount='sudo mount'
     alias nmap='sudo nmap'
-    alias pip='sudo -H pip'
-    alias pip3='sudo -H pip3'
     alias powertop='sudo powertop'
     alias reboot='sudo sync;sudo reboot'
     alias service='sudo service'
@@ -231,7 +228,7 @@ gv(){
   if [ -p /dev/stdin ]; then
     [ "$1" ] || return 0
     local args=$(echo "$@" | sed 's; \+;|;g')
-    grep -vE -- "($args)"
+    grep -vEi -- "($args)"
   fi
 }
 
