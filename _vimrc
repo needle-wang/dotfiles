@@ -29,7 +29,7 @@ let &termencoding=&fileencoding
 
 function! Add_space()
   set switchbuf=usetab,newtab
-  let fts_tmp = ['python', 'sh', 'java', 'htmldjango', 'javascript', 'cpp', 'c']
+  let fts_tmp = ['python', 'sh', 'java', 'html', 'htmldjango', 'javascript', 'cpp', 'c']
   "如果文件类型不在fts_tmp之中, 就要inoremap .
   if index(fts_tmp, &ft) < 0
     if &ft == 'css'
@@ -277,12 +277,12 @@ autocmd FileType python,sh setlocal colorcolumn=101  "第101列, 高亮
 autocmd FileType python,sh inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
 "autocmd FileType html set filetype=htmljinja
-autocmd FileType html   setlocal filetype=htmldjango
+"autocmd FileType html   setlocal filetype=htmldjango
 
 "写成多行时, 中间有行注释, 语句都算没连上!!
 "必须放在setlocal filetype=htmldjango的后面
 "autocmd FileType css,htmldjango,javascript setlocal tabstop=2 | setlocal shiftwidth=2
-autocmd FileType css,htmldjango,javascript,python,sh setlocal tabstop=2
+autocmd FileType css,html,htmldjango,javascript,python,sh setlocal tabstop=2
             \| setlocal shiftwidth=2
 
 "for browserlink

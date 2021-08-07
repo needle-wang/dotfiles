@@ -1,7 +1,7 @@
 " Specify a directory for plugins
 " - Avoid using standard Vim directory names like 'plugin'
 if has("win32")
-  call plug#begin('$HOME/vimfiles/bundle')
+  call plug#begin('D:/vimfiles/bundle')
 else
   call plug#begin('~/.vim/bundle')
 endif
@@ -37,7 +37,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'altercation/vim-colors-solarized'
 
 "让fcitx响应vim的模式切换
-Plug 'lilydjwg/fcitx.vim'
+"Plug 'lilydjwg/fcitx.vim'
 "The plugin is a front for ag(the_silver_searcher)  Plug 'rking/ag.vim'
 "字符串查找, 通过配置可以使用ag搜索
 Plug 'mileszs/ack.vim'
@@ -78,7 +78,7 @@ Plug 'w0rp/ale'
 Plug 'ludovicchabant/vim-gutentags'
 
 "注释插件           Plug 'vimcn/NERD_commenter.cnx'
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 
 "国人写的snipMate增强,按<C-\>,很好很强大,自定义很难: Plug 'drmingdrmer/xptemplate'
 "片段引擎, snipmate增强版(未自带片段)
@@ -92,7 +92,7 @@ Plug 'SirVer/ultisnips'
 "######### 2. 编程-相关 END #########
 
 "######### 3. PYTHON-相关 #########
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+"Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 "没必要用for, 有文件类型判断
 Plug 'fs111/pydoc.vim', { 'for': 'python' }
 "解决py方法定义的括号的缩进问题     Plug 'hynek/vim-python-pep8-indent'
@@ -112,7 +112,7 @@ Plug 'needle-wang/bootstrap-snippets', { 'for': ['html', 'htmldjango'] }
 "here is ZenCoding.vim's new name
 Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'css', 'jsp'] }
 "Live browser editing(实时更新html浏览)
-Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
+"Plug 'jaxbot/browserlink.vim', { 'for': ['html', 'htmldjango'] }
 
 "######### 4. front-end-相关 END #########
 
@@ -160,7 +160,7 @@ call plug#end()
 "------ for surround ------
 nmap q<Space> ysiw<Space><Space>f<Space>
 "为光标下的字串加双引号
-nmap q; ysiW"f"
+nmap q; ysiW'f'
 "为光标下的单词加双引号
 nmap q' ysiw"f"
 nmap q( ysiw(%
@@ -268,7 +268,7 @@ let g:Lf_WindowHeight = 0.30
 "与vim-gutentags联动
 let g:Lf_GtagsGutentags = 1
 if has("win32")
-  let g:Lf_CacheDirectory = expand('$HOME/vimfiles')
+  let g:Lf_CacheDirectory = expand('D:/vimfiles')
 else
   let g:Lf_CacheDirectory = expand('~/.vim')
 endif
@@ -521,7 +521,7 @@ hi! SpellRare gui=undercurl guisp=magenta
 
 "------ for vim-gutentags ------
 "if has("win32")
-"    let s:vim_tags = expand('$HOME/vimfiles/cache/tags')
+"    let s:vim_tags = expand('D:/vimfiles/cache/tags')
 "else
 "    let s:vim_tags = expand('~/.vim/cache/tags')
 "endif
@@ -548,8 +548,11 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 "------ for vim-gutentags ------
 
 "------ for nerdcommenter ------
-noremap <silent> gc :call NERDComment("n", "alignLeft")<CR>ms
-noremap <silent> gC :call NERDComment("n", "Uncomment")<CR>ms
+let g:NERDCreateDefaultMappings = 0
+let g:NERDDefaultAlign = 'left'
+let g:NERDTrimTrailingWhitespace = 1
+noremap <silent> gc :call nerdcommenter#Comment("n", "comment")<CR>:up<CR>ms
+noremap <silent> gC :call nerdcommenter#Comment("n", "Uncomment")<CR>:up<CR>ms
 "------ for nerdcommenter ------
 
 "------ for xptemplate ------
@@ -568,8 +571,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 "------ for SimpylFold ------
 "TODO, 怎么把折叠中的行数禁掉??
-let g:SimpylFold_docstring_preview = 1
-let g:SimpylFold_fold_import = 0
+"let g:SimpylFold_docstring_preview = 1
+"let g:SimpylFold_fold_import = 0
 "------ for SimpylFold ------
 
 "------ for pydoc.vim ------
