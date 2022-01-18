@@ -77,6 +77,7 @@ alias rm='\rm -vi'
 alias sl='ls'
 #sudo visudo: %needle ALL=(ALL:ALL) NOPASSWD:ALL
 alias ss='sudo ss -ntp'
+alias ssg='ss -l | g'
 #tailf有bug, 已过时, 连包都没有了~
 alias tf='tail -f'
 alias vm='mv'

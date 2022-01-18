@@ -129,8 +129,8 @@ noremap <silent> gm :call cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
 "for hhkb
 noremap          gs ms:up<CR>
-noremap <silent> n  nzz
-noremap <silent> N  Nzz
+"noremap <silent> n  nzz
+"noremap <silent> N  Nzz
 noremap          P  m'"+gp
 
 noremap          <F1> <Esc>
@@ -264,6 +264,8 @@ endif
 
 "------ 一些特殊非通用的东西, 如只针对某种语言/特定项目的配置 ------
 
+autocmd FileType python inoremap <buffer> ; :<Space>
+autocmd FileType python inoremap <buffer> : ;
 "autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
