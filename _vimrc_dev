@@ -158,17 +158,17 @@ call plug#end()
 "   ######### VIM-相关-插件配置 #########
 
 "------ for surround ------
-nmap q<Space> ysiw<Space><Space>f<Space>
-"为光标下的字串加双引号
-nmap q; ysiW'f'
-"为光标下的单词加双引号
-nmap q' ysiw"f"
-nmap q( ysiw(%
-nmap q) ysiw)%
-vmap q; S"f"
+nmap <silent> q<Space> ysiw<Space><Space>f<Space>gs
+nmap <silent> d<Space> ds<Space><Space>gs
+"为光标下的字串加单引号
+nmap q; ysiw'f'
+nmap q' ysiW'f'
+nmap q0 ysiw)%
+nmap q- ysiW)%
+
+vmap q; S'f'
 vmap q' q;
-vmap q( S(%
-vmap q) S)%
+vmap q0 S)%
 "------ for surround ------
 
 "------ for delimitMate ------

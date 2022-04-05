@@ -205,9 +205,9 @@ inoremap “  "<Space>
 inoremap ”  "<Space>
 "用iabbrev需要空格或回车触发
 "所以某些输入或有补全菜单时iab不会触发
-autocmd FileType python iabbrev none None
-                     \| iabbrev true True
-                     \| iabbrev false False
+autocmd FileType python iabbrev nn None
+                     \| iabbrev tre True
+                     \| iabbrev fal False
                      \| iabbrev r return
 
 vnoremap    gj <C-w><C-j>
@@ -236,8 +236,9 @@ command! W :execute 'silent w !sudo tee % > /dev/null' | :e!
 if has("gui_running")
   behave mswin
 
-  set guioptions-=m       "gvim去掉菜单栏
-  set guioptions-=T       "gvim去掉工具栏
+  set guioptions-=m  "gvim去掉菜单栏
+  set guioptions-=T  "gvim去掉工具栏
+  set noballooneval  "gvim禁用popup message
   "禁用响铃和闪烁
   set vb t_vb=
   "GUI启动时会将t_vb重置, 要在gvimrc里再设一次, 除非如下:
