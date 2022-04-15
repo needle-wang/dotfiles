@@ -40,11 +40,13 @@
   quotepath = false
 [gui]
   encoding = utf-8
-[http]
-  proxy = http://127.0.0.1:8123
-[https]
-  proxy = https://127.0.0.1:8123
-#[i18n "commit"]
-#  encoding = utf-8
-#[i18n]
-#  logoutputencoding = utf-8
+#[http]
+#  proxy = http://127.0.0.1:1080
+#[https]
+#  proxy = https://127.0.0.1:1080
+[i18n "commit"]
+  encoding = utf-8
+[i18n]
+  logoutputencoding = utf-8
+[credential "http://192.168.50.171:12301"]
+  provider = generic
