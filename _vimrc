@@ -1,5 +1,7 @@
 " 2018年 10月 13日 星期六 16:33:36 CST
 " 重构成两文件, 此文件为基本配置, 插件相关均放在_vimrc_dev中
+"https://stackoverflow.com/questions/8534055/why-am-i-getting-a-popup-message-when-i-hover-on-any-word-of-a-ruby-file
+" 如果某个设置未生效(如被插件覆盖), 可以: :verb set ballooneval?
 runtime vimrc_example.vim
 noremap Q <Nop>
 
@@ -238,7 +240,6 @@ if has("gui_running")
 
   set guioptions-=m  "gvim去掉菜单栏
   set guioptions-=T  "gvim去掉工具栏
-  set noballooneval  "gvim禁用popup message
   "禁用响铃和闪烁
   set vb t_vb=
   "GUI启动时会将t_vb重置, 要在gvimrc里再设一次, 除非如下:

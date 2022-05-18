@@ -320,12 +320,14 @@ noremap      g<Space>   :Tab / <CR>
 "------ for tabular ------
 
 "------ for indentLine ------
+nnoremap g<Bar> :IndentLinesToggle<CR>
+let g:indentLine_enabled = 1
+
 let g:indentLine_char = '┊'
 let g:indentLine_color_term = 239       " vim
 " none X terminal
 let g:indentLine_color_tty_light = 7
 let g:indentLine_color_dark = 1
-let g:indentLine_enabled = 0
 let g:indentLine_fileType = ['python']
 let g:indentLine_indentLevel = 3
 nnoremap g<Bar> :IndentLinesToggle<CR>
@@ -349,6 +351,7 @@ let g:tagbar_scrolloff   = 200  "tagbar窗口的scrolloff
 let g:tagbar_jump_offset = 200  "我一直想要的, 跳转后zt!, 999会失效
 "let g:tagbar_jump_lazy_scroll = 1   "好功能, 但与tagbar_jump_offset冲突
 let g:tagbar_iconchars   = ['>', 'v']
+let g:tagbar_show_balloon= 0    "禁用popup message: 见noballooneval 
 set updatetime=700              "自动高亮当前tag的间隔时间，全局的
 "------ for tagbar ------
 
@@ -471,6 +474,7 @@ let g:ycm_filetype_blacklist = {
 nnoremap          <F2> :ALEFix<CR>
 nnoremap <silent> [n :ALENextWrap<CR>
 nnoremap <silent> [N :ALEPreviousWrap<CR>
+let g:ale_set_balloons=0  "禁用popup message: 见noballooneval
 let g:ale_completion_delay = 500
 let g:ale_echo_delay = 20
 let g:ale_echo_msg_format = '[%linter%] %code: %%s'
