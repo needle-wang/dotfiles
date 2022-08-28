@@ -106,7 +106,7 @@ let g:netrw_browsex_viewer = "firefox"
 
 noremap      <C-e>  2<C-e>
 noremap      <C-y>  2<C-y>
-noremap          -  _
+noremap          -  ^
 noremap          ;  :
 noremap          :  ;
 noremap          '  `
@@ -150,8 +150,8 @@ nnoremap          cd        :lcd %:p:h<CR>
 nnoremap          co        2o<Esc>k
 nnoremap          cO        O<Esc>j
 nnoremap          <C-g>     1<C-g>
-"g-与正常模式的u重复了,     还易按错
-nnoremap          g-        <nop>
+"g-与正常模式的u重复了, 还易按错
+nnoremap          g-        ^
 nnoremap          gf        <C-w>gf
 nnoremap <silent> gX        :call system('firefox'.shellescape(expand('%')))<CR>
 nnoremap          gz        :tabnew<Space>

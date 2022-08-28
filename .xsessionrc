@@ -17,3 +17,6 @@
 # mint xfce启动过程中生效, 但之后又被覆盖了?
 # xmodmap "$HOME/.Xmodmap"
 
+# 2022年 05月 30日 星期一 02:29:49 CST
+# 开机禁用触摸板
+#xinput disable 'UNIW0001:00 093A:1336 Touchpad'

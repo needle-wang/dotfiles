@@ -52,7 +52,8 @@ alias t='type -a'
 alias T='tree -F'
 alias W='which'
 alias x='bri.sh'
-alias z='touchpad_toggle.sh'
+alias z='touchpad_toggle.sh touchpad'
+alias zz='touchpad_toggle.sh query'
 #以下, 还未用，不一定都要用，避免失误
 #bash: type: o: 未找到
 #bash: type: u: 未找到
@@ -64,7 +65,7 @@ alias c-='c -'
 alias c.='c ..'
 alias c..='c ../..'
 alias cp='\cp -vi'
-alias df='\df -h|gv ^tmpfs|gv ^udev|s'
+alias df='\df -h | awk "{if(NR==1)print}\$0~/^\/dev/" | C'
 alias gi='git'
 alias lg='l | g'
 alias ll='ls -AlFh'
