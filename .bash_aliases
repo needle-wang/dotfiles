@@ -100,6 +100,7 @@ alias flake8='flake8 --ignore=E111,E114,E121,E203,E251,E266,E501,F841,W391'
 alias iotop='sudo iotop -o'
 # dmesg只显示此次开机的kernel的日志, 其他deamon的输出不管
 # journalctl -b -0 显示本次开机到当前时刻的所有日志
+# journalctl -b -1 显示上次开机的所有日志
 # journalctl -b -p 4 (4: warning)显示warning以下级别的日志
 # 0: emerg 1: alert 2: crit 3: err 4: warning 5: notice 6: info 7: debug
 # journalctl -f 显示实时日志

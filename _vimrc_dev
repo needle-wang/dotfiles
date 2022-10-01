@@ -295,7 +295,7 @@ let g:asyncrun_bell = 0
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', 'build.xml']
 " "<root>" 或者 "$(VIM_ROOT)" 来表示项目所在路径
 "nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> make <CR> 
-nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -raw python3 $(VIM_FILEPATH)<CR>
+nnoremap <silent> <F5> :AsyncRun -save=1 -cwd=<root> -mode=terminal -raw python3 "$(VIM_FILEPATH)"<CR>
 " 设置 打开/关闭 Quickfix 窗口
 nnoremap <F6> :call asyncrun#quickfix_toggle(6)<CR>
 let $PYTHONUNBUFFERED=1
