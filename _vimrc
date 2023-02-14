@@ -31,7 +31,7 @@ let &termencoding=&fileencoding
 
 function! Add_space()
   set switchbuf=usetab,newtab
-  let fts_tmp = ['python', 'sh', 'java', 'html', 'htmldjango', 'javascript', 'cpp', 'c']
+  let fts_tmp = ['python', 'rust', 'sh', 'java', 'html', 'htmldjango', 'javascript', 'cpp', 'c']
   "如果文件类型不在fts_tmp之中, 就要inoremap .
   if index(fts_tmp, &ft) < 0
     if &ft == 'css'
@@ -99,6 +99,7 @@ set smarttab        "<BS>/<C-h>删除行首空格时一次将删shiftwidth多个
 set tabstop=4       "<tab>占的空格数, 默认为8
 set wildignore=*.o,*.obj,*~,*.pyc,*.pyo,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store   "文件补全时忽略下列文件
 set wildmode=list:longest,full      "默认为full
+set fileformats=unix
 
 "setlocal autochdir "与fugitive有冲突
 
@@ -259,6 +260,13 @@ if has("gui_running")
   endif
 endif
 
+if has("win32")
+  set pythonthreehome=D:\Python\3_10
+  set pythonthreedll=D:\Python\3_10\python310.dll
+  "vim9识别不了conda创建的py310?
+  "set pythonthreehome=E:\Anaconda3\envs\py310
+  "set pythonthreedll=E:\Anaconda3\envs\py310\python310.dll
+endif
 "插件及开发相关配置
 if filereadable(expand("~/_vimrc_dev"))
   source ~/_vimrc_dev
@@ -273,8 +281,8 @@ autocmd FileType python inoremap <buffer> : ;
 "这样映射yapf不好, 不管有无修改vim都视为已修改
 "autocmd FileType python nnoremap <F2> :%!yapf --style='{indent_width:2}'<CR><C-o>
 "autocmd FileType python setlocal foldmethod=indent
-"            \| setlocal foldnestmax=3
-"            \| setlocal foldlevel=3
+"            \| setlocal foldnestmax=2
+"            \| setlocal foldlevel=2
 "autocmd FileType python nnoremap <buffer> <space> za
 autocmd FileType python vnoremap <buffer> <space> zf
 autocmd FileType python,sh setlocal colorcolumn=101  "第101列, 高亮
