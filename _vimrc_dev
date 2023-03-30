@@ -13,7 +13,7 @@ Plug 'yianwillis/vimcdoc'
 "最小空间占用的缓冲区列表   Plug 'fholgado/minibufexpl.vim'
 "缓冲区列表增强             Plug 'bufexplorer.zip'
 "分组式缓冲区列表           Plug 'TinyBufferExplorer'
-"窗口布局管理器 (自己配映射就用不着了,它自带了file和tag的explorer) "Plug 'winmanager'
+"窗口布局管理器(自己配映射就用不着了,它自带了file和tag的explorer) "Plug 'winmanager'
 "<C-w>o变成最大化窗或还原布局, 太慢了.  Plug 'ZoomWin','regedarek/ZoomWin'
 "让html标签或endif支持%, vim --startuptime /tmp/log 显示已加载自带的了
 "Plug 'vim-scripts/matchit.zip'
@@ -31,13 +31,17 @@ Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 "目录浏览增强, 内置为netrw
 Plug 'scrooloose/nerdtree'
+"显示vim的marks
+Plug 'kshenoy/vim-signature'
 "状态行增强                 Plug 'Lokaltog/powerline', 'bling/vim-airline'
 Plug 'itchyny/lightline.vim'
 "precision color scheme, 'altercation/solarized' is all in one.
 Plug 'altercation/vim-colors-solarized'
 
-"让fcitx响应vim的模式切换
-"Plug 'lilydjwg/fcitx.vim'
+if !has("win32")
+  "让fcitx响应vim的模式切换
+  Plug 'lilydjwg/fcitx.vim'
+endif
 "The plugin is a front for ag(the_silver_searcher)  Plug 'rking/ag.vim'
 "字符串查找, 通过配置可以使用ag搜索
 Plug 'mileszs/ack.vim'

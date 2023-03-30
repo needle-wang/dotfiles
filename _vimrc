@@ -104,6 +104,9 @@ set fileformats=unix
 "setlocal autochdir "与fugitive有冲突
 
 let g:netrw_browsex_viewer = "firefox"
+"禁用sql文件内, 插入模式, ctrl-c会触发补全~
+"https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
+let g:omni_sql_no_default_maps = 1
 
 noremap      <C-e>  2<C-e>
 noremap      <C-y>  2<C-y>
