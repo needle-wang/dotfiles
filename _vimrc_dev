@@ -165,12 +165,12 @@ call plug#end()
 nmap <silent> q<Space> ysiw<Space><Space>f<Space>gs
 nmap <silent> d<Space> ds<Space><Space>gs
 "为光标下的字串加单引号
-nmap q; ysiw'f'
-nmap q' ysiW'f'
+nmap q; ysiw"f"
+nmap q' ysiW"f"
 nmap q0 ysiw)%
 nmap q- ysiW)%
 
-vmap q; S'f'
+vmap q; S"f"
 vmap q' q;
 vmap q0 S)%
 "------ for surround ------
@@ -179,10 +179,13 @@ vmap q0 S)%
 "pep8-indent一定要
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
+autocmd FileType python,json inoremap ' <Plug>delimitMate"
+autocmd FileType python,json inoremap " <Plug>delimitMate'
 "------ for delimitMate ------
 
 "------ for easymotion ------
 let g:EasyMotion_leader_key = ','
+let g:EasyMotion_startofline = 0
 "------ for easymotion ------
 
 "------ for nerdtree ------
@@ -548,7 +551,7 @@ let g:gutentags_cache_dir = expand(g:Lf_CacheDirectory.'/.LfCache/gtags')
 "http://www.skywind.me/blog/archives/2084
 set tags=./.tags;,.tags "这句加跟不加没啥区别呀~
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-
+let g:gutentags_ctags_exclude = ['build', 'dist', '*css', '*json', '*yaml', '*md']
 " 所生成的数据文件的名称
 let g:gutentags_ctags_tagfile = '.tags'
 
@@ -562,8 +565,8 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 let g:NERDCreateDefaultMappings = 0
 let g:NERDDefaultAlign = 'left'
 let g:NERDTrimTrailingWhitespace = 1
-noremap <silent> gc :call nerdcommenter#Comment("n", "comment")<CR>:up<CR>ms
-noremap <silent> gC :call nerdcommenter#Comment("n", "Uncomment")<CR>:up<CR>ms
+noremap <silent> gc :call nerdcommenter#Comment("n", "comment")<CR>:up<CR>mw
+noremap <silent> gC :call nerdcommenter#Comment("n", "Uncomment")<CR>:up<CR>mw
 "------ for nerdcommenter ------
 
 "------ for xptemplate ------

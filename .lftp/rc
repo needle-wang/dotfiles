@@ -1,5 +1,6 @@
 ## some useful aliases
 alias dir ls
+alias l ls
 alias less more
 alias zless zmore
 alias bzless bzmore

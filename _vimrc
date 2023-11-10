@@ -3,7 +3,11 @@
 "https://stackoverflow.com/questions/8534055/why-am-i-getting-a-popup-message-when-i-hover-on-any-word-of-a-ruby-file
 " 如果某个设置未生效(如被插件覆盖), 可以: :verb set ballooneval?
 runtime vimrc_example.vim
-noremap Q <Nop>
+
+"插件及开发相关配置
+if filereadable(expand("~/_vimrc_dev"))
+  source ~/_vimrc_dev
+endif
 
 "------乱码解决方案------
 "设成utf-8后，win下处理非utf-8文件时就出现菜单和console乱码
@@ -108,8 +112,10 @@ let g:netrw_browsex_viewer = "firefox"
 "https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
 let g:omni_sql_no_default_maps = 1
 
+noremap <silent><C-]> <C-w><C-]><C-w>T
 noremap      <C-e>  2<C-e>
 noremap      <C-y>  2<C-y>
+noremap          Q  <Nop>
 noremap          -  ^
 noremap          ;  :
 noremap          :  ;
@@ -128,19 +134,18 @@ noremap   ,<Space>  mcHmt:%s/\s*[ \t\r]$//e<CR>`tzt`c
 "行跳转时用的, 忽略 跳文末的不便
 "noremap <silent> G  Gzz
 noremap <silent> g* g*zz
-"noremap          g\ ms:up<CR>
 "for hhkb
-noremap          g3 mco<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
+noremap          g3 mpo<C-r>=strftime("#%Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`p2j
 noremap <silent> gm :call cursor(line("."), (col(".")+col("$"))/2)<CR>
 noremap <silent> gM :call cursor(line("."), col(".")/2)<CR>
 "for hhkb
-noremap          gs ms:up<CR>
+noremap          gs mw:up<CR>
 "noremap <silent> n  nzz
 "noremap <silent> N  Nzz
 noremap          P  m'"+gp
 
 noremap          <F1> <Esc>
-noremap          <F3> mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2j
+noremap          <F3> mpo<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`p2j
 "如果语法颜色错乱, 按此键刷新
 noremap         <F12> :syntax sync fromstart<CR>
 
@@ -197,7 +202,7 @@ inoremap <C-s>  <C-o>:set paste<CR><C-r>+<C-o>:set nopaste<CR>
 "inoremap <C-/> <C-o>:cnext<CR>
 "inoremap <C-/> <C-o>:cprevious<CR>
 inoremap <F1>  <Esc>
-inoremap <F3>  <Esc>mco<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`c2ja
+inoremap <F3>  <Esc>mpo<C-r>=strftime("# %Y年 %m月 %d日 %A %H:%M:%S CST")<CR><Esc>`p2ja
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 "中文句号好像不会触发
@@ -215,16 +220,17 @@ autocmd FileType python iabbrev nn None
                      \| iabbrev tre True
                      \| iabbrev fal False
                      \| iabbrev r return
-
+"全文件类型以非<buffer>的方式支持空格折叠
+vnoremap <space> zf
 vnoremap    gj <C-w><C-j>
 vnoremap    gk <C-w><C-k>
 "vmap应用于可视+选择模式, xmap只用于可视模式
-xnoremap     t mc"+y`c
+xnoremap     t mp"+y`p
 "ultisnips的片段使用了选择模式
 xnoremap <C-j> :m'>+<CR>`<my`>mzgv`yo`z
 xnoremap <C-k> :m'<-2<CR>`>my`<mzgv`yo`z
 "选择模式好像没法映射~
-"snoremap t <C-o>mc"+y`c
+"snoremap t <C-o>mp"+y`p
 
 cabbrev   e1   e!
 cabbrev   q1   q!
@@ -270,15 +276,10 @@ if has("win32")
   "set pythonthreehome=E:\Anaconda3\envs\py310
   "set pythonthreedll=E:\Anaconda3\envs\py310\python310.dll
 endif
-"插件及开发相关配置
-if filereadable(expand("~/_vimrc_dev"))
-  source ~/_vimrc_dev
-endif
 
 "------ 一些特殊非通用的东西, 如只针对某种语言/特定项目的配置 ------
-
-autocmd FileType python inoremap <buffer> ; :<Space>
-autocmd FileType python inoremap <buffer> : ;
+autocmd FileType python,json inoremap <buffer> ; :<Space>
+autocmd FileType python,json inoremap <buffer> : ;
 "autocmd FileType python,sh inoremap <buffer> <F4> <C-o>:up<Bar>echo system(expand('%:p'))<CR>
 "autocmd FileType python,sh nnoremap <buffer> <F4> :up<Bar>echo system(expand('%:p'))<CR>
 "这样映射yapf不好, 不管有无修改vim都视为已修改
@@ -287,7 +288,7 @@ autocmd FileType python inoremap <buffer> : ;
 "            \| setlocal foldnestmax=2
 "            \| setlocal foldlevel=2
 "autocmd FileType python nnoremap <buffer> <space> za
-autocmd FileType python vnoremap <buffer> <space> zf
+"autocmd FileType python vnoremap <buffer> <space> zf
 autocmd FileType python,sh setlocal colorcolumn=101  "第101列, 高亮
 autocmd FileType python,sh inoremap # #<Space>
 "如果想用jinja2模板, 就改为如下:
